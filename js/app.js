@@ -26,6 +26,7 @@ async function initApp() {
     setupNavigation();
     setupFilters();
     setupExplorer();
+    setupModals();
     updateDashboard();
 
   } catch (error) {
@@ -130,6 +131,120 @@ function setupNavigation() {
   }
   if (closeBtn && drawer) {
     closeBtn.addEventListener("click", () => drawer.classList.add("hidden"));
+  }
+}
+
+// ----------------------------------------------------
+// Modals Manager (Metodología & Diccionario)
+// ----------------------------------------------------
+function setupModals() {
+  const linkMetodologia = document.getElementById("link-metodologia");
+  const linkDiccionario = document.getElementById("link-diccionario");
+
+  const modalMetodologia = document.getElementById("modal-metodologia");
+  const modalDiccionario = document.getElementById("modal-diccionario");
+
+  const closeBtns = document.querySelectorAll(".close-modal-btn");
+  const searchInput = document.getElementById("dict-search-input");
+
+  function openModal(modal) {
+    if (modal) {
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeModal(modal) {
+    if (modal) {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+  }
+
+  if (linkMetodologia) {
+    linkMetodologia.addEventListener("click", () => openModal(modalMetodologia));
+  }
+
+  if (linkDiccionario) {
+    linkDiccionario.addEventListener("click", () => {
+      openModal(modalDiccionario);
+      renderVariableDictionary();
+    });
+  }
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const modalId = btn.dataset.modal;
+      if (modalId) {
+        closeModal(document.getElementById(modalId));
+      }
+    });
+  });
+
+  [modalMetodologia, modalDiccionario].forEach(modal => {
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal(modal);
+      });
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal(modalMetodologia);
+      closeModal(modalDiccionario);
+    }
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      renderVariableDictionary(e.target.value);
+    });
+  }
+}
+
+function renderVariableDictionary(filterText = "") {
+  const tbody = document.getElementById("dict-table-body");
+  if (!tbody || !appData || !appData.metadata || !appData.metadata.variable_info) return;
+
+  const query = filterText.toLowerCase().trim();
+  tbody.innerHTML = "";
+
+  const varInfo = appData.metadata.variable_info;
+  let count = 0;
+
+  for (const [code, info] of Object.entries(varInfo)) {
+    const label = info.label || "";
+    const vLabels = info.value_labels || {};
+
+    const optionsArray = Object.entries(vLabels).map(([k, v]) => `${k}: ${v}`);
+    const optionsStr = optionsArray.join(", ");
+
+    const matchCode = code.toLowerCase().includes(query);
+    const matchLabel = label.toLowerCase().includes(query);
+    const matchOptions = optionsStr.toLowerCase().includes(query);
+
+    if (query === "" || matchCode || matchLabel || matchOptions) {
+      count++;
+      const tr = document.createElement("tr");
+      tr.className = "hover:bg-surface-container/50 transition-colors";
+
+      const optBadges = optionsArray.length > 0
+        ? optionsArray.slice(0, 6).map(o => `<span class="inline-block px-2 py-0.5 m-0.5 bg-surface-container rounded font-mono text-[11px] text-primary">${o}</span>`).join(" ") + (optionsArray.length > 6 ? ` <span class="text-outline text-[11px] italic">+${optionsArray.length - 6} más</span>` : "")
+        : `<span class="text-outline italic">Variable numérica / abierta</span>`;
+
+      tr.innerHTML = `
+        <td class="p-3 font-bold font-mono text-secondary border-r border-outline-variant/20 bg-surface-container-low/40">${code}</td>
+        <td class="p-3 font-semibold text-primary border-r border-outline-variant/20">${label}</td>
+        <td class="p-3">${optBadges}</td>
+      `;
+
+      tbody.appendChild(tr);
+    }
+  }
+
+  if (count === 0) {
+    tbody.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-outline italic">No se encontraron variables que coincidan con "${filterText}".</td></tr>`;
   }
 }
 
