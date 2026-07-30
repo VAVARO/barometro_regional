@@ -1,0 +1,926 @@
+/**
+ * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine
+ */
+
+let appData = null;
+let charts = {};
+
+// Active Filter State
+const filterState = {
+  comuna: "Todas",
+  zona: "Todas",
+  edad: "Todos",
+  gse: "Todos"
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  initApp();
+});
+
+async function initApp() {
+  try {
+    const response = await fetch("data/barometro_summary.json");
+    appData = await response.json();
+    console.log("Data loaded successfully:", appData);
+
+    setupNavigation();
+    setupFilters();
+    setupExplorer();
+    updateDashboard();
+
+  } catch (error) {
+    console.error("Error loading dashboard data:", error);
+  }
+}
+
+// ----------------------------------------------------
+// Global Helper: getVariableLabel (Translate numeric codes to text)
+// ----------------------------------------------------
+function getVariableLabel(varName, code) {
+  if (code === null || code === undefined || code === "") return "";
+
+  // Demographic / Filter keys that are already human strings
+  if (varName === "comuna" || varName === "zona" || varName === "edad" || varName === "gse" || varName === "sexo") {
+    return String(code);
+  }
+
+  // Lookup in metadata variable_info value_labels
+  if (appData && appData.metadata && appData.metadata.variable_info && appData.metadata.variable_info[varName]) {
+    const vMap = appData.metadata.variable_info[varName].value_labels;
+    if (vMap) {
+      if (vMap[code]) return vMap[code];
+      if (vMap[String(code)]) return vMap[String(code)];
+
+      const num = Number(code);
+      if (!isNaN(num)) {
+        if (vMap[num]) return vMap[num];
+        if (vMap[num.toFixed(1)]) return vMap[num.toFixed(1)];
+        if (vMap[String(Math.floor(num)) + ".0"]) return vMap[String(Math.floor(num)) + ".0"];
+        if (vMap[String(Math.floor(num))]) return vMap[String(Math.floor(num))];
+      }
+    }
+  }
+
+  // Standalone Fallbacks for core survey questions
+  if (varName === "B1") {
+    const mapB1 = { "1": "Progresando", "2": "Estancada", "3": "En decadencia", "1.0": "Progresando", "2.0": "Estancada", "3.0": "En decadencia" };
+    if (mapB1[code]) return mapB1[code];
+  }
+  if (varName === "I5") {
+    const mapI5 = { "1": "Sí", "2": "No", "1.0": "Sí", "2.0": "No" };
+    if (mapI5[code]) return mapI5[code];
+  }
+
+  return String(code);
+}
+
+// ----------------------------------------------------
+// Navigation & Tabs
+// ----------------------------------------------------
+function setupNavigation() {
+  const tabs = document.querySelectorAll("#main-nav-tabs .nav-tab");
+  const mobileLinks = document.querySelectorAll("#mobile-nav-links .mobile-nav-link");
+  const panels = document.querySelectorAll(".tab-panel");
+
+  function switchTab(tabId) {
+    tabs.forEach(t => {
+      if (t.dataset.tab === tabId) {
+        t.classList.add("active");
+        t.classList.remove("text-white/80");
+      } else {
+        t.classList.remove("active");
+        t.classList.add("text-white/80");
+      }
+    });
+
+    mobileLinks.forEach(m => {
+      if (m.dataset.tab === tabId) {
+        m.classList.add("bg-secondary-container/20", "text-secondary-container");
+      } else {
+        m.classList.remove("bg-secondary-container/20", "text-secondary-container");
+      }
+    });
+
+    panels.forEach(p => {
+      if (p.id === `tab-content-${tabId}`) {
+        p.classList.remove("hidden");
+      } else {
+        p.classList.add("hidden");
+      }
+    });
+
+    document.getElementById("mobile-drawer").classList.add("hidden");
+    window.dispatchEvent(new Event("resize"));
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => switchTab(tab.dataset.tab));
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener("click", () => switchTab(link.dataset.tab));
+  });
+
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const closeBtn = document.getElementById("close-drawer-btn");
+  const drawer = document.getElementById("mobile-drawer");
+
+  if (menuBtn && drawer) {
+    menuBtn.addEventListener("click", () => drawer.classList.remove("hidden"));
+  }
+  if (closeBtn && drawer) {
+    closeBtn.addEventListener("click", () => drawer.classList.add("hidden"));
+  }
+}
+
+// ----------------------------------------------------
+// Filters & Active Chips
+// ----------------------------------------------------
+function setupFilters() {
+  const comunaSel = document.getElementById("filter-comuna");
+  const zonaSel = document.getElementById("filter-zona");
+  const edadSel = document.getElementById("filter-edad");
+  const gseSel = document.getElementById("filter-gse");
+  const resetBtn = document.getElementById("reset-filters-btn");
+
+  comunaSel.addEventListener("change", (e) => {
+    filterState.comuna = e.target.value;
+    updateDashboard();
+  });
+
+  zonaSel.addEventListener("change", (e) => {
+    filterState.zona = e.target.value;
+    updateDashboard();
+  });
+
+  edadSel.addEventListener("change", (e) => {
+    filterState.edad = e.target.value;
+    updateDashboard();
+  });
+
+  gseSel.addEventListener("change", (e) => {
+    filterState.gse = e.target.value;
+    updateDashboard();
+  });
+
+  resetBtn.addEventListener("click", () => {
+    comunaSel.value = "Todas";
+    zonaSel.value = "Todas";
+    edadSel.value = "Todos";
+    gseSel.value = "Todos";
+
+    filterState.comuna = "Todas";
+    filterState.zona = "Todas";
+    filterState.edad = "Todos";
+    filterState.gse = "Todos";
+
+    updateDashboard();
+  });
+}
+
+function updateActiveChips() {
+  const container = document.getElementById("active-chips-list");
+  container.innerHTML = "";
+
+  const chips = [];
+  if (filterState.comuna !== "Todas") chips.push(`Comuna: ${filterState.comuna}`);
+  if (filterState.zona !== "Todas") chips.push(`Zona: ${filterState.zona}`);
+  if (filterState.edad !== "Todos") chips.push(`Edad: ${filterState.edad}`);
+  if (filterState.gse !== "Todos") chips.push(`GSE: ${filterState.gse}`);
+
+  if (chips.length === 0) {
+    container.innerHTML = `<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/10 border border-secondary-container/30 text-secondary-container font-semibold">Toda la Región de Aysén</span>`;
+  } else {
+    chips.forEach(c => {
+      const chip = document.createElement("span");
+      chip.className = "px-2.5 py-0.5 rounded-full bg-primary-container/10 border border-primary-container/30 text-primary font-semibold flex items-center gap-1";
+      chip.innerHTML = `${c}`;
+      container.appendChild(chip);
+    });
+  }
+}
+
+// ----------------------------------------------------
+// Micro-filtering & Stats Calculation Engine
+// ----------------------------------------------------
+function getFilteredRecords() {
+  if (!appData || !appData.records) return [];
+
+  return appData.records.filter(r => {
+    if (filterState.comuna !== "Todas" && r.comuna !== filterState.comuna) return false;
+    if (filterState.zona !== "Todas" && r.zona !== filterState.zona) return false;
+    if (filterState.edad !== "Todos" && r.edad !== filterState.edad) return false;
+    if (filterState.gse !== "Todos" && r.gse !== filterState.gse) return false;
+    return true;
+  });
+}
+
+function calculateWeightedCounts(records, varName) {
+  let totalW = 0;
+  const counts = {};
+
+  records.forEach(r => {
+    const val = r[varName];
+    if (val !== null && val !== undefined && val < 97) {
+      const w = r.weight || 1.0;
+      totalW += w;
+      const key = String(val);
+      if (!counts[key]) {
+        counts[key] = { weighted_count: 0, unweighted_count: 0 };
+      }
+      counts[key].weighted_count += w;
+      counts[key].unweighted_count += 1;
+    }
+  });
+
+  const result = {};
+  for (const [code, data] of Object.entries(counts)) {
+    const lbl = getVariableLabel(varName, code);
+    result[lbl] = {
+      code: code,
+      count: data.unweighted_count,
+      weighted_count: data.weighted_count,
+      percentage: totalW > 0 ? (data.weighted_count / totalW) * 100 : 0
+    };
+  }
+
+  return result;
+}
+
+function calculateWeightedMean(records, varName) {
+  let totalW = 0;
+  let sumWX = 0;
+
+  records.forEach(r => {
+    const val = r[varName];
+    if (val !== null && val !== undefined && val < 97) {
+      const w = r.weight || 1.0;
+      totalW += w;
+      sumWX += val * w;
+    }
+  });
+
+  return totalW > 0 ? sumWX / totalW : null;
+}
+
+// ----------------------------------------------------
+// Dashboard Update Trigger
+// ----------------------------------------------------
+function updateDashboard() {
+  const filtered = getFilteredRecords();
+  const sampleSize = filtered.length;
+
+  document.getElementById("kpi-sample-size").textContent = sampleSize;
+  updateActiveChips();
+
+  // 1. KPI Updates
+  // Rumbo
+  const rumboCounts = calculateWeightedCounts(filtered, "B1");
+  const progPct = rumboCounts["Progresando"] ? rumboCounts["Progresando"].percentage.toFixed(1) : "0.0";
+  document.getElementById("kpi-progreso-pct").textContent = `${progPct}%`;
+  document.getElementById("kpi-progreso-bar").style.width = `${progPct}%`;
+
+  // Top Problem
+  const probCounts = calculateWeightedCounts(filtered, "B2_RECOD");
+  let topProb = { name: "Seguridad", code: "1", pct: 0 };
+  for (const [pName, pData] of Object.entries(probCounts)) {
+    if (pData.percentage > topProb.pct) {
+      topProb = { name: pName, code: pData.code, pct: pData.percentage };
+    }
+  }
+  document.getElementById("kpi-problema-pct").textContent = `${topProb.pct.toFixed(1)}%`;
+  document.getElementById("kpi-problema-name").textContent = topProb.name;
+
+  // UAysén Identificación (I6: 0-100)
+  const identMean = calculateWeightedMean(filtered, "I6");
+  const identScore = identMean ? identMean.toFixed(1) : "--";
+  document.getElementById("kpi-ident-score").textContent = identScore;
+  document.getElementById("kpi-ident-bar").style.width = `${Math.min(100, Math.max(0, identMean || 0))}%`;
+
+  // UAysén Nota (I8: 1-7)
+  const notaMean = calculateWeightedMean(filtered, "I8");
+  const notaScore = notaMean ? notaMean.toFixed(1) : "--";
+  document.getElementById("kpi-nota-score").textContent = notaScore;
+  document.getElementById("uaysen-nota-big").textContent = notaScore;
+
+  // UAysén Conocimiento (I5: 1=Sí, 2=No)
+  const conCounts = calculateWeightedCounts(filtered, "I5");
+  const conSi = conCounts["Sí"] ? conCounts["Sí"].percentage.toFixed(1) : "0.0";
+  const conNo = conCounts["No"] ? conCounts["No"].percentage.toFixed(1) : "0.0";
+  document.getElementById("uaysen-conocimiento-si").textContent = `${conSi}%`;
+  document.getElementById("uaysen-conocimiento-no").textContent = `${conNo}%`;
+
+  // 2. Render Charts
+  renderRumboChart(rumboCounts);
+  renderProblemasChart(probCounts);
+  renderPertenenciaChart(filtered);
+  renderServiciosChart(filtered);
+  renderGobernanzaChart(filtered);
+  renderInstitucionesChart(filtered);
+  renderAmbientalChart(filtered);
+  renderEconomiaChart(filtered);
+  renderUAysenceAporteChart(filtered);
+
+  // 3. Update Explorer
+  renderExplorerTable();
+}
+
+// ----------------------------------------------------
+// Chart Renderers (Chart.js)
+// ----------------------------------------------------
+const BRAND_COLORS = {
+  primary: "#0a2540",
+  accent: "#00a3e0",
+  secondary: "#41befd",
+  muted: "#768dad",
+  gray: "#e2e8f0",
+  rose: "#f43f5e",
+  emerald: "#10b981",
+  amber: "#f59e0b"
+};
+
+function renderRumboChart(rumboCounts) {
+  const ctx = document.getElementById("chart-rumbo-canvas");
+  if (!ctx) return;
+
+  const labels = ["Progresando", "Estancada", "En decadencia"];
+  const data = labels.map(l => rumboCounts[l] ? rumboCounts[l].percentage.toFixed(1) : 0);
+
+  if (charts.rumbo) charts.rumbo.destroy();
+
+  charts.rumbo = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: [BRAND_COLORS.accent, BRAND_COLORS.muted, BRAND_COLORS.rose],
+        borderWidth: 2,
+        borderColor: "#ffffff"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            label: (item) => ` ${item.label}: ${item.raw}%`
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderProblemasChart(probCounts) {
+  const ctx = document.getElementById("chart-problemas-canvas");
+  if (!ctx) return;
+
+  const sorted = Object.entries(probCounts)
+    .map(([k, v]) => ({ name: k, pct: v.percentage }))
+    .sort((a, b) => b.pct - a.pct)
+    .slice(0, 6);
+
+  const labels = sorted.map(s => s.name);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.problemas) charts.problemas.destroy();
+
+  charts.problemas = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Mención",
+        data: data,
+        backgroundColor: BRAND_COLORS.primary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: { ticks: { callback: v => `${v}%` } }
+      }
+    }
+  });
+}
+
+function renderPertenenciaChart(filtered) {
+  const ctx = document.getElementById("chart-pertenencia-canvas");
+  if (!ctx) return;
+
+  const pCounts = calculateWeightedCounts(filtered, "A1");
+
+  const sorted = Object.entries(pCounts)
+    .map(([k, v]) => ({ name: k, pct: v.percentage }))
+    .sort((a, b) => b.pct - a.pct);
+
+  const labels = sorted.map(s => s.name);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.pertenencia) charts.pertenencia.destroy();
+
+  charts.pertenencia = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Pertenencia",
+        data: data,
+        backgroundColor: BRAND_COLORS.secondary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
+
+function renderServiciosChart(filtered) {
+  const ctx = document.getElementById("chart-servicios-canvas");
+  if (!ctx) return;
+
+  const items = [
+    { col: "B3_A", label: "Salud pública" },
+    { col: "B3_B", label: "Educación pública" },
+    { col: "B3_C", label: "Transporte y conectividad" },
+    { col: "B3_D", label: "Vivienda" },
+    { col: "B3_E", label: "Seguridad y orden" }
+  ];
+
+  const labels = [];
+  const means = [];
+
+  items.forEach(it => {
+    const m = calculateWeightedMean(filtered, it.col);
+    if (m !== null) {
+      labels.push(it.label);
+      means.push(m.toFixed(2));
+    }
+  });
+
+  if (charts.servicios) charts.servicios.destroy();
+
+  charts.servicios = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Nota Promedio (1-7)",
+        data: means,
+        backgroundColor: BRAND_COLORS.primary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { min: 1, max: 7 } }
+    }
+  });
+}
+
+function renderGobernanzaChart(filtered) {
+  const ctx = document.getElementById("chart-gobernanza-canvas");
+  if (!ctx) return;
+
+  const cols = [
+    { code: "G1_A", name: "Salud Pública" },
+    { code: "G1_B", name: "Educación Básica/Media" },
+    { code: "G1_E", name: "Protección Medioambiente" },
+    { code: "G1_H", name: "Seguridad Pública" },
+    { code: "G1_I", name: "Fomento Productivo" }
+  ];
+
+  const labels = cols.map(c => c.name);
+  const nacPct = [];
+  const regPct = [];
+
+  cols.forEach(c => {
+    const counts = calculateWeightedCounts(filtered, c.code);
+    const total = (counts["Autoridades nacionales"]?.weighted_count || counts["1.0"]?.weighted_count || 0) + 
+                  (counts["Autoridades comunales + regionales"]?.weighted_count || counts["2.0"]?.weighted_count || 0);
+    if (total > 0) {
+      nacPct.push(((counts["Autoridades nacionales"]?.weighted_count || counts["1.0"]?.weighted_count || 0) / total * 100).toFixed(1));
+      regPct.push(((counts["Autoridades comunales + regionales"]?.weighted_count || counts["2.0"]?.weighted_count || 0) / total * 100).toFixed(1));
+    } else {
+      nacPct.push(50);
+      regPct.push(50);
+    }
+  });
+
+  if (charts.gobernanza) charts.gobernanza.destroy();
+
+  charts.gobernanza = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        { label: "Decisión Regional/Comunal", data: regPct, backgroundColor: BRAND_COLORS.secondary },
+        { label: "Decisión Gobierno Nacional", data: nacPct, backgroundColor: BRAND_COLORS.primary }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } }
+      }
+    }
+  });
+}
+
+function renderInstitucionesChart(filtered) {
+  const ctx = document.getElementById("chart-instituciones-canvas");
+  if (!ctx) return;
+
+  const insts = [
+    { col: "F4_A", label: "Gobierno Central" },
+    { col: "F4_B", label: "Gobierno Regional" },
+    { col: "F4_C", label: "Municipios" },
+    { col: "F4_D", label: "Empresas Regionales" },
+    { col: "F4_F", label: "Organizaciones Sociales" },
+    { col: "F4_G", label: "Universidades" }
+  ];
+
+  const labels = [];
+  const data = [];
+
+  insts.forEach(i => {
+    const m = calculateWeightedMean(filtered, i.col);
+    if (m !== null) {
+      labels.push(i.label);
+      data.push(m.toFixed(2));
+    }
+  });
+
+  if (charts.instituciones) charts.instituciones.destroy();
+
+  charts.instituciones = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Evaluación Aporte (1-7)",
+        data: data,
+        backgroundColor: BRAND_COLORS.accent,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { min: 1, max: 7 } }
+    }
+  });
+}
+
+function renderAmbientalChart(filtered) {
+  const ctx = document.getElementById("chart-ambiental-canvas");
+  if (!ctx) return;
+
+  const probs = [
+    { col: "I4_A", label: "Humo leña" },
+    { col: "I4_B", label: "Agua potable / APR" },
+    { col: "I4_C", label: "Deterioro humedales" },
+    { col: "I4_D", label: "Gestión basura" },
+    { col: "I4_E", label: "Biodiversidad mar" },
+    { col: "I4_F", label: "Bosque nativo" }
+  ];
+
+  const labels = [];
+  const data = [];
+
+  probs.forEach(p => {
+    const m = calculateWeightedMean(filtered, p.col);
+    if (m !== null) {
+      labels.push(p.label);
+      data.push(m.toFixed(2));
+    }
+  });
+
+  if (charts.ambiental) charts.ambiental.destroy();
+
+  charts.ambiental = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Urgencia (1-4)",
+        data: data,
+        backgroundColor: BRAND_COLORS.rose,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { min: 1, max: 4 } }
+    }
+  });
+}
+
+function renderEconomiaChart(filtered) {
+  const ctx = document.getElementById("chart-economia-canvas");
+  if (!ctx) return;
+
+  const secs = [
+    { col: "I1_C", label: "Turismo" },
+    { col: "I1_F", label: "Energías Renovables" },
+    { col: "I1_A", label: "Agricultura" },
+    { col: "I1_D", label: "Salmonicultura" },
+    { col: "I1_H", label: "Pesca Artesanal" },
+    { col: "I1_I", label: "Tecnología e Innovación" }
+  ];
+
+  const labels = [];
+  const data = [];
+
+  secs.forEach(s => {
+    const m = calculateWeightedMean(filtered, s.col);
+    if (m !== null) {
+      labels.push(s.label);
+      data.push(m.toFixed(2));
+    }
+  });
+
+  if (charts.economia) charts.economia.destroy();
+
+  charts.economia = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Importancia Futura (1-4)",
+        data: data,
+        backgroundColor: BRAND_COLORS.emerald,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { min: 1, max: 4 } }
+    }
+  });
+}
+
+function renderUAysenceAporteChart(filtered) {
+  const ctx = document.getElementById("chart-uaysen-aporte-canvas");
+  if (!ctx) return;
+
+  const items = [
+    { col: "I7_1", label: "Vínculos estables con territorios y comunidades" },
+    { col: "I7_2", label: "Vínculos con actores regionales e internacionales" },
+    { col: "I7_3", label: "Docencia e investigación enfocada en temas regionales" }
+  ];
+
+  const labels = [];
+  const data = [];
+
+  items.forEach(i => {
+    const m = calculateWeightedMean(filtered, i.col);
+    if (m !== null) {
+      labels.push(i.label);
+      data.push(m.toFixed(2));
+    }
+  });
+
+  if (charts.uaysenAporte) charts.uaysenAporte.destroy();
+
+  charts.uaysenAporte = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Evaluación Aporte (1-7)",
+        data: data,
+        backgroundColor: BRAND_COLORS.primary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { min: 1, max: 7 } }
+    }
+  });
+}
+
+// ----------------------------------------------------
+// Data Intelligence Explorer Crosstab Matrix Table
+// ----------------------------------------------------
+function setupExplorer() {
+  const varX = document.getElementById("explorer-var-x");
+  const varY = document.getElementById("explorer-var-y");
+  const btnCsv = document.getElementById("export-csv-btn");
+
+  if (varX && varY) {
+    varX.addEventListener("change", renderExplorerTable);
+    varY.addEventListener("change", renderExplorerTable);
+  }
+
+  if (btnCsv) {
+    btnCsv.addEventListener("click", exportExplorerCSV);
+  }
+}
+
+function renderExplorerTable() {
+  const varX = document.getElementById("explorer-var-x").value;
+  const varY = document.getElementById("explorer-var-y").value;
+  const tbody = document.getElementById("explorer-table-body");
+  const thead = document.getElementById("explorer-table-head");
+
+  const filteredRecords = getFilteredRecords();
+  if (!filteredRecords || filteredRecords.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="100%" class="p-4 text-center text-outline">No hay datos disponibles para la selección actual.</td></tr>`;
+    return;
+  }
+
+  // Unique X Values (Rows)
+  const xSet = new Set();
+  filteredRecords.forEach(r => {
+    if (r[varX] !== null && r[varX] !== undefined && r[varX] < 97) {
+      xSet.add(r[varX]);
+    }
+  });
+  const xValues = Array.from(xSet).sort((a, b) => Number(a) - Number(b));
+
+  // Unique Y Values (Columns)
+  const ySet = new Set();
+  filteredRecords.forEach(r => {
+    if (r[varY] !== null && r[varY] !== undefined && r[varY] !== "") {
+      ySet.add(r[varY]);
+    }
+  });
+  const yValues = Array.from(ySet).sort();
+
+  // Column Totals
+  const colTotals = {};
+  let grandTotalWeight = 0;
+  let grandTotalCount = 0;
+
+  yValues.forEach(yVal => {
+    colTotals[yVal] = { weight: 0, count: 0 };
+  });
+
+  filteredRecords.forEach(r => {
+    const yVal = r[varY];
+    if (ySet.has(yVal)) {
+      const w = r.weight || 1.0;
+      colTotals[yVal].weight += w;
+      colTotals[yVal].count += 1;
+      grandTotalWeight += w;
+      grandTotalCount += 1;
+    }
+  });
+
+  // Build Table Header
+  let headHtml = `<tr class="bg-primary-container text-white text-xs uppercase tracking-wider">`;
+  headHtml += `<th class="p-3 font-bold border-r border-white/10">Variable ${varX} \\ ${varY.toUpperCase()}</th>`;
+  yValues.forEach(yVal => {
+    const colLabel = getVariableLabel(varY, yVal);
+    headHtml += `<th class="p-3 font-bold text-center border-r border-white/10">${colLabel}</th>`;
+  });
+  headHtml += `<th class="p-3 font-bold text-center">Total</th></tr>`;
+  thead.innerHTML = headHtml;
+
+  // Build Table Body Rows
+  tbody.innerHTML = "";
+
+  xValues.forEach(xVal => {
+    const rowLabel = getVariableLabel(varX, xVal);
+    let rowWeight = 0;
+    let rowCount = 0;
+
+    let rowHtml = `<tr class="hover:bg-surface-container/50 transition-colors">`;
+    rowHtml += `<td class="p-3 font-semibold text-primary border-r border-outline-variant/20">${rowLabel}</td>`;
+
+    yValues.forEach(yVal => {
+      const groupRecords = filteredRecords.filter(r => String(r[varX]) === String(xVal) && String(r[varY]) === String(yVal));
+      const cellCount = groupRecords.length;
+      let cellWeight = 0;
+      groupRecords.forEach(r => cellWeight += (r.weight || 1.0));
+
+      rowWeight += cellWeight;
+      rowCount += cellCount;
+
+      const colWeight = colTotals[yVal].weight;
+      const cellPct = colWeight > 0 ? (cellWeight / colWeight) * 100 : 0;
+
+      rowHtml += `
+        <td class="p-3 text-center border-r border-outline-variant/20">
+          <div class="font-bold text-secondary text-sm">${cellPct.toFixed(1)}%</div>
+          <div class="text-[11px] text-outline font-medium">N = ${cellCount}</div>
+        </td>
+      `;
+    });
+
+    const rowPct = grandTotalWeight > 0 ? (rowWeight / grandTotalWeight) * 100 : 0;
+    rowHtml += `
+      <td class="p-3 text-center bg-surface-container-low/50">
+        <div class="font-extrabold text-primary text-sm">${rowPct.toFixed(1)}%</div>
+        <div class="text-[11px] text-outline font-bold">N = ${rowCount}</div>
+      </td>
+    </tr>`;
+
+    tbody.innerHTML += rowHtml;
+  });
+
+  // Summary Foot Row (Total)
+  let footHtml = `<tr class="bg-surface-container-high/80 font-bold border-t-2 border-primary-container text-xs">`;
+  footHtml += `<td class="p-3 uppercase text-primary border-r border-outline-variant/20">Total</td>`;
+
+  yValues.forEach(yVal => {
+    const cCount = colTotals[yVal].count;
+    footHtml += `
+      <td class="p-3 text-center border-r border-outline-variant/20">
+        <div class="font-extrabold text-primary text-sm">100.0%</div>
+        <div class="text-[11px] text-outline font-bold">N = ${cCount}</div>
+      </td>
+    `;
+  });
+
+  footHtml += `
+    <td class="p-3 text-center bg-primary-container/10">
+      <div class="font-extrabold text-primary text-sm">100.0%</div>
+      <div class="text-[11px] text-primary font-bold">N = ${grandTotalCount}</div>
+    </td>
+  </tr>`;
+
+  tbody.innerHTML += footHtml;
+}
+
+function exportExplorerCSV() {
+  const varX = document.getElementById("explorer-var-x").value;
+  const varY = document.getElementById("explorer-var-y").value;
+  const filteredRecords = getFilteredRecords();
+  if (!filteredRecords || filteredRecords.length === 0) return;
+
+  const xSet = new Set();
+  filteredRecords.forEach(r => {
+    if (r[varX] !== null && r[varX] !== undefined && r[varX] < 97) xSet.add(r[varX]);
+  });
+  const xValues = Array.from(xSet).sort((a, b) => Number(a) - Number(b));
+
+  const ySet = new Set();
+  filteredRecords.forEach(r => {
+    if (r[varY] !== null && r[varY] !== undefined && r[varY] !== "") ySet.add(r[varY]);
+  });
+  const yValues = Array.from(ySet).sort();
+
+  const colTotals = {};
+  yValues.forEach(yVal => { colTotals[yVal] = 0; });
+  filteredRecords.forEach(r => {
+    if (ySet.has(r[varY])) colTotals[r[varY]] += (r.weight || 1.0);
+  });
+
+  let csv = `"${varX} / ${varY.toUpperCase()}",`;
+  yValues.forEach(yVal => {
+    csv += `"${getVariableLabel(varY, yVal).replace(/"/g, '""')}",`;
+  });
+  csv += `"Total"\n`;
+
+  xValues.forEach(xVal => {
+    csv += `"${getVariableLabel(varX, xVal).replace(/"/g, '""')}",`;
+    yValues.forEach(yVal => {
+      const groupRecords = filteredRecords.filter(r => String(r[varX]) === String(xVal) && String(r[varY]) === String(yVal));
+      let cellWeight = 0;
+      groupRecords.forEach(r => cellWeight += (r.weight || 1.0));
+      const colWeight = colTotals[yVal];
+      const cellPct = colWeight > 0 ? (cellWeight / colWeight) * 100 : 0;
+      csv += `${cellPct.toFixed(1)}%,`;
+    });
+    csv += `\n`;
+  });
+
+  const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csv);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `barometro_crosstab_${varX}_vs_${varY}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}

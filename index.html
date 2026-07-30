@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Barómetro Regional UAysén 2025 - Dashboard Interactivo</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-container": "#0a2540",
+            "surface": "#f8f9fb",
+            "outline": "#74777e",
+            "on-primary-container": "#768dad",
+            "inverse-primary": "#b0c8eb",
+            "secondary-container": "#41befd",
+            "tertiary-fixed-dim": "#b7c8e1",
+            "primary-fixed": "#d2e4ff",
+            "secondary-fixed": "#c6e7ff",
+            "surface-container-low": "#f2f4f6",
+            "on-tertiary-fixed": "#0b1c30",
+            "primary": "#000f22",
+            "on-secondary-fixed": "#001e2d",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-container-highest": "#e0e3e5",
+            "background": "#f8f9fb",
+            "surface-container-high": "#e6e8ea",
+            "surface-tint": "#49607e",
+            "on-tertiary-container": "#7c8ca4",
+            "on-surface": "#191c1e",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#38485d",
+            "on-primary-fixed-variant": "#314865",
+            "tertiary": "#000f22",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#00658d",
+            "on-primary-fixed": "#001c37",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#004b69",
+            "tertiary-container": "#142538",
+            "secondary-fixed-dim": "#81cfff",
+            "inverse-surface": "#2d3133",
+            "tertiary-fixed": "#d3e4fe",
+            "surface-dim": "#d8dadc",
+            "surface-container": "#eceef0",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#eff1f3",
+            "primary-fixed-dim": "#b0c8eb",
+            "on-background": "#191c1e",
+            "surface-bright": "#f8f9fb",
+            "surface-variant": "#e0e3e5",
+            "outline-variant": "#c4c6ce",
+            "on-surface-variant": "#43474d",
+            "on-secondary-fixed-variant": "#004c6b"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "margin-lg": "64px",
+            "unit": "8px",
+            "margin-sm": "16px",
+            "margin-md": "32px",
+            "container-padding": "32px",
+            "gutter": "24px"
+          },
+          fontFamily: {
+            "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "caption": ["Inter", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen flex flex-col selection:bg-secondary-container/30">
+
+  <!-- Top Navigation Header -->
+  <header class="bg-primary-container text-white docked full-width top-0 sticky shadow-md z-50 flex justify-between items-center w-full px-4 md:px-margin-md py-3 border-b border-white/10">
+    <div class="flex items-center gap-3">
+      <div class="p-2 bg-secondary-container/20 rounded-xl text-secondary-container flex items-center justify-center">
+        <span class="material-symbols-outlined text-2xl">analytics</span>
+      </div>
+      <div>
+        <h1 class="text-lg md:text-xl font-bold font-headline-md leading-tight tracking-tight">Barómetro Regional</h1>
+        <p class="text-xs font-semibold text-secondary-container tracking-wider uppercase opacity-90">Universidad de Aysén</p>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="hidden lg:flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10" id="main-nav-tabs">
+      <button class="nav-tab active px-4 py-2 rounded-lg text-sm font-semibold transition-all" data-tab="resumen">
+        <span class="material-symbols-outlined text-base align-sub mr-1">dashboard</span>Resumen
+      </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="identidad">
+        <span class="material-symbols-outlined text-base align-sub mr-1">fingerprint</span>Identidad
+      </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="gobernanza">
+        <span class="material-symbols-outlined text-base align-sub mr-1">account_balance</span>Gobernanza
+      </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="medioambiente">
+        <span class="material-symbols-outlined text-base align-sub mr-1">eco</span>Medioambiente
+      </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="uaysen">
+        <span class="material-symbols-outlined text-base align-sub mr-1">school</span>UAysén
+      </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="explorer">
+        <span class="material-symbols-outlined text-base align-sub mr-1">insights</span>Data Intelligence
+      </button>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="flex items-center gap-3">
+      <span id="sample-size-badge" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-white/90 whitespace-nowrap shrink-0">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Muestra: N = <span id="kpi-sample-size" class="font-bold">465</span> encuestados
+      </span>
+      <button class="lg:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors" id="mobile-menu-btn">
+        <span class="material-symbols-outlined text-white">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden lg:hidden transition-opacity">
+    <div class="bg-primary-container text-white w-72 h-full p-6 flex flex-col justify-between shadow-2xl">
+      <div>
+        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+          <span class="font-bold text-lg">Navegación</span>
+          <button id="close-drawer-btn" class="p-1 rounded-lg hover:bg-white/10">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-2" id="mobile-nav-links">
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold bg-secondary-container/20 text-secondary-container" data-tab="resumen">Resumen Ejecutivo</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="identidad">Identidad & Pertenencia</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="gobernanza">Descentralización & Gobernanza</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="medioambiente">Medioambiente & Futuro</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="uaysen">UAysén en el Territorio</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="explorer">Data Intelligence</button>
+        </nav>
+      </div>
+      <div class="text-xs text-white/50 border-t border-white/10 pt-4">
+        Barómetro Regional Aysén 2025
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Global Filter Bar -->
+  <div class="sticky top-[61px] z-40 bg-white border-b border-outline-variant/30 shadow-sm px-4 md:px-margin-md py-3">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1">
+        <!-- Comuna Filter -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Comuna</label>
+          <select id="filter-comuna" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+            <option value="Todas">Todas las comunas</option>
+            <option value="Coyhaique">Coyhaique</option>
+            <option value="Aysén">Aysén</option>
+            <option value="Cisnes">Cisnes</option>
+            <option value="Chile Chico">Chile Chico</option>
+            <option value="Cochrane">Cochrane</option>
+            <option value="Guaitecas">Guaitecas</option>
+            <option value="Lago Verde">Lago Verde</option>
+            <option value="O'Higgins">O'Higgins</option>
+            <option value="Río Ibáñez">Río Ibáñez</option>
+            <option value="Tortel">Tortel</option>
+            <option value="Balmaceda">Balmaceda</option>
+          </select>
+        </div>
+
+        <!-- Zona Filter -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Zona</label>
+          <select id="filter-zona" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+            <option value="Todas">Todas las zonas</option>
+            <option value="Urbana">Urbana</option>
+            <option value="Rural">Rural</option>
+          </select>
+        </div>
+
+        <!-- Edad Filter -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Rango Etario</label>
+          <select id="filter-edad" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+            <option value="Todos">Todos los tramos</option>
+            <option value="18-29">18 - 29 años</option>
+            <option value="30-44">30 - 44 años</option>
+            <option value="45-59">45 - 59 años</option>
+            <option value="60+">60+ años</option>
+          </select>
+        </div>
+
+        <!-- GSE Filter -->
+        <div class="flex flex-col gap-1">
+          <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Nivel GSE</label>
+          <select id="filter-gse" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+            <option value="Todos">Todos los GSE</option>
+            <option value="AB">AB</option>
+            <option value="C1a">C1a</option>
+            <option value="C1b">C1b</option>
+            <option value="C2">C2</option>
+            <option value="C3">C3</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Reset Button -->
+      <div class="flex items-end justify-end">
+        <button id="reset-filters-btn" class="w-full md:w-auto px-4 py-2 bg-surface hover:bg-surface-container text-primary border border-outline-variant/50 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-2xs">
+          <span class="material-symbols-outlined text-sm">restart_alt</span> Restablecer Filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Filter Chips Bar -->
+    <div id="active-chips-container" class="max-w-7xl mx-auto flex flex-wrap items-center gap-2 mt-2 pt-2 border-t border-outline-variant/20 text-xs">
+      <span class="text-outline font-semibold">Filtros activos:</span>
+      <div id="active-chips-list" class="flex flex-wrap gap-1.5">
+        <span class="px-2.5 py-0.5 rounded-full bg-secondary-container/10 border border-secondary-container/30 text-secondary-container font-semibold">Toda la Región</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Workspace Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-margin-md py-6 space-y-8">
+
+    <!-- SECTION 1: RESUMEN EJECUTIVO -->
+    <div id="tab-content-resumen" class="tab-panel space-y-8">
+      <!-- Hero Banner -->
+      <section class="relative overflow-hidden rounded-3xl glacier-gradient min-h-[220px] flex flex-col justify-center p-6 md:p-8 text-white shadow-xl">
+        <div class="relative z-10 max-w-3xl">
+          <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 inline-block">Barómetro Regional Aysén 2025</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold font-headline-lg mb-3 tracking-tight">Percepción Ciudadana y Desarrollo Regional</h2>
+          <p class="text-sm md:text-base opacity-95 leading-relaxed">
+            Resultados ponderados sobre percepción del rumbo regional, prioridades públicas, identidad territorial y la valoración del rol de la Universidad de Aysén.
+          </p>
+        </div>
+      </section>
+
+      <!-- Dynamic KPI Grid -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- KPI 1: Percepción de Progreso -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-secondary-container/10 rounded-xl text-secondary">
+              <span class="material-symbols-outlined text-2xl">trending_up</span>
+            </div>
+            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">Rumbo Regional</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Percepción de Progreso</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-progreso-pct" class="text-3xl md:text-4xl font-extrabold text-primary font-display-lg">--%</span>
+            <span id="kpi-progreso-label" class="text-sm font-semibold text-on-surface-variant">Progresando</span>
+          </div>
+          <div class="w-full bg-surface-container mt-4 h-2 rounded-full overflow-hidden">
+            <div id="kpi-progreso-bar" class="bg-secondary-container h-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Principal Problema -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-rose-50 rounded-xl text-rose-600">
+              <span class="material-symbols-outlined text-2xl">warning</span>
+            </div>
+            <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-1 rounded-md">Top Prioridad</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Principal Problema</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-problema-pct" class="text-3xl md:text-4xl font-extrabold text-primary font-display-lg">--%</span>
+            <span id="kpi-problema-name" class="text-sm font-semibold text-on-surface-variant truncate max-w-[130px]">Seguridad</span>
+          </div>
+          <p class="text-xs text-outline mt-3 italic">Mención espontánea ponderada</p>
+        </div>
+
+        <!-- KPI 3: Identificación UAysén -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-primary-container/10 rounded-xl text-primary-container">
+              <span class="material-symbols-outlined text-2xl">badge</span>
+            </div>
+            <span class="text-xs font-bold text-primary bg-primary-container/10 px-2 py-1 rounded-md">Escala 0-100</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Identificación UAysén</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-ident-score" class="text-3xl md:text-4xl font-extrabold text-primary font-display-lg">--</span>
+            <span class="text-sm font-semibold text-on-surface-variant">pts / 100</span>
+          </div>
+          <div class="w-full bg-surface-container mt-4 h-2 rounded-full overflow-hidden">
+            <div id="kpi-ident-bar" class="bg-primary-container h-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Evaluación General UAysén -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-amber-50 rounded-xl text-amber-600">
+              <span class="material-symbols-outlined text-2xl">grade</span>
+            </div>
+            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded-md">Nota 1 a 7</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Nota Desempeño UAysén</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-nota-score" class="text-3xl md:text-4xl font-extrabold text-primary font-display-lg">--</span>
+            <span class="text-sm font-semibold text-on-surface-variant">Promedio</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Evaluación general de desempeño</p>
+        </div>
+      </section>
+
+      <!-- Visual Charts Bento Grid -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Chart 1: Rumbo Regional Breakdown -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+          <div class="mb-4">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Evaluación de Coyuntura</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">¿Hacia dónde va la Región de Aysén?</p>
+          </div>
+          <div class="relative h-64 w-full flex items-center justify-center">
+            <canvas id="chart-rumbo-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Top Regional Problems -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+          <div class="mb-4">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Principales Preocupaciones</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Problemas Más Urgentes de la Región</p>
+          </div>
+          <div class="relative h-64 w-full">
+            <canvas id="chart-problemas-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION 2: IDENTIDAD & PERTENENCIA -->
+    <div id="tab-content-identidad" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Identidad & Pertenencia Territorial</h2>
+        <p class="text-sm text-on-surface-variant">Medición del nivel de arraigo regional, pertenencia comunal y razones de permanencia en la Patagonia.</p>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Pertenencia Principal (Barrio, Comuna, Región, País) -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Pertenencia Territorial</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Espacio de Mayor Identificación (A1)</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="chart-pertenencia-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Evaluación de Servicios Regionales -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Calidad de Vida</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Evaluación de Servicios e Infraestructura (1 a 7)</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="chart-servicios-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION 3: DESCENTRALIZACIÓN & GOBERNANZA -->
+    <div id="tab-content-gobernanza" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Descentralización & Gobernanza</h2>
+        <p class="text-sm text-on-surface-variant">Preferencia de toma de decisiones públicas (Autoridades Nacionales vs Comunales/Regionales) y aporte institucional.</p>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Autonomía Decisional G1 -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Toma de Decisiones</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Preferencia de Decisión Regional / Comunal</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-gobernanza-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Aporte Institucional F4 -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Aporte de Actores</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Contribución al Desarrollo Regional (Promedio 1-7)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-instituciones-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION 4: MEDIOAMBIENTE & FUTURO ECONÓMICO -->
+    <div id="tab-content-medioambiente" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Medioambiente & Futuro Económico</h2>
+        <p class="text-sm text-on-surface-variant">Urgencia de problemas ambientales y sectores productivos estratégicos para el desarrollo de Aysén.</p>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Urgencia Ambiental I4 -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Sustentabilidad</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Urgencia de Problemas Ambientales (Escala 1 a 4)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-ambiental-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Actividades Económicas del Futuro I1 -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Matriz Productiva</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Sectores Económicos Clave para el Futuro</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-economia-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION 5: UAYSÉN EN EL TERRITORIO -->
+    <div id="tab-content-uaysen" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Universidad de Aysén en el Territorio</h2>
+        <p class="text-sm text-on-surface-variant">Conocimiento, nivel de identificación y evaluación del aporte de la universidad estatal a la comunidad regional.</p>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Conocimiento I5 & Nota I8 Scorecard -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-primary-container text-white p-6 rounded-3xl shadow-md">
+            <span class="text-xs font-bold text-secondary-container uppercase tracking-wider mb-2 block">Reconocimiento Institucional</span>
+            <h3 class="text-xl font-bold mb-4 font-headline-md">¿Ha escuchado hablar sobre la UAysén?</h3>
+            <div class="flex items-center justify-between bg-white/10 p-4 rounded-2xl border border-white/10 mb-3">
+              <span class="font-semibold text-sm">Sí ha escuchado</span>
+              <span id="uaysen-conocimiento-si" class="text-2xl font-extrabold text-secondary-container font-display-lg">--%</span>
+            </div>
+            <div class="flex items-center justify-between bg-white/5 p-4 rounded-2xl border border-white/5">
+              <span class="font-semibold text-sm text-white/70">No ha escuchado</span>
+              <span id="uaysen-conocimiento-no" class="text-xl font-bold text-white/80">--%</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+            <span class="text-xs font-bold text-outline uppercase tracking-wider mb-2 block">Evaluación de Desempeño</span>
+            <h3 class="text-lg font-bold text-primary mb-3 font-headline-md">Nota Promedio General (1 a 7)</h3>
+            <div class="flex items-baseline gap-3 mb-2">
+              <span id="uaysen-nota-big" class="text-5xl font-extrabold text-primary font-display-lg">--</span>
+              <span class="text-sm font-semibold text-outline">/ 7.0</span>
+            </div>
+            <p class="text-xs text-outline">Ponderado para la selección geográfica y demográfica actual.</p>
+          </div>
+        </div>
+
+        <!-- Aporte Territorial UAysén I7_1 to I7_3 -->
+        <div class="lg:col-span-8 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Impacto Regional</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Evaluación del Aporte de la UAysén (Promedio 1 a 7)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-uaysen-aporte-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION 6: DATA INTELLIGENCE EXPLORER -->
+    <div id="tab-content-explorer" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Data Intelligence Explorer</h2>
+        <p class="text-sm text-on-surface-variant">Explorador dinámico de microdatos y tablas de contingencia cruzada para análisis avanzado.</p>
+      </section>
+
+      <!-- Explorer Controls Card -->
+      <section class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs font-bold uppercase text-outline tracking-wider mb-1.5 block">Variable Principal (Filas)</label>
+            <select id="explorer-var-x" class="w-full bg-surface border border-outline-variant/50 rounded-xl text-sm p-3 font-semibold text-primary">
+              <option value="B1">Rumbo Regional (B1)</option>
+              <option value="A1">Pertenencia Territorial (A1)</option>
+              <option value="B2_RECOD">Top Problema Regional (B2)</option>
+              <option value="I5">Conocimiento UAysén (I5)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-xs font-bold uppercase text-outline tracking-wider mb-1.5 block">Variable Cruce (Columnas)</label>
+            <select id="explorer-var-y" class="w-full bg-surface border border-outline-variant/50 rounded-xl text-sm p-3 font-semibold text-primary">
+              <option value="comuna">Comuna</option>
+              <option value="zona">Zona (Urbana / Rural)</option>
+              <option value="edad">Rango Etario</option>
+              <option value="gse">GSE</option>
+              <option value="sexo">Sexo</option>
+            </select>
+          </div>
+
+          <div class="flex items-end">
+            <button id="export-csv-btn" class="w-full py-3 px-4 bg-primary-container text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-primary transition-all flex items-center justify-center gap-2 shadow-sm">
+              <span class="material-symbols-outlined text-base">download</span> Exportar CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Cross-Tabulation Data Table Container -->
+        <div class="overflow-x-auto rounded-2xl border border-outline-variant/30">
+          <table class="w-full text-left border-collapse" id="explorer-table">
+            <thead>
+              <tr class="bg-primary-container text-white text-xs uppercase tracking-wider" id="explorer-table-head">
+                <th class="p-4 font-bold">Categoría</th>
+                <th class="p-4 font-bold text-right">Porcentaje Ponderado</th>
+                <th class="p-4 font-bold text-right">Casos (N)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/20 text-sm font-medium" id="explorer-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-outline-variant/30 mt-12 py-8 px-4 md:px-margin-md">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-secondary-container text-xl">analytics</span>
+        <div>
+          <p class="font-bold text-primary">Barómetro Regional Aysén 2025</p>
+          <p>© 2025 Universidad de Aysén. Todos los derechos reservados.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6">
+        <span class="hover:text-primary cursor-pointer">Metodología Estudio</span>
+        <span class="hover:text-primary cursor-pointer">Diccionario Variables</span>
+        <span class="hover:text-primary cursor-pointer">Contacto UAysén</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript App -->
+  <script src="js/app.js"></script>
+</body>
+</html>

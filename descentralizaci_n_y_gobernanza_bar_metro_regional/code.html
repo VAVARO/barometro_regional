@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Barómetro Regional UAysén - Descentralización</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#0a2540",
+                    "surface": "#f8f9fb",
+                    "outline": "#74777e",
+                    "on-primary-container": "#768dad",
+                    "inverse-primary": "#b0c8eb",
+                    "secondary-container": "#41befd",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary-fixed": "#d2e4ff",
+                    "secondary-fixed": "#c6e7ff",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "primary": "#000f22",
+                    "on-secondary-fixed": "#001e2d",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "background": "#f8f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-tint": "#49607e",
+                    "on-tertiary-container": "#7c8ca4",
+                    "on-surface": "#191c1e",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "on-primary-fixed-variant": "#314865",
+                    "tertiary": "#000f22",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#00658d",
+                    "on-primary-fixed": "#001c37",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#004b69",
+                    "tertiary-container": "#142538",
+                    "secondary-fixed-dim": "#81cfff",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed": "#d3e4fe",
+                    "surface-dim": "#d8dadc",
+                    "surface-container": "#eceef0",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "on-background": "#191c1e",
+                    "surface-bright": "#f8f9fb",
+                    "surface-variant": "#e0e3e5",
+                    "outline-variant": "#c4c6ce",
+                    "on-surface-variant": "#43474d",
+                    "on-secondary-fixed-variant": "#004c6b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-lg": "64px",
+                    "unit": "8px",
+                    "margin-sm": "16px",
+                    "margin-md": "32px",
+                    "container-padding": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "caption": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background-color: #F4F6F8;
+        font-family: 'Inter', sans-serif;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px border-white;
+        box-shadow: 0 2px 4px rgba(10, 37, 64, 0.05);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .chart-container {
+        position: relative;
+        overflow: hidden;
+      }
+      .glacier-gradient {
+        background: linear-gradient(135deg, #0a2540 0%, #41befd 100%);
+      }
+      .chip-active {
+        background: rgba(0, 163, 224, 0.1);
+        color: #00658d;
+      }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-primary-container dark:bg-primary-container docked full-width top-0 sticky shadow-sm flex justify-between items-center w-full px-margin-md py-4 z-50 text-on-primary-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-container" data-icon="analytics">analytics</span>
+<h1 class="text-headline-md font-headline-md font-bold text-white">Barómetro Regional UAysén</h1>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-on-primary-container opacity-80 hover:text-secondary-container transition-colors duration-200 font-label-md text-label-md" href="#">Identidad</a>
+<a class="text-secondary-container font-bold border-b-2 border-secondary-container font-label-md text-label-md" href="#">Descentralización</a>
+<a class="text-on-primary-container opacity-80 hover:text-secondary-container transition-colors duration-200 font-label-md text-label-md" href="#">Medioambiente</a>
+<a class="text-on-primary-container opacity-80 hover:text-secondary-container transition-colors duration-200 font-label-md text-label-md" href="#">Universidad</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container transition-colors" data-icon="search">search</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-container transition-colors" data-icon="notifications">notifications</span>
+</div>
+</header>
+<div class="flex flex-1 relative overflow-hidden">
+<!-- NavigationDrawer -->
+<aside class="fixed left-0 top-0 h-full z-40 hidden lg:flex flex-col bg-primary dark:bg-primary docked left-0 w-64 border-r border-outline-variant shadow-md pt-24">
+<div class="px-6 mb-6">
+<h2 class="text-headline-md font-headline-md text-white">Categorías</h2>
+</div>
+<nav class="flex flex-col">
+<a class="flex items-center gap-3 text-on-primary-container px-4 py-3 hover:bg-on-primary-container/5 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary-container" data-icon="fingerprint">fingerprint</span>
+<span class="font-label-md text-label-md">Identidad</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container/10 border-l-4 border-secondary-container text-secondary-container px-4 py-3 translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">Descentralización</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary-container px-4 py-3 hover:bg-on-primary-container/5 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary-container" data-icon="eco">eco</span>
+<span class="font-label-md text-label-md">Medioambiente</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary-container px-4 py-3 hover:bg-on-primary-container/5 transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary-container" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Universidad</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-margin-sm md:p-margin-md lg:p-margin-lg">
+<!-- Page Header & Hero Section -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary mb-2">Descentralización y Gobernanza</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+                            Análisis crítico sobre la autonomía regional, distribución de poder y el impacto de las instituciones en el desarrollo de la Patagonia chilena.
+                        </p>
+</div>
+<div class="flex gap-2">
+<button class="bg-primary-container text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+<span class="text-label-md font-label-md">Informe PDF</span>
+</button>
+<button class="border border-outline-variant text-primary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+<span class="text-label-md font-label-md">Compartir</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid Filters -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-8">
+<div class="glass-card p-4 rounded-xl flex items-center justify-between border border-white/40">
+<div class="flex flex-col">
+<span class="text-caption font-caption text-outline uppercase tracking-wider">Sub-categoría</span>
+<span class="text-body-md font-semibold text-primary">Gobernanza</span>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col border border-white/40 cursor-pointer hover:border-secondary-container transition-all">
+<span class="text-caption font-caption text-outline uppercase tracking-wider">Comuna</span>
+<div class="flex items-center justify-between mt-1">
+<span class="text-body-md font-semibold text-primary">Todas las comunas</span>
+<span class="material-symbols-outlined text-outline" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col border border-white/40 cursor-pointer hover:border-secondary-container transition-all">
+<span class="text-caption font-caption text-outline uppercase tracking-wider">Periodo</span>
+<div class="flex items-center justify-between mt-1">
+<span class="text-body-md font-semibold text-primary">2023 - 2024</span>
+<span class="material-symbols-outlined text-outline" data-icon="calendar_month">calendar_month</span>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col border border-white/40 cursor-pointer hover:border-secondary-container transition-all bg-secondary-container/5">
+<span class="text-caption font-caption text-outline uppercase tracking-wider">Modo Comparativo</span>
+<div class="flex items-center justify-between mt-1">
+<span class="text-body-md font-semibold text-secondary">Local vs Regional</span>
+<span class="material-symbols-outlined text-secondary" data-icon="toggle_on" style="font-variation-settings: 'FILL' 1;">toggle_on</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Visualization Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
+<!-- Donut Chart: Decision Power -->
+<div class="lg:col-span-5 glass-card p-gutter rounded-xl flex flex-col relative">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-label-md font-label-md uppercase tracking-widest text-outline mb-1">Distribución del Poder</h3>
+<p class="text-headline-md font-headline-md text-primary">Capacidad de Decisión</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary cursor-help" data-icon="info">info</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center py-8">
+<!-- Custom CSS Donut Visual -->
+<div class="relative w-64 h-64">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#E2E8F0" stroke-width="3"></circle>
+<!-- National: 65% -->
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#0a2540" stroke-dasharray="65 100" stroke-width="3"></circle>
+<!-- Regional: 25% -->
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#41befd" stroke-dasharray="25 100" stroke-dashoffset="-65" stroke-width="3"></circle>
+<!-- Local: 10% -->
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#768dad" stroke-dasharray="10 100" stroke-dashoffset="-90" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-display-lg font-display-lg text-primary">65%</span>
+<span class="text-caption font-caption text-outline uppercase">Poder Centralizado</span>
+</div>
+</div>
+</div>
+<div class="space-y-3 mt-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<span class="text-body-md font-medium text-on-surface">Gobierno Nacional</span>
+</div>
+<span class="text-body-md font-bold text-primary">65%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="text-body-md font-medium text-on-surface">Gobierno Regional</span>
+</div>
+<span class="text-body-md font-bold text-primary">25%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-on-primary-container"></div>
+<span class="text-body-md font-medium text-on-surface">Municipios Locales</span>
+</div>
+<span class="text-body-md font-bold text-primary">10%</span>
+</div>
+</div>
+</div>
+<!-- Bar Chart: Institutional Contribution -->
+<div class="lg:col-span-7 glass-card p-gutter rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-label-md font-label-md uppercase tracking-widest text-outline mb-1">Contribución al Desarrollo</h3>
+<p class="text-headline-md font-headline-md text-primary">Percepción Institucional por Comuna</p>
+</div>
+<div class="flex gap-2">
+<button class="chip-active px-3 py-1 rounded-full text-caption font-semibold">Coyhaique</button>
+<button class="bg-surface-container-high px-3 py-1 rounded-full text-caption text-on-surface-variant hover:bg-secondary-container/10 transition-colors">Aysén</button>
+<button class="bg-surface-container-high px-3 py-1 rounded-full text-caption text-on-surface-variant hover:bg-secondary-container/10 transition-colors">Chile Chico</button>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-6 pt-4">
+<!-- Chart Bar Group 1 -->
+<div class="space-y-2">
+<div class="flex justify-between text-caption font-medium text-on-surface-variant px-1">
+<span>GORE Aysén</span>
+<span class="text-primary font-bold">78%</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full glacier-gradient rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Chart Bar Group 2 -->
+<div class="space-y-2">
+<div class="flex justify-between text-caption font-medium text-on-surface-variant px-1">
+<span>Municipalidad</span>
+<span class="text-primary font-bold">62%</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 62%"></div>
+</div>
+</div>
+<!-- Chart Bar Group 3 -->
+<div class="space-y-2">
+<div class="flex justify-between text-caption font-medium text-on-surface-variant px-1">
+<span>Universidades (UAysén)</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Chart Bar Group 4 -->
+<div class="space-y-2">
+<div class="flex justify-between text-caption font-medium text-on-surface-variant px-1">
+<span>Empresas Privadas</span>
+<span class="text-primary font-bold">44%</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant rounded-full" style="width: 44%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/30 flex items-center gap-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="person">person</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary border-2 border-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" data-icon="diversity_3">diversity_3</span>
+</div>
+</div>
+<p class="text-caption font-caption text-on-surface-variant">Basado en encuestas a 1,200 residentes locales (Muestra 2024).</p>
+</div>
+</div>
+</section>
+<!-- Bottom Insights -->
+<section class="mt-gutter grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-secondary-container">
+<span class="material-symbols-outlined text-secondary-container mb-3" data-icon="lightbulb">lightbulb</span>
+<h4 class="text-body-md font-bold text-primary mb-2">Hallazgo Clave</h4>
+<p class="text-caption font-body-md text-on-surface-variant">La percepción de centralismo sigue siendo la mayor barrera para la satisfacción ciudadana en Aysén.</p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-primary-container">
+<span class="material-symbols-outlined text-primary-container mb-3" data-icon="trending_up">trending_up</span>
+<h4 class="text-body-md font-bold text-primary mb-2">Tendencia Regional</h4>
+<p class="text-caption font-body-md text-on-surface-variant">La Universidad de Aysén se posiciona como el actor con mayor confianza para liderar el desarrollo local.</p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-on-primary-container">
+<span class="material-symbols-outlined text-on-primary-container mb-3" data-icon="warning">warning</span>
+<h4 class="text-body-md font-bold text-primary mb-2">Brecha Local</h4>
+<p class="text-caption font-body-md text-on-surface-variant">Solo 1 de cada 10 pesos invertidos en la región es decidido a nivel comunal.</p>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim full-width bottom-0 border-t border-outline-variant w-full px-margin-md py-margin-md flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col md:flex-row items-center gap-4">
+<span class="text-label-md font-label-md font-bold text-primary">Barómetro Regional</span>
+<p class="text-body-md font-body-md text-on-surface-variant text-center md:text-left">© 2024 Universidad de Aysén. Todos los derechos reservados.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-on-surface-variant text-caption font-caption hover:text-primary transition-colors" href="#">Metodología</a>
+<a class="text-on-surface-variant text-caption font-caption hover:text-primary transition-colors" href="#">Contacto</a>
+<a class="text-on-surface-variant text-caption font-caption hover:text-primary transition-colors" href="#">Privacidad</a>
+</div>
+</footer>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Placeholder for simple interactivity if needed
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'all 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
