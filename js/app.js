@@ -40,6 +40,35 @@ async function initApp() {
 function getVariableLabel(varName, code) {
   if (code === null || code === undefined || code === "") return "";
 
+  // Explicit Fallbacks for core survey questions (takes precedence to avoid SPSS encoding quirks)
+  if (varName === "B1") {
+    const mapB1 = { "1": "Progresando", "1.0": "Progresando", "2": "Estancada", "2.0": "Estancada", "3": "En decadencia", "3.0": "En decadencia" };
+    if (mapB1[code] || mapB1[String(code)]) return mapB1[code] || mapB1[String(code)];
+  }
+  if (varName === "C1") {
+    const mapC1 = { "1": "Se puede confiar en las personas", "1.0": "Se puede confiar en las personas", "2": "No se puede confiar en las personas", "2.0": "No se puede confiar en las personas" };
+    if (mapC1[code] || mapC1[String(code)]) return mapC1[code] || mapC1[String(code)];
+  }
+  if (varName === "C2") {
+    const mapC2 = { "1": "Sí", "1.0": "Sí", "2": "No", "2.0": "No" };
+    if (mapC2[code] || mapC2[String(code)]) return mapC2[code] || mapC2[String(code)];
+  }
+  if (varName === "C2_2_RECOD") {
+    const mapC2_2 = {
+      "1": "Voluntariado", "1.0": "Voluntariado",
+      "2": "Talleres y agrupaciones", "2.0": "Talleres y agrupaciones",
+      "3": "Organizaciones sociales", "3.0": "Organizaciones sociales",
+      "4": "Organizaciones políticas", "4.0": "Organizaciones políticas",
+      "5": "Organizaciones gremiales", "5.0": "Organizaciones gremiales",
+      "444": "Otro", "444.0": "Otro"
+    };
+    if (mapC2_2[code] || mapC2_2[String(code)]) return mapC2_2[code] || mapC2_2[String(code)];
+  }
+  if (varName === "I5") {
+    const mapI5 = { "1": "Sí", "1.0": "Sí", "2": "No", "2.0": "No" };
+    if (mapI5[code] || mapI5[String(code)]) return mapI5[code] || mapI5[String(code)];
+  }
+
   // Demographic / Filter keys that are already human strings
   if (varName === "comuna" || varName === "zona" || varName === "edad" || varName === "gse" || varName === "sexo") {
     return String(code);
@@ -60,35 +89,6 @@ function getVariableLabel(varName, code) {
         if (vMap[String(Math.floor(num))]) return vMap[String(Math.floor(num))];
       }
     }
-  }
-
-  // Standalone Fallbacks for core survey questions
-  if (varName === "B1") {
-    const mapB1 = { "1": "Progresando", "2": "Estancada", "3": "En decadencia", "1.0": "Progresando", "2.0": "Estancada", "3.0": "En decadencia" };
-    if (mapB1[code]) return mapB1[code];
-  }
-  if (varName === "C1") {
-    const mapC1 = { "1": "Se puede confiar en las personas", "1.0": "Se puede confiar en las personas", "2": "No se puede confiar en las personas", "2.0": "No se puede confiar en las personas" };
-    if (mapC1[code]) return mapC1[code];
-  }
-  if (varName === "C2") {
-    const mapC2 = { "1": "Sí", "1.0": "Sí", "2": "No", "2.0": "No" };
-    if (mapC2[code]) return mapC2[code];
-  }
-  if (varName === "C2_2_RECOD") {
-    const mapC2_2 = {
-      "1": "Voluntariado", "1.0": "Voluntariado",
-      "2": "Talleres y agrupaciones", "2.0": "Talleres y agrupaciones",
-      "3": "Organizaciones sociales", "3.0": "Organizaciones sociales",
-      "4": "Organizaciones políticas", "4.0": "Organizaciones políticas",
-      "5": "Organizaciones gremiales", "5.0": "Organizaciones gremiales",
-      "444": "Otro", "444.0": "Otro"
-    };
-    if (mapC2_2[code]) return mapC2_2[code];
-  }
-  if (varName === "I5") {
-    const mapI5 = { "1": "Sí", "2": "No", "1.0": "Sí", "2.0": "No" };
-    if (mapI5[code]) return mapI5[code];
   }
 
   return String(code);
@@ -356,7 +356,7 @@ function calculateWeightedCounts(records, varName) {
   records.forEach(r => {
     const val = r[varName];
     if (val !== null && val !== undefined && val < 97) {
-      const w = r.weight || 1.0;
+      const w = Number(r.weight || r.PONDERADOR) || 1.0;
       totalW += w;
       const key = String(val);
       if (!counts[key]) {
@@ -388,7 +388,7 @@ function calculateWeightedMean(records, varName) {
   records.forEach(r => {
     const val = r[varName];
     if (val !== null && val !== undefined && val < 97) {
-      const w = r.weight || 1.0;
+      const w = Number(r.weight || r.PONDERADOR) || 1.0;
       totalW += w;
       sumWX += val * w;
     }
@@ -425,29 +425,6 @@ function updateDashboard() {
   document.getElementById("kpi-problema-pct").textContent = `${topProb.pct.toFixed(1)}%`;
   document.getElementById("kpi-problema-name").textContent = topProb.name;
 
-  // Confianza C1
-  const c1Counts = calculateWeightedCounts(filtered, "C1");
-  const confPct = c1Counts["Se puede confiar en las personas"] ? c1Counts["Se puede confiar en las personas"].percentage.toFixed(1) : "0.0";
-  const elConf = document.getElementById("kpi-confianza-pct");
-  if (elConf) elConf.textContent = `${confPct}%`;
-
-  // Participación C2
-  const c2Counts = calculateWeightedCounts(filtered, "C2");
-  const partPct = c2Counts["Sí"] ? c2Counts["Sí"].percentage.toFixed(1) : "0.0";
-  const elPart = document.getElementById("kpi-participacion-pct");
-  if (elPart) elPart.textContent = `${partPct}%`;
-
-  // Top Organización C2_2_RECOD
-  const c22Counts = calculateWeightedCounts(filtered, "C2_2_RECOD");
-  let topOrg = { name: "Organizaciones sociales", pct: 0 };
-  for (const [oName, oData] of Object.entries(c22Counts)) {
-    if (oData.percentage > topOrg.pct) {
-      topOrg = { name: oName, pct: oData.percentage };
-    }
-  }
-  const elTopOrg = document.getElementById("kpi-top-org");
-  if (elTopOrg) elTopOrg.textContent = topOrg.name;
-
   // UAysén Identificación (I6: 0-100)
   const identMean = calculateWeightedMean(filtered, "I6");
   const identScore = identMean ? identMean.toFixed(1) : "--";
@@ -467,7 +444,10 @@ function updateDashboard() {
   document.getElementById("uaysen-conocimiento-si").textContent = `${conSi}%`;
   document.getElementById("uaysen-conocimiento-no").textContent = `${conNo}%`;
 
-  // 2. Render Charts
+  // 2. Confianza Social Panel Updates (C1, C2, C2_2_RECOD)
+  updateConfianzaPanel(filtered);
+
+  // 3. Render General Charts
   renderRumboChart(rumboCounts);
   renderProblemasChart(probCounts);
   renderPertenenciaChart(filtered);
@@ -477,11 +457,61 @@ function updateDashboard() {
   renderAmbientalChart(filtered);
   renderEconomiaChart(filtered);
   renderUAysenceAporteChart(filtered);
-  renderConfianzaChart(c1Counts);
-  renderParticipacionChart(c22Counts);
 
-  // 3. Update Explorer
+  // 4. Update Explorer
   renderExplorerTable();
+}
+
+// ----------------------------------------------------
+// Confianza Social Panel Logic & Calculations
+// ----------------------------------------------------
+function updateConfianzaPanel(filteredRecords) {
+  if (!filteredRecords) return;
+
+  // 1. Calculate Weighted % for C1 (Confianza Interpersonal = Code 1)
+  const c1ValidRecords = filteredRecords.filter(r => r.C1 !== null && r.C1 !== undefined && (Number(r.C1) === 1 || Number(r.C1) === 2));
+  const c1TrustWeightedSum = c1ValidRecords
+    .filter(r => Number(r.C1) === 1)
+    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+  const c1TotalWeightedSum = c1ValidRecords
+    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+
+  const trustPct = c1TotalWeightedSum > 0 ? (c1TrustWeightedSum / c1TotalWeightedSum) * 100 : 0;
+
+  // 2. Calculate Weighted % for C2 (Participación Activa = Code 1)
+  const c2ValidRecords = filteredRecords.filter(r => r.C2 !== null && r.C2 !== undefined && (Number(r.C2) === 1 || Number(r.C2) === 2));
+  const c2YesWeightedSum = c2ValidRecords
+    .filter(r => Number(r.C2) === 1)
+    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+  const c2TotalWeightedSum = c2ValidRecords
+    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+
+  const partPct = c2TotalWeightedSum > 0 ? (c2YesWeightedSum / c2TotalWeightedSum) * 100 : 0;
+
+  // 3. Update Top Organization C2_2_RECOD
+  const c22Counts = calculateWeightedCounts(filteredRecords, "C2_2_RECOD");
+  let topOrg = { name: "Organizaciones sociales", pct: 0 };
+  for (const [oName, oData] of Object.entries(c22Counts)) {
+    if (oData.percentage > topOrg.pct) {
+      topOrg = { name: oName, pct: oData.percentage };
+    }
+  }
+
+  // 4. Update KPI Card DOM
+  const elTrust = document.getElementById("kpi-confianza-pct");
+  const elPart = document.getElementById("kpi-participacion-pct");
+  const elTopOrg = document.getElementById("kpi-top-org");
+
+  if (elTrust) elTrust.textContent = `${trustPct.toFixed(1)}%`;
+  if (elPart) elPart.textContent = `${partPct.toFixed(1)}%`;
+  if (elTopOrg) elTopOrg.textContent = topOrg.name;
+
+  // 5. Update Doughnut Chart (chart-confianza-canvas)
+  const noTrustWeightedSum = c1TotalWeightedSum - c1TrustWeightedSum;
+  renderConfianzaChart(c1TrustWeightedSum, noTrustWeightedSum);
+
+  // 6. Update Bar Chart (chart-participacion-canvas)
+  renderParticipacionChart(c22Counts);
 }
 
 // ----------------------------------------------------
@@ -533,12 +563,16 @@ function renderRumboChart(rumboCounts) {
   });
 }
 
-function renderConfianzaChart(c1Counts) {
+function renderConfianzaChart(trustWeightedSum, noTrustWeightedSum) {
   const ctx = document.getElementById("chart-confianza-canvas");
   if (!ctx) return;
 
+  const total = trustWeightedSum + noTrustWeightedSum;
+  const trustPct = total > 0 ? ((trustWeightedSum / total) * 100).toFixed(1) : 0;
+  const noTrustPct = total > 0 ? ((noTrustWeightedSum / total) * 100).toFixed(1) : 0;
+
   const labels = ["Se puede confiar en las personas", "No se puede confiar en las personas"];
-  const data = labels.map(l => c1Counts[l] ? c1Counts[l].percentage.toFixed(1) : 0);
+  const data = [trustPct, noTrustPct];
 
   if (charts.confianza) charts.confianza.destroy();
 
@@ -1017,7 +1051,7 @@ function renderExplorerTable() {
   filteredRecords.forEach(r => {
     const yVal = r[varY];
     if (ySet.has(yVal)) {
-      const w = r.weight || 1.0;
+      const w = Number(r.weight || r.PONDERADOR) || 1.0;
       colTotals[yVal].weight += w;
       colTotals[yVal].count += 1;
       grandTotalWeight += w;
@@ -1050,7 +1084,7 @@ function renderExplorerTable() {
       const groupRecords = filteredRecords.filter(r => String(r[varX]) === String(xVal) && String(r[varY]) === String(yVal));
       const cellCount = groupRecords.length;
       let cellWeight = 0;
-      groupRecords.forEach(r => cellWeight += (r.weight || 1.0));
+      groupRecords.forEach(r => cellWeight += (Number(r.weight || r.PONDERADOR) || 1.0));
 
       rowWeight += cellWeight;
       rowCount += cellCount;
@@ -1122,7 +1156,7 @@ function exportExplorerCSV() {
   const colTotals = {};
   yValues.forEach(yVal => { colTotals[yVal] = 0; });
   filteredRecords.forEach(r => {
-    if (ySet.has(r[varY])) colTotals[r[varY]] += (r.weight || 1.0);
+    if (ySet.has(r[varY])) colTotals[r[varY]] += (Number(r.weight || r.PONDERADOR) || 1.0);
   });
 
   let csv = `"${varX} / ${varY.toUpperCase()}",`;
@@ -1136,7 +1170,7 @@ function exportExplorerCSV() {
     yValues.forEach(yVal => {
       const groupRecords = filteredRecords.filter(r => String(r[varX]) === String(xVal) && String(r[varY]) === String(yVal));
       let cellWeight = 0;
-      groupRecords.forEach(r => cellWeight += (r.weight || 1.0));
+      groupRecords.forEach(r => cellWeight += (Number(r.weight || r.PONDERADOR) || 1.0));
       const colWeight = colTotals[yVal];
       const cellPct = colWeight > 0 ? (cellWeight / colWeight) * 100 : 0;
       csv += `${cellPct.toFixed(1)}%,`;
