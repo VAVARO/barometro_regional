@@ -804,13 +804,16 @@ function renderGobernanzaChart(filtered) {
     let regW = 0;
 
     filtered.forEach(r => {
-      const val = Math.round(Number(r[c.code]));
-      const w = Number(r.PONDERADOR || r.weight) || 1.0;
+      const rawVal = r[c.code];
+      if (rawVal !== null && rawVal !== undefined) {
+        const val = Math.round(Number(rawVal));
+        const w = Number(r.PONDERADOR || r.weight) || 1.0;
 
-      if (val === 1) {
-        nacW += w; // 1 = Autoridades Nacionales
-      } else if (val === 2 || val === 3) {
-        regW += w; // 2 = Autoridades Regionales, 3 = Autoridades Comunales
+        if (val === 1) {
+          nacW += w; // 1 = Autoridades Nacionales
+        } else if (val === 2 || val === 3) {
+          regW += w; // 2 = Autoridades Regionales, 3 = Autoridades Comunales
+        }
       }
     });
 
@@ -831,8 +834,16 @@ function renderGobernanzaChart(filtered) {
     data: {
       labels: labels,
       datasets: [
-        { label: "Decisión Regional/Comunal", data: regPct, backgroundColor: BRAND_COLORS.secondary },
-        { label: "Decisión Gobierno Nacional", data: nacPct, backgroundColor: BRAND_COLORS.primary }
+        { 
+          label: "Decisión Regional/Comunal", 
+          data: regPct, 
+          backgroundColor: BRAND_COLORS.secondary || "#00A3E0" 
+        },
+        { 
+          label: "Decisión Gobierno Nacional", 
+          data: nacPct, 
+          backgroundColor: BRAND_COLORS.primary || "#0A2540" 
+        }
       ]
     },
     options: {
