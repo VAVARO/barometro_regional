@@ -119,7 +119,8 @@ def process_data():
         clean_v_labels = {str(k): clean_str(v) for k, v in v_labels.items()}
         variable_info[col] = {
             "label": lbl,
-            "value_labels": clean_v_labels
+            "value_labels": clean_v_labels,
+            "values": clean_v_labels
         }
         
     def calculate_group_summary(sub_df):
@@ -251,6 +252,7 @@ def process_data():
             "gses": ["Todos", "AB", "C1a", "C1b", "C2", "C3", "D", "E"],
             "variable_info": variable_info
         },
+        "variables": variable_info,
         "overall": overall_summary,
         "by_comuna": comuna_summaries,
         "records": records
@@ -260,7 +262,7 @@ def process_data():
     with open("data/barometro_summary.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
         
-    print(f"Successfully generated data/barometro_summary.json with uppercase SPSS columns COMUNA, AREA, TRAMOS, GSE, PONDERADOR.")
+    print(f"Successfully generated data/barometro_summary.json including appData.variables mapping.")
 
 if __name__ == "__main__":
     process_data()

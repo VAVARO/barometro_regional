@@ -40,53 +40,50 @@ async function initApp() {
 function getVariableLabel(varName, code) {
   if (code === null || code === undefined || code === "") return "";
 
-  // Explicit Fallbacks for core survey questions (takes precedence to avoid SPSS encoding quirks)
+  // 1. Core Fallback Maps
   if (varName === "B1") {
-    const mapB1 = { "1": "Progresando", "1.0": "Progresando", "2": "Estancada", "2.0": "Estancada", "3": "En decadencia", "3.0": "En decadencia" };
-    if (mapB1[code] || mapB1[String(code)]) return mapB1[code] || mapB1[String(code)];
+    const mapB1 = { "1": "Progresando", "2": "Estancada", "3": "En decadencia" };
+    if (mapB1[Math.round(Number(code))]) return mapB1[Math.round(Number(code))];
   }
   if (varName === "C1") {
-    const mapC1 = { "1": "Se puede confiar en las personas", "1.0": "Se puede confiar en las personas", "2": "No se puede confiar en las personas", "2.0": "No se puede confiar en las personas" };
-    if (mapC1[code] || mapC1[String(code)]) return mapC1[code] || mapC1[String(code)];
+    const mapC1 = { "1": "Se puede confiar en las personas", "2": "No se puede confiar en las personas" };
+    if (mapC1[Math.round(Number(code))]) return mapC1[Math.round(Number(code))];
   }
-  if (varName === "C2") {
-    const mapC2 = { "1": "Sí", "1.0": "Sí", "2": "No", "2.0": "No" };
-    if (mapC2[code] || mapC2[String(code)]) return mapC2[code] || mapC2[String(code)];
+  if (varName === "C2" || varName === "I5") {
+    const mapYesNo = { "1": "Sí", "2": "No" };
+    if (mapYesNo[Math.round(Number(code))]) return mapYesNo[Math.round(Number(code))];
   }
   if (varName === "C2_2_RECOD") {
     const mapC2_2 = {
-      "1": "Voluntariado", "1.0": "Voluntariado",
-      "2": "Talleres y agrupaciones", "2.0": "Talleres y agrupaciones",
-      "3": "Organizaciones sociales", "3.0": "Organizaciones sociales",
-      "4": "Organizaciones políticas", "4.0": "Organizaciones políticas",
-      "5": "Organizaciones gremiales", "5.0": "Organizaciones gremiales",
-      "444": "Otro", "444.0": "Otro"
+      "1": "Voluntariado",
+      "2": "Talleres y agrupaciones",
+      "3": "Organizaciones sociales",
+      "4": "Organizaciones políticas",
+      "5": "Organizaciones gremiales",
+      "444": "Otro"
     };
-    if (mapC2_2[code] || mapC2_2[String(code)]) return mapC2_2[code] || mapC2_2[String(code)];
-  }
-  if (varName === "I5") {
-    const mapI5 = { "1": "Sí", "1.0": "Sí", "2": "No", "2.0": "No" };
-    if (mapI5[code] || mapI5[String(code)]) return mapI5[code] || mapI5[String(code)];
+    if (mapC2_2[Math.round(Number(code))]) return mapC2_2[Math.round(Number(code))];
   }
 
-  // Demographic / Filter keys that are already human strings
-  if (varName === "comuna" || varName === "zona" || varName === "edad" || varName === "gse" || varName === "sexo") {
+  // Demographics filter strings
+  if (["comuna", "zona", "edad", "gse", "sexo"].includes(varName)) {
     return String(code);
   }
 
-  // Lookup in metadata variable_info value_labels
-  if (appData && appData.metadata && appData.metadata.variable_info && appData.metadata.variable_info[varName]) {
-    const vMap = appData.metadata.variable_info[varName].value_labels;
+  // 2. Lookup in appData.variables (Primary) or appData.metadata
+  const varObj = (appData && appData.variables && appData.variables[varName]) 
+              || (appData && appData.metadata && appData.metadata.variable_info && appData.metadata.variable_info[varName]);
+
+  if (varObj) {
+    const vMap = varObj.values || varObj.value_labels;
     if (vMap) {
+      const numKey = Math.round(Number(code));
       if (vMap[code]) return vMap[code];
       if (vMap[String(code)]) return vMap[String(code)];
-
-      const num = Number(code);
-      if (!isNaN(num)) {
-        if (vMap[num]) return vMap[num];
-        if (vMap[num.toFixed(1)]) return vMap[num.toFixed(1)];
-        if (vMap[String(Math.floor(num)) + ".0"]) return vMap[String(Math.floor(num)) + ".0"];
-        if (vMap[String(Math.floor(num))]) return vMap[String(Math.floor(num))];
+      if (!isNaN(numKey)) {
+        if (vMap[numKey]) return vMap[numKey];
+        if (vMap[String(numKey)]) return vMap[String(numKey)];
+        if (vMap[numKey + ".0"]) return vMap[numKey + ".0"];
       }
     }
   }
@@ -224,17 +221,19 @@ function setupModals() {
 
 function renderVariableDictionary(filterText = "") {
   const tbody = document.getElementById("dict-table-body");
-  if (!tbody || !appData || !appData.metadata || !appData.metadata.variable_info) return;
+  if (!tbody || !appData) return;
+
+  const varInfo = appData.variables || (appData.metadata && appData.metadata.variable_info);
+  if (!varInfo) return;
 
   const query = filterText.toLowerCase().trim();
   tbody.innerHTML = "";
 
-  const varInfo = appData.metadata.variable_info;
   let count = 0;
 
   for (const [code, info] of Object.entries(varInfo)) {
     const label = info.label || "";
-    const vLabels = info.value_labels || {};
+    const vLabels = info.values || info.value_labels || {};
 
     const optionsArray = Object.entries(vLabels).map(([k, v]) => `${k}: ${v}`);
     const optionsStr = optionsArray.join(", ");
@@ -786,7 +785,7 @@ function renderServiciosChart(filtered) {
 
 function renderGobernanzaChart(filtered) {
   const ctx = document.getElementById("chart-gobernanza-canvas");
-  if (!ctx) return;
+  if (!ctx || !filtered || filtered.length === 0) return;
 
   const cols = [
     { code: "G1_A", name: "Salud Pública" },
@@ -801,15 +800,27 @@ function renderGobernanzaChart(filtered) {
   const regPct = [];
 
   cols.forEach(c => {
-    const counts = calculateWeightedCounts(filtered, c.code);
-    const total = (counts["Autoridades nacionales"]?.weighted_count || counts["1.0"]?.weighted_count || 0) + 
-                  (counts["Autoridades comunales + regionales"]?.weighted_count || counts["2.0"]?.weighted_count || 0);
+    let nacW = 0;
+    let regW = 0;
+
+    filtered.forEach(r => {
+      const val = Math.round(Number(r[c.code]));
+      const w = Number(r.PONDERADOR || r.weight) || 1.0;
+
+      if (val === 1) {
+        nacW += w; // 1 = Autoridades Nacionales
+      } else if (val === 2 || val === 3) {
+        regW += w; // 2 = Autoridades Regionales, 3 = Autoridades Comunales
+      }
+    });
+
+    const total = nacW + regW;
     if (total > 0) {
-      nacPct.push(((counts["Autoridades nacionales"]?.weighted_count || counts["1.0"]?.weighted_count || 0) / total * 100).toFixed(1));
-      regPct.push(((counts["Autoridades comunales + regionales"]?.weighted_count || counts["2.0"]?.weighted_count || 0) / total * 100).toFixed(1));
+      nacPct.push(Number(((nacW / total) * 100).toFixed(1)));
+      regPct.push(Number(((regW / total) * 100).toFixed(1)));
     } else {
-      nacPct.push(50);
-      regPct.push(50);
+      nacPct.push(0);
+      regPct.push(0);
     }
   });
 
@@ -827,6 +838,13 @@ function renderGobernanzaChart(filtered) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (item) => ` ${item.dataset.label}: ${item.raw}%`
+          }
+        }
+      },
       scales: {
         x: { stacked: true },
         y: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } }
