@@ -341,10 +341,38 @@ function getFilteredRecords() {
   if (!appData || !appData.records) return [];
 
   return appData.records.filter(r => {
-    if (filterState.comuna !== "Todas" && r.comuna !== filterState.comuna) return false;
-    if (filterState.zona !== "Todas" && r.zona !== filterState.zona) return false;
-    if (filterState.edad !== "Todos" && r.edad !== filterState.edad) return false;
-    if (filterState.gse !== "Todos" && r.gse !== filterState.gse) return false;
+    // Filter Comuna
+    if (filterState.comuna !== "Todas") {
+      const comunaLabel = r.comuna || getVariableLabel("COMUNA", r.COMUNA);
+      if (comunaLabel !== filterState.comuna) return false;
+    }
+
+    // Filter Zona (AREA: 1 = Urbano, 2 = Rural)
+    if (filterState.zona !== "Todas") {
+      const zonaLabel = r.zona || getVariableLabel("AREA", r.AREA);
+      if (filterState.zona === "Urbana" && !zonaLabel.toLowerCase().includes("urb")) return false;
+      if (filterState.zona === "Rural" && !zonaLabel.toLowerCase().includes("rur")) return false;
+    }
+
+    // Filter Edad (TRAMOS: 1 = 18-29, 2 = 30-44, 3 = 45-59, 4 = 60+)
+    if (filterState.edad !== "Todos") {
+      if (r.edad) {
+        if (r.edad !== filterState.edad) return false;
+      } else {
+        const tramoVal = Math.round(Number(r.TRAMOS));
+        if (filterState.edad === "18-29" && tramoVal !== 1) return false;
+        if (filterState.edad === "30-44" && tramoVal !== 2) return false;
+        if (filterState.edad === "45-59" && tramoVal !== 3) return false;
+        if (filterState.edad === "60+" && tramoVal !== 4) return false;
+      }
+    }
+
+    // Filter GSE
+    if (filterState.gse !== "Todos") {
+      const gseLabel = r.gse || getVariableLabel("GSE", r.GSE);
+      if (gseLabel !== filterState.gse) return false;
+    }
+
     return true;
   });
 }

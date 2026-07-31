@@ -211,6 +211,11 @@ def process_data():
     for idx, row in df.iterrows():
         rec = {
             "id": int(idx),
+            "COMUNA": int(row['COMUNA']) if not pd.isna(row['COMUNA']) else 0,
+            "AREA": int(row['AREA']) if not pd.isna(row['AREA']) else 0,
+            "TRAMOS": int(row['TRAMOS']) if not pd.isna(row['TRAMOS']) else 0,
+            "GSE": int(row['GSE']) if not pd.isna(row['GSE']) else 0,
+            "PONDERADOR": float(row['PONDERADOR']) if not pd.isna(row['PONDERADOR']) else 1.0,
             "comuna": comuna_labels.get(row['COMUNA'], "Otra"),
             "comuna_code": int(row['COMUNA']) if not pd.isna(row['COMUNA']) else 0,
             "zona": area_labels.get(row['AREA'], "Urbana"),
@@ -255,7 +260,7 @@ def process_data():
     with open("data/barometro_summary.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
         
-    print(f"Successfully generated data/barometro_summary.json including C1, C2, and C2_2_RECOD.")
+    print(f"Successfully generated data/barometro_summary.json with uppercase SPSS columns COMUNA, AREA, TRAMOS, GSE, PONDERADOR.")
 
 if __name__ == "__main__":
     process_data()
