@@ -131,6 +131,9 @@
       <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="uaysen">
         <span class="material-symbols-outlined text-base align-sub mr-1">school</span>UAysén
       </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="confianza">
+        <span class="material-symbols-outlined text-base align-sub mr-1">handshake</span>Confianza Social
+      </button>
       <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="explorer">
         <span class="material-symbols-outlined text-base align-sub mr-1">insights</span>Data Intelligence
       </button>
@@ -164,6 +167,7 @@
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="gobernanza">Descentralización & Gobernanza</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="medioambiente">Medioambiente & Futuro</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="uaysen">UAysén en el Territorio</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="confianza">Confianza & Cohesión Social</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="explorer">Data Intelligence</button>
         </nav>
       </div>
@@ -507,7 +511,90 @@
       </section>
     </div>
 
-    <!-- SECTION 6: DATA INTELLIGENCE EXPLORER -->
+    <!-- SECTION: CONFIANZA & COHESIÓN SOCIAL -->
+    <div id="tab-content-confianza" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Confianza Interpersonal & Capital Social</h2>
+        <p class="text-sm text-on-surface-variant">Nivel de confianza generalizada entre habitantes de la Región de Aysén y grado de participación activa en organizaciones comunitarias.</p>
+      </section>
+
+      <!-- KPI Scorecard Grid (3 Cards) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Card 1: Confianza Interpersonal Generalizada -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-secondary-container/10 rounded-xl text-secondary">
+              <span class="material-symbols-outlined text-2xl">handshake</span>
+            </div>
+            <span class="text-xs font-bold text-secondary-container bg-secondary-container/10 px-2 py-1 rounded-md">Variable C1</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Confianza Interpersonal</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-confianza-pct" class="text-3xl md:text-4xl font-extrabold text-primary font-display-lg">--%</span>
+            <span class="text-xs font-semibold text-on-surface-variant">Se puede confiar</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Porcentaje que indica que se puede confiar en las personas</p>
+        </div>
+
+        <!-- Card 2: Participación Social Activa -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+              <span class="material-symbols-outlined text-2xl">groups</span>
+            </div>
+            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md">Variable C2</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Participación Social Activa</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-participacion-pct" class="text-3xl md:text-4xl font-extrabold text-primary font-display-lg">--%</span>
+            <span class="text-xs font-semibold text-on-surface-variant">Participa activamente</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Integrantes de organizaciones o grupos comunitarios</p>
+        </div>
+
+        <!-- Card 3: Organización Principal -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-primary-container/10 rounded-xl text-primary-container">
+              <span class="material-symbols-outlined text-2xl">diversity_3</span>
+            </div>
+            <span class="text-xs font-bold text-primary bg-primary-container/10 px-2 py-1 rounded-md">Top Organización</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Organización Principal</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-top-org" class="text-lg md:text-xl font-bold text-primary truncate max-w-[200px]">--</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Tipo de organización con mayor participación</p>
+        </div>
+      </section>
+
+      <!-- Bento Grid Charts -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Chart 1: Donut Confianza (C1) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+          <div class="mb-4">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Confianza Generalizada (C1)</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Distribución de la Confianza Interpersonal</p>
+          </div>
+          <div class="relative h-72 w-full flex items-center justify-center">
+            <canvas id="chart-confianza-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Participación por Tipo de Organización (C2_2_RECOD) -->
+        <div class="lg:col-span-7 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+          <div class="mb-4">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Participación Comunitaria (C2_2)</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Participación por Tipo de Organización</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="chart-participacion-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION: DATA INTELLIGENCE EXPLORER -->
     <div id="tab-content-explorer" class="tab-panel hidden space-y-8">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Data Intelligence Explorer</h2>
@@ -523,6 +610,9 @@
               <option value="B1">Rumbo Regional (B1)</option>
               <option value="A1">Pertenencia Territorial (A1)</option>
               <option value="B2_RECOD">Top Problema Regional (B2)</option>
+              <option value="C1">Confianza Interpersonal (C1)</option>
+              <option value="C2">Participación Social (C2)</option>
+              <option value="C2_2_RECOD">Tipo de Organización (C2_2)</option>
               <option value="I5">Conocimiento UAysén (I5)</option>
             </select>
           </div>

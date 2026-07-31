@@ -7,10 +7,8 @@ import os
 def clean_str(s):
     if not isinstance(s, str):
         return s
-    # Remove null bytes from SPSS string padding
     s = ''.join(c for c in s if ord(c) >= 32 or c == '\n')
     
-    # Spanish replacement fixes for \ufffd unicode replacement chars
     s = s.replace('Ays\ufffdn', 'Aysén')
     s = s.replace('R\ufffdo Iba\ufffdez', 'Río Ibáñez')
     s = s.replace('R\ufffdo Ib\ufffda\ufffdez', 'Río Ibáñez')
@@ -114,7 +112,6 @@ def process_data():
     edad_labels = {1.0: "18-29", 2.0: "30-44", 3.0: "45-59", 4.0: "60+"}
     gse_labels = {1.0: "AB", 2.0: "C1a", 3.0: "C1b", 4.0: "C2", 5.0: "C3", 6.0: "D", 7.0: "E"}
     
-    # Clean variable info map
     variable_info = {}
     for col in meta.column_names:
         lbl = clean_str(meta.column_names_to_labels.get(col, col))
@@ -136,6 +133,9 @@ def process_data():
             "rumbo_regional": weighted_counts(sub_df['B1'], weights, meta.variable_value_labels.get('B1')),
             "top_problemas": weighted_counts(sub_df['B2_RECOD'], weights, meta.variable_value_labels.get('B2_RECOD')),
             "pertenencia": weighted_counts(sub_df['A1'], weights, meta.variable_value_labels.get('A1')),
+            "confianza_c1": weighted_counts(sub_df['C1'], weights, meta.variable_value_labels.get('C1')),
+            "participacion_c2": weighted_counts(sub_df['C2'], weights, meta.variable_value_labels.get('C2')),
+            "organizacion_c2_2": weighted_counts(sub_df['C2_2_RECOD'], weights, meta.variable_value_labels.get('C2_2_RECOD')),
             "uaysen_conocimiento": weighted_counts(sub_df['I5'], weights, meta.variable_value_labels.get('I5')),
             "uaysen_identificacion_mean": weighted_mean(sub_df['I6'], weights),
             "uaysen_nota_mean": weighted_mean(sub_df['I8'], weights),
@@ -221,6 +221,9 @@ def process_data():
             "B1": int(row['B1']) if not pd.isna(row['B1']) else None,
             "B2_RECOD": int(row['B2_RECOD']) if not pd.isna(row['B2_RECOD']) else None,
             "A1": int(row['A1']) if not pd.isna(row['A1']) else None,
+            "C1": int(row['C1']) if not pd.isna(row['C1']) else None,
+            "C2": int(row['C2']) if not pd.isna(row['C2']) else None,
+            "C2_2_RECOD": int(row['C2_2_RECOD']) if not pd.isna(row['C2_2_RECOD']) else None,
             "I5": int(row['I5']) if not pd.isna(row['I5']) else None,
             "I6": float(row['I6']) if not pd.isna(row['I6']) and row['I6'] <= 100 else None,
             "I8": float(row['I8']) if not pd.isna(row['I8']) and row['I8'] <= 7 else None
@@ -252,7 +255,7 @@ def process_data():
     with open("data/barometro_summary.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
         
-    print(f"Successfully generated data/barometro_summary.json with clean UTF-8 text.")
+    print(f"Successfully generated data/barometro_summary.json including C1, C2, and C2_2_RECOD.")
 
 if __name__ == "__main__":
     process_data()

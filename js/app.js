@@ -67,6 +67,25 @@ function getVariableLabel(varName, code) {
     const mapB1 = { "1": "Progresando", "2": "Estancada", "3": "En decadencia", "1.0": "Progresando", "2.0": "Estancada", "3.0": "En decadencia" };
     if (mapB1[code]) return mapB1[code];
   }
+  if (varName === "C1") {
+    const mapC1 = { "1": "Se puede confiar en las personas", "1.0": "Se puede confiar en las personas", "2": "No se puede confiar en las personas", "2.0": "No se puede confiar en las personas" };
+    if (mapC1[code]) return mapC1[code];
+  }
+  if (varName === "C2") {
+    const mapC2 = { "1": "Sí", "1.0": "Sí", "2": "No", "2.0": "No" };
+    if (mapC2[code]) return mapC2[code];
+  }
+  if (varName === "C2_2_RECOD") {
+    const mapC2_2 = {
+      "1": "Voluntariado", "1.0": "Voluntariado",
+      "2": "Talleres y agrupaciones", "2.0": "Talleres y agrupaciones",
+      "3": "Organizaciones sociales", "3.0": "Organizaciones sociales",
+      "4": "Organizaciones políticas", "4.0": "Organizaciones políticas",
+      "5": "Organizaciones gremiales", "5.0": "Organizaciones gremiales",
+      "444": "Otro", "444.0": "Otro"
+    };
+    if (mapC2_2[code]) return mapC2_2[code];
+  }
   if (varName === "I5") {
     const mapI5 = { "1": "Sí", "2": "No", "1.0": "Sí", "2.0": "No" };
     if (mapI5[code]) return mapI5[code];
@@ -406,6 +425,29 @@ function updateDashboard() {
   document.getElementById("kpi-problema-pct").textContent = `${topProb.pct.toFixed(1)}%`;
   document.getElementById("kpi-problema-name").textContent = topProb.name;
 
+  // Confianza C1
+  const c1Counts = calculateWeightedCounts(filtered, "C1");
+  const confPct = c1Counts["Se puede confiar en las personas"] ? c1Counts["Se puede confiar en las personas"].percentage.toFixed(1) : "0.0";
+  const elConf = document.getElementById("kpi-confianza-pct");
+  if (elConf) elConf.textContent = `${confPct}%`;
+
+  // Participación C2
+  const c2Counts = calculateWeightedCounts(filtered, "C2");
+  const partPct = c2Counts["Sí"] ? c2Counts["Sí"].percentage.toFixed(1) : "0.0";
+  const elPart = document.getElementById("kpi-participacion-pct");
+  if (elPart) elPart.textContent = `${partPct}%`;
+
+  // Top Organización C2_2_RECOD
+  const c22Counts = calculateWeightedCounts(filtered, "C2_2_RECOD");
+  let topOrg = { name: "Organizaciones sociales", pct: 0 };
+  for (const [oName, oData] of Object.entries(c22Counts)) {
+    if (oData.percentage > topOrg.pct) {
+      topOrg = { name: oName, pct: oData.percentage };
+    }
+  }
+  const elTopOrg = document.getElementById("kpi-top-org");
+  if (elTopOrg) elTopOrg.textContent = topOrg.name;
+
   // UAysén Identificación (I6: 0-100)
   const identMean = calculateWeightedMean(filtered, "I6");
   const identScore = identMean ? identMean.toFixed(1) : "--";
@@ -435,6 +477,8 @@ function updateDashboard() {
   renderAmbientalChart(filtered);
   renderEconomiaChart(filtered);
   renderUAysenceAporteChart(filtered);
+  renderConfianzaChart(c1Counts);
+  renderParticipacionChart(c22Counts);
 
   // 3. Update Explorer
   renderExplorerTable();
@@ -485,6 +529,75 @@ function renderRumboChart(rumboCounts) {
           }
         }
       }
+    }
+  });
+}
+
+function renderConfianzaChart(c1Counts) {
+  const ctx = document.getElementById("chart-confianza-canvas");
+  if (!ctx) return;
+
+  const labels = ["Se puede confiar en las personas", "No se puede confiar en las personas"];
+  const data = labels.map(l => c1Counts[l] ? c1Counts[l].percentage.toFixed(1) : 0);
+
+  if (charts.confianza) charts.confianza.destroy();
+
+  charts.confianza = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: [BRAND_COLORS.accent, BRAND_COLORS.primary],
+        borderWidth: 2,
+        borderColor: "#ffffff"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            label: (item) => ` ${item.label}: ${item.raw}%`
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderParticipacionChart(c22Counts) {
+  const ctx = document.getElementById("chart-participacion-canvas");
+  if (!ctx) return;
+
+  const sorted = Object.entries(c22Counts)
+    .map(([k, v]) => ({ name: k, pct: v.percentage }))
+    .sort((a, b) => b.pct - a.pct);
+
+  const labels = sorted.map(s => s.name);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.participacion) charts.participacion.destroy();
+
+  charts.participacion = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Participación",
+        data: data,
+        backgroundColor: BRAND_COLORS.emerald,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
     }
   });
 }

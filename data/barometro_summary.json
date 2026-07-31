@@ -48,8 +48,8 @@
           "2.0": "Presencial"
         }
       },
-      "DISTRITO": {
-        "label": "DISTRITO",
+      "DISíTRITO": {
+        "label": "DISíTRITO",
         "value_labels": {}
       },
       "ZON_LOC": {
@@ -122,7 +122,7 @@
       "FILTRO_1": {
         "label": "¿Usted vive en una comuna de la Región de Aysén desde hace al menos un año?",
         "value_labels": {
-          "1.0": "Sí, vivo en la Región de Aysén",
+          "1.0": "Síí, vivo en la Región de Aysén",
           "2.0": "Vivo en la Región de Aysén pero me mude hace menos de 1 año",
           "3.0": "No vivo en la Región de Aysén",
           "98.0": "No responde"
@@ -132,7 +132,7 @@
         "label": "¿Cuál es su edad?",
         "value_labels": {}
       },
-      "TRAMOS": {
+      "TRAMOSí": {
         "label": "Edad en tramos",
         "value_labels": {
           "1.0": "18 a 29 años",
@@ -141,8 +141,8 @@
           "4.0": "60 años o más"
         }
       },
-      "SEXO": {
-        "label": "Sexo",
+      "SíEXO": {
+        "label": "Síexo",
         "value_labels": {
           "1.0": "Mujer",
           "2.0": "Hombre",
@@ -170,33 +170,33 @@
         }
       },
       "A1": {
-        "label": "Si tuviera que definir el lugar o territorio al que usted pertenece, ¿qué lugar elegiría en primer lugar?",
+        "label": "Síi tuviera que definir el lugar o territorio al que usted pertenece, ¿qué lugar elegiría en primer lugar?",
         "value_labels": {
-          "1.0": "Su barrio",
-          "2.0": "Su pueblo o localidad",
-          "3.0": "Su comuna",
-          "4.0": "Su ciudad",
-          "5.0": "Su región",
-          "6.0": "Su país",
-          "98.0": "NS / NR"
+          "1.0": "Síu barrio",
+          "2.0": "Síu pueblo o localidad",
+          "3.0": "Síu comuna",
+          "4.0": "Síu ciudad",
+          "5.0": "Síu región",
+          "6.0": "Síu país",
+          "98.0": "NSí / NR"
         }
       },
       "A2": {
-        "label": "Si de usted dependiera, ¿Le gustaría cambiarse o irse a vivir a otro lugar?",
+        "label": "Síi de usted dependiera, ¿Le gustaría cambiarse o irse a vivir a otro lugar?",
         "value_labels": {
-          "1.0": "SÍ",
+          "1.0": "SíÍ",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "A3": {
-        "label": "Si de usted dependiera, ¿se cambiaría a vivir a otro lugar dentro de la comuna, a otra comuna de la región, a otra región o a otro país?",
+        "label": "Síi de usted dependiera, ¿se cambiaría a vivir a otro lugar dentro de la comuna, a otra comuna de la región, a otra región o a otro país?",
         "value_labels": {
-          "1.0": "Sí, a otro lugar dentro de la comuna",
-          "2.0": "Sí, a otra comuna dentro de la Región",
-          "3.0": "Sí, a otra Región",
-          "4.0": "Sí, a otro país",
-          "98.0": "NS/NR"
+          "1.0": "Síí, a otro lugar dentro de la comuna",
+          "2.0": "Síí, a otra comuna dentro de la Región",
+          "3.0": "Síí, a otra Región",
+          "4.0": "Síí, a otro país",
+          "98.0": "NSí/NR"
         }
       },
       "B1": {
@@ -205,7 +205,7 @@
           "1.0": "Progresando",
           "2.0": "Estancada",
           "3.0": "En decadencia",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B2": {
@@ -233,13 +233,13 @@
           "61.0": "Descentralización",
           "62.0": "Burocracia",
           "63.0": "Uso de recursos públicos",
-          "71.0": "Crisis hídrica/Sequía",
+          "71.0": "Crisis hídrica/Síequía",
           "72.0": "Contaminación ambiental",
           "73.0": "Cambio Climático",
           "81.0": "Calidad de las calles",
           "82.0": "Tráfico",
           "83.0": "Conectividad",
-          "91.0": "Salud",
+          "91.0": "Síalud",
           "92.0": "Educación",
           "93.0": "Vivienda y Urbanismo",
           "94.0": "Migración",
@@ -257,7 +257,7 @@
       "B2_RECOD": {
         "label": "De acuerdo con lo que usted sabe o lo que ha visto en la región de Aysén, ¿cuál es el problema más urgente o importante que las autoridades deberían dedicar mayor esfuerzo en solucionar?",
         "value_labels": {
-          "1.0": "Seguridad",
+          "1.0": "Síeguridad",
           "2.0": "Pobreza y desigualdad",
           "3.0": "Economía",
           "4.0": "Empleo",
@@ -298,13 +298,13 @@
           "61.0": "Descentralización",
           "62.0": "Burocracia",
           "63.0": "Uso de recursos públicos",
-          "71.0": "Crisis hídrica/Sequía",
+          "71.0": "Crisis hídrica/Síequía",
           "72.0": "Contaminación ambiental",
           "73.0": "Cambio Climático",
           "81.0": "Calidad de las calles",
           "82.0": "Tráfico",
           "83.0": "Conectividad",
-          "91.0": "Salud",
+          "91.0": "Síalud",
           "92.0": "Educación",
           "93.0": "Vivienda y Urbanismo",
           "94.0": "Migración",
@@ -322,7 +322,7 @@
       "B2_2_RECOD": {
         "label": "¿y el segundo problema más importante?",
         "value_labels": {
-          "1.0": "Seguridad",
+          "1.0": "Síeguridad",
           "2.0": "Pobreza y desigualdad",
           "3.0": "Economía",
           "4.0": "Empleo",
@@ -349,7 +349,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_B": {
@@ -362,7 +362,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_C": {
@@ -375,7 +375,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_D": {
@@ -388,7 +388,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_E": {
@@ -401,11 +401,11 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_F": {
-        "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+        "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
         "value_labels": {
           "1.0": "1",
           "2.0": "2",
@@ -414,7 +414,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_G": {
@@ -427,7 +427,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_H": {
@@ -440,7 +440,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B3_I": {
@@ -453,7 +453,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B4_A": {
@@ -466,7 +466,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B4_B": {
@@ -479,7 +479,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B4_C": {
@@ -492,7 +492,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B4_D": {
@@ -505,7 +505,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "B4_E": {
@@ -518,23 +518,23 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "C1": {
         "label": "Usted diría que en general…",
         "value_labels": {
-          "1.0": "Se puede confiar en las personas",
+          "1.0": "Síe puede confiar en las personas",
           "2.0": "No se puede confiar en las personas",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "C2": {
         "label": "¿Participa usted activamente en organizaciones sociales tales como juntas de vecinos, clubes deportivos, agrupaciones culturales, grupos de voluntariado o agrupaciones de intereses como partidos políticos y sindicatos?",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "C2_2": {
@@ -546,18 +546,18 @@
         "value_labels": {
           "11.0": "Bomberos",
           "12.0": "Medioambiental",
-          "13.0": "Sociales",
+          "13.0": "Síociales",
           "21.0": "Deportivo",
           "22.0": "Artístico",
           "23.0": "Cultural",
           "31.0": "Junta de vecinos",
-          "32.0": "Sindicato",
+          "32.0": "Síindicato",
           "33.0": "Religiosa",
           "34.0": "Derechos humanos",
           "35.0": "Centro de padres",
           "36.0": "Campesino/agua",
           "37.0": "Adulto mayor",
-          "38.0": "Salud",
+          "38.0": "Síalud",
           "41.0": "Partidos políticos",
           "51.0": "Gremiales",
           "444.0": "Otro",
@@ -581,121 +581,121 @@
       "D1_A": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La instalación o funcionamiento de centrales energéticas",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_B": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La instalación o funcionamiento de faenas mineras",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_C": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | Los efectos de la pesca industrial sobre el mar y las caletas",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_D": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La contaminación del agua o aire",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_E": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La contaminación del suelo",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_F": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La alteración del paisaje y el deterioro del patrimonio natural",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_G": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La construcción de autopistas y carreteras",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "D1_H": {
         "label": "En la Región de Aysén, ¿usted o su familia se han sentido afectados por alguna de las siguientes situaciones? | La actividad de la salmonicultura",
         "value_labels": {
-          "1.0": "Sí, me he sentido afectado",
+          "1.0": "Síí, me he sentido afectado",
           "2.0": "No me he sentido afectado",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_A": {
         "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Canales de tv nacionales",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_B": {
         "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Canales de tv locales o regionales",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_C": {
         "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Radios nacionales",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_D": {
         "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Radios locales o comunitarias",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_E": {
-        "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Sitios web de noticias nacionales",
+        "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Síitios web de noticias nacionales",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_F": {
-        "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Sitios web de noticias regionales",
+        "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Síitios web de noticias regionales",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E1_G": {
         "label": "Normalmente, de los siguientes medios de comunicación que le nombraré, ¿usted se informa sobre las cosas que pasan en su región a través de…? | Redes sociales (WhatsApp, Facebook, Instagram, etc.)",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "E2": {
@@ -705,8 +705,8 @@
           "2.0": "Canales de tv locales o regionales",
           "3.0": "Radios nacionales",
           "4.0": "Radios locales o comunitarias",
-          "5.0": "Sitios web de noticias nacionales",
-          "6.0": "Sitios web de noticias regionales",
+          "5.0": "Síitios web de noticias nacionales",
+          "6.0": "Síitios web de noticias regionales",
           "7.0": "Redes sociales (whatsapp, facebook, instagram, etc)",
           "77.0": "No aplica"
         }
@@ -724,7 +724,7 @@
         "value_labels": {}
       },
       "F1_4": {
-        "label": "Del siguiente listado. En su opinión ¿cuál es la principal ventaja que tiene la Región de Aysén para avanzar en el proceso de desarrollo regional? | Sus riquezas naturales",
+        "label": "Del siguiente listado. En su opinión ¿cuál es la principal ventaja que tiene la Región de Aysén para avanzar en el proceso de desarrollo regional? | Síus riquezas naturales",
         "value_labels": {}
       },
       "F1_5": {
@@ -736,7 +736,7 @@
         "value_labels": {}
       },
       "F1_7": {
-        "label": "Del siguiente listado. En su opinión ¿cuál es la principal ventaja que tiene la Región de Aysén para avanzar en el proceso de desarrollo regional? | Sus tradiciones culturales",
+        "label": "Del siguiente listado. En su opinión ¿cuál es la principal ventaja que tiene la Región de Aysén para avanzar en el proceso de desarrollo regional? | Síus tradiciones culturales",
         "value_labels": {}
       },
       "F1_8": {
@@ -749,32 +749,32 @@
           "1.0": "La preocupación de los empresarios por el desarrollo de la región",
           "2.0": "La capacidad de trabajo de su gente",
           "3.0": "La calidad de sus autoridades y dirigentes",
-          "4.0": "Sus riquezas naturales",
+          "4.0": "Síus riquezas naturales",
           "5.0": "El orden público y la seguridad",
           "6.0": "La calidad y eficiencia de los servicios públicos",
-          "7.0": "Sus tradiciones culturales",
+          "7.0": "Síus tradiciones culturales",
           "8.0": "La calidad de sus profesionales"
         }
       },
       "F2": {
-        "label": "Del siguiente listado. En su opinión ¿cuál es la principal ventaja que tiene la Región de Aysén para avanzar en el proceso de desarrollo regional? Segunda mención",
+        "label": "Del siguiente listado. En su opinión ¿cuál es la principal ventaja que tiene la Región de Aysén para avanzar en el proceso de desarrollo regional? Síegunda mención",
         "value_labels": {
           "1.0": "La preocupación de los empresarios por el desarrollo de la región",
           "2.0": "La capacidad de trabajo de su gente",
           "3.0": "La calidad de sus autoridades y dirigentes",
-          "4.0": "Sus riquezas naturales",
+          "4.0": "Síus riquezas naturales",
           "5.0": "El orden público y la seguridad",
           "6.0": "La calidad y eficiencia de los servicios públicos",
-          "7.0": "Sus tradiciones culturales",
+          "7.0": "Síus tradiciones culturales",
           "8.0": "La calidad de sus profesionales"
         }
       },
       "F3": {
         "label": "De acuerdo con lo que usted sabe o conoce ¿actualmente en la región existe una estrategia regional de desarrollo que oriente la toma de decisiones del Gobierno Regional?",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_A": {
@@ -784,7 +784,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_B": {
@@ -794,7 +794,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_C": {
@@ -804,7 +804,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_D": {
@@ -814,7 +814,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_E": {
@@ -824,7 +824,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_F": {
@@ -834,7 +834,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_G": {
@@ -844,7 +844,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_H": {
@@ -854,7 +854,7 @@
           "2.0": "Aporta ALGO",
           "3.0": "Aporta POCO",
           "4.0": "Aporta NADA",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_A": {
@@ -863,7 +863,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_B": {
@@ -872,7 +872,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_C": {
@@ -881,7 +881,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_D": {
@@ -890,7 +890,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_E": {
@@ -899,7 +899,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_F": {
@@ -908,7 +908,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_G": {
@@ -917,7 +917,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_H": {
@@ -926,7 +926,7 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_I": {
@@ -935,24 +935,24 @@
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades regionales",
           "3.0": "Autoridades comunales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G2": {
         "label": "Pensando en la situación actual de la región de Aysén ¿Ud. cree que en el último tiempo..?",
         "value_labels": {
-          "1.0": "Ha aumentado el centralismo y la dependencia frente a la Capital (Stgo)",
+          "1.0": "Ha aumentado el centralismo y la dependencia frente a la Capital (Sítgo)",
           "2.0": "Hay mayor autonomía de la región frente a la capital",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G3": {
-        "label": "Según lo que usted sabe o conoce, ¿la elección de gobernadores y el traspaso de competencias y atribuciones a los gobiernos regionales?",
+        "label": "Síegún lo que usted sabe o conoce, ¿la elección de gobernadores y el traspaso de competencias y atribuciones a los gobiernos regionales?",
         "value_labels": {
           "1.0": "Ha sido un impulso al desarrollo de la región",
           "2.0": "Ha dejado las cosas más o menos igual que antes",
           "3.0": "Ha traído más problemas para el desarrollo de la región",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "H1": {
@@ -961,7 +961,7 @@
           "1.0": "La democracia es preferible a cualquier otra forma de gobierno",
           "2.0": "En algunas circunstancias, un gobierno autoritario es preferible a uno democrático",
           "3.0": "A la gente como uno, nos da lo mismo un régimen democrático que uno no democrático",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "H2": {
@@ -973,7 +973,7 @@
           "4.0": "Centro Derecha",
           "5.0": "Derecha",
           "97.0": "Ninguna",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_A": {
@@ -983,7 +983,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_B": {
@@ -993,7 +993,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_C": {
@@ -1003,7 +1003,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_D": {
@@ -1013,7 +1013,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_E": {
@@ -1023,7 +1023,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_F": {
@@ -1033,7 +1033,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_G": {
@@ -1043,7 +1043,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_H": {
@@ -1053,7 +1053,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_I": {
@@ -1063,7 +1063,7 @@
           "2.0": "Poco importante",
           "3.0": "Algo importante",
           "4.0": "Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_A": {
@@ -1073,7 +1073,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy deacuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_B": {
@@ -1083,7 +1083,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy deacuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_C": {
@@ -1093,7 +1093,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy deacuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_D": {
@@ -1103,7 +1103,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy deacuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_E": {
@@ -1113,7 +1113,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy deacuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_F": {
@@ -1123,7 +1123,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy deacuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_A": {
@@ -1133,7 +1133,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_B": {
@@ -1143,7 +1143,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_C": {
@@ -1153,7 +1153,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_D": {
@@ -1163,7 +1163,7 @@
           "2.0": "En desacuerdo",
           "3.0": "De acuerdo",
           "4.0": "Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_A": {
@@ -1173,7 +1173,7 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_B": {
@@ -1183,7 +1183,7 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_C": {
@@ -1193,7 +1193,7 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_D": {
@@ -1203,7 +1203,7 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_E": {
@@ -1213,7 +1213,7 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_F": {
@@ -1223,7 +1223,7 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_G": {
@@ -1233,15 +1233,15 @@
           "2.0": "Poco urgente",
           "3.0": "Algo urgente",
           "4.0": "Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I5": {
         "label": "En el último año, ¿ha escuchado hablar sobre la Universidad de Aysén?",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I51": {
@@ -1267,9 +1267,9 @@
           "13.0": "Relizan investigaciones",
           "14.0": "Fomenta la educación de la región",
           "15.0": "Realizan charlas y capacitaciones",
-          "21.0": "Solo de nombre",
+          "21.0": "Síolo de nombre",
           "22.0": "Es una universidad nueva",
-          "23.0": "Sobre la oferta de carreras",
+          "23.0": "Síobre la oferta de carreras",
           "24.0": "Conoce a profesionales egresados y estudiantes",
           "31.0": "Problemas financieros",
           "32.0": "Mala administración",
@@ -1294,7 +1294,7 @@
           "3.0": "Indiferente",
           "4.0": "Alto",
           "5.0": "Muy alto",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I7_2": {
@@ -1305,7 +1305,7 @@
           "3.0": "Indiferente",
           "4.0": "Alto",
           "5.0": "Muy alto",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I7_3": {
@@ -1316,7 +1316,7 @@
           "3.0": "Indiferente",
           "4.0": "Alto",
           "5.0": "Muy alto",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I8": {
@@ -1329,7 +1329,7 @@
           "5.0": "5",
           "6.0": "6",
           "7.0": "7",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "J1": {
@@ -1345,8 +1345,8 @@
           "8.0": "Universitaria incompleta",
           "9.0": "Universitaria completa",
           "10.0": "Post grado (máster, doctorado o equivalente)",
-          "11.0": "Soy yo la o el principal sostenedor(a)",
-          "98.0": "NS/NR"
+          "11.0": "Síoy yo la o el principal sostenedor(a)",
+          "98.0": "NSí/NR"
         }
       },
       "J2": {
@@ -1362,31 +1362,31 @@
           "8.0": "Universitaria incompleta",
           "9.0": "Universitaria completa",
           "10.0": "Post grado (máster, doctorado o equivalente)",
-          "11.0": "Soy yo la o el principal sostenedor(a)",
-          "98.0": "NS/NR"
+          "11.0": "Síoy yo la o el principal sostenedor(a)",
+          "98.0": "NSí/NR"
         }
       },
       "CIUO08_1N": {
         "label": "CIUO 08 1 Digito",
         "value_labels": {
-          "0.0": "OCUPACIONES DE LAS FUERZAS ARMADAS",
-          "1.0": "DIRECTORES, GERENTES Y ADMINISTRADORES",
-          "2.0": "PROFESIONALES, CIENTÍFICOS E INTELECTUALES",
-          "3.0": "TÉCNICOS Y PROFESIONALES DE NIVEL MEDIO",
-          "4.0": "PERSONAL DE APOYO ADMINISTRATIVO",
-          "5.0": "TRABAJADORES DE LOS SERVICIOS Y VENDEDORES DE COMERCIOS Y MERCADOS",
-          "6.0": "AGRICULTORES Y TRABAJADORES CALIFICADOS AGROPECUARIOS, FORESTALES Y PESQUEROS",
-          "7.0": "ARTESANOS Y OPERARIOS DE OFICIOS",
-          "8.0": "OPERADORES DE INSTALACIONES, MÁQUINAS Y ENSAMBLADORES",
-          "9.0": "OCUPACIONES ELEMENTALES",
+          "0.0": "OCUPACIONESí DE LASí FUERZASí ARMADASí",
+          "1.0": "DIRECTORESí, GERENTESí Y ADMINISíTRADORESí",
+          "2.0": "PROFESíIONALESí, CIENTÍFICOSí E INTELECTUALESí",
+          "3.0": "TÉCNICOSí Y PROFESíIONALESí DE NIVEL MEDIO",
+          "4.0": "PERSíONAL DE APOYO ADMINISíTRATIVO",
+          "5.0": "TRABAJADORESí DE LOSí SíERVICIOSí Y VENDEDORESí DE COMERCIOSí Y MERCADOSí",
+          "6.0": "AGRICULTORESí Y TRABAJADORESí CALIFICADOSí AGROPECUARIOSí, FORESíTALESí Y PESíQUEROSí",
+          "7.0": "ARTESíANOSí Y OPERARIOSí DE OFICIOSí",
+          "8.0": "OPERADORESí DE INSíTALACIONESí, MÁQUINASí Y ENSíAMBLADORESí",
+          "9.0": "OCUPACIONESí ELEMENTALESí",
           "777.0": "NO APLICA",
-          "998.0": "NO RESPONDE"
+          "998.0": "NO RESíPONDE"
         }
       },
       "J3": {
         "label": "La semana pasada, es decir, entre lunes y domingo, ¿el jefe o la jefa de hogar trabajó por un salario y/o ingreso?",
         "value_labels": {
-          "1.0": "Sí",
+          "1.0": "Síí",
           "2.0": "No"
         }
       },
@@ -1394,11 +1394,11 @@
         "label": "¿Y en qué situación estaba?",
         "value_labels": {
           "1.0": "Tenía empleo, pero estuvo de vacaciones, licencia o en descanso laboral",
-          "2.0": "Se encontraba buscando empleo",
+          "2.0": "Síe encontraba buscando empleo",
           "3.0": "Es jubilado, pensionado o rentista",
           "4.0": "Estaba estudiando",
           "5.0": "Realizó quehaceres de su hogar",
-          "44.0": "Otra situación (ESPECIFICAR)"
+          "44.0": "Otra situación (ESíPECIFICAR)"
         }
       },
       "J3_1_OTRA": {
@@ -1417,7 +1417,7 @@
         "label": "CIUO 08 4 Digitos",
         "value_labels": {
           "110.0": "Oficiales de las Fuerzas Armadas",
-          "210.0": "Suboficiales de las Fuerzas Armadas",
+          "210.0": "Síuboficiales de las Fuerzas Armadas",
           "310.0": "Otros miembros de las Fuerzas Armadas",
           "777.0": "No aplica",
           "998.0": "No responde",
@@ -1530,7 +1530,7 @@
           "2621.0": "Archivistas y curadores de museos",
           "2622.0": "Bibliotecarios y documentalistas de archivos.",
           "2631.0": "Economistas",
-          "2632.0": "Sociólogos, antropólogos, geógrafos y arqueólogos",
+          "2632.0": "Síociólogos, antropólogos, geógrafos y arqueólogos",
           "2633.0": "Filósofos, historiadores y especialistas en ciencias políticas",
           "2634.0": "Psicólogos",
           "2635.0": "Profesionales del trabajo social",
@@ -1554,9 +1554,9 @@
           "3117.0": "Técnicos en ingeniería de minas y metalurgia.",
           "3118.0": "Delineantes y dibujantes técnicos.",
           "3119.0": "Otros técnicos en ciencias físicas y en ingeniería no clasificados previamente.",
-          "3121.0": "Supervisores de minas.",
-          "3122.0": "Supervisores de industrias manufactureras.",
-          "3123.0": "Supervisores de la construcción.",
+          "3121.0": "Síupervisores de minas.",
+          "3122.0": "Síupervisores de industrias manufactureras.",
+          "3123.0": "Síupervisores de la construcción.",
           "3131.0": "Operadores de instalaciones de producción de energía.",
           "3132.0": "Operadores de incineradores y de instalaciones de tratamiento de agua.",
           "3133.0": "Controladores de instalaciones de procesamiento de productos químicos.",
@@ -1606,10 +1606,10 @@
           "3333.0": "Agentes de empleo y contratistas de personal",
           "3334.0": "Agentes inmobiliarios",
           "3339.0": "Otros agentes de servicios comerciales no clasificados previamente",
-          "3341.0": "Supervisores de oficina",
-          "3342.0": "Secretarios jurídicos",
-          "3343.0": "Secretarios administrativos y ejecutivos",
-          "3344.0": "Secretarios médicos",
+          "3341.0": "Síupervisores de oficina",
+          "3342.0": "Síecretarios jurídicos",
+          "3343.0": "Síecretarios administrativos y ejecutivos",
+          "3344.0": "Síecretarios médicos",
           "3351.0": "Inspectores de aduana",
           "3352.0": "Agentes de la administración tributaria",
           "3353.0": "Agentes de servicios de prestaciones sociales",
@@ -1637,7 +1637,7 @@
           "3611.0": "Técnicos en educación parvularia",
           "3612.0": "Técnicoseneducacióndiferencial",
           "4110.0": "Trabajadores de tareas administrativas generales",
-          "4120.0": "Secretarios generales",
+          "4120.0": "Síecretarios generales",
           "4131.0": "Operadores de equipo de procesamiento de texto y mecanógrafos",
           "4132.0": "Digitadores de datos",
           "4211.0": "Cajeros de bancos y de oficinas de correo",
@@ -1673,7 +1673,7 @@
           "5132.0": "Bármanes",
           "5141.0": "Peluqueros",
           "5142.0": "Cosmetólogos y especialistas en tratamientos de belleza",
-          "5151.0": "Supervisores de mantenimiento y limpieza en oficinas, hoteles y otros establecimientos",
+          "5151.0": "Síupervisores de mantenimiento y limpieza en oficinas, hoteles y otros establecimientos",
           "5152.0": "Amas de llaves, mayordomos domésticos y dueños/administradores de pequeños esta- blecimientos de alojamiento",
           "5153.0": "Conserjes",
           "5161.0": "Astrólogos y adivinadores",
@@ -1685,7 +1685,7 @@
           "5211.0": "Vendedores en quioscos o puestos de feria",
           "5212.0": "Vendedores ambulantes de productos comestibles de consumo inmediato (elaboración propia).",
           "5221.0": "Comerciantes y dueños operadores de locales comerciales, tiendas, almacenes y mercados",
-          "5222.0": "Supervisores de locales comerciales, tiendas y almacenes",
+          "5222.0": "Síupervisores de locales comerciales, tiendas y almacenes",
           "5223.0": "Vendedores y asistentes de venta de tiendas, almacenes y puestos de mercado",
           "5230.0": "Vendedores de entradas (entretenciones y eventos deportivos) y cajeros de comercio.",
           "5241.0": "Modelos de moda, arte y publicidad",
@@ -1740,7 +1740,7 @@
           "7132.0": "Barnizadores y pulverizadores de productos manufacturados",
           "7133.0": "Limpiadores de fachadas y deshollinadores",
           "7211.0": "Moldeadores y macheros",
-          "7212.0": "Soldadores y oxicortadores",
+          "7212.0": "Síoldadores y oxicortadores",
           "7213.0": "Chapistas y caldereros",
           "7214.0": "Montadores de estructuras metálicas",
           "7215.0": "Aparejadores y empalmadores de cables no eléctricos",
@@ -1756,7 +1756,7 @@
           "7312.0": "Fabricantes y afinadores de instrumentos musicales",
           "7313.0": "Joyeros, orfebres y plateros",
           "7314.0": "Alfareros (barro, arcilla y abrasivos)",
-          "7315.0": "Sopladores, modeladores, laminadores, cortadores y pulidores de vidrio",
+          "7315.0": "Síopladores, modeladores, laminadores, cortadores y pulidores de vidrio",
           "7316.0": "Pintores de carteles, pintores decorativos y grabadores",
           "7317.0": "Artesanos en madera, cestería y materiales similares",
           "7318.0": "Artesanos de los tejidos, el cuero y materiales similares",
@@ -1778,7 +1778,7 @@
           "7521.0": "Operarios del tratamiento de la madera",
           "7522.0": "Ebanistas y mueblistas",
           "7523.0": "Operadores y reguladores de máquinas para trabajar la madera",
-          "7531.0": "Sastres, modistos, peleteros y sombrereros",
+          "7531.0": "Síastres, modistos, peleteros y sombrereros",
           "7532.0": "Patronistas y cortadores de telas",
           "7533.0": "Costureros y bordadores",
           "7534.0": "Tapiceros",
@@ -1868,7 +1868,7 @@
         "label": "CIUO 08 3 Digitos",
         "value_labels": {
           "11.0": "Oficiales de las Fuerzas Armadas",
-          "21.0": "Suboficiales de las Fuerzas Armadas",
+          "21.0": "Síuboficiales de las Fuerzas Armadas",
           "31.0": "Otros miembros de las Fuerzas Armadas",
           "111.0": "Miembros del poder ejecutivo y legislativo, personal directivo de la administración pública y de otras organizaciones",
           "112.0": "Directores y gerentes generales de empresas.",
@@ -1907,7 +1907,7 @@
           "264.0": "Escritores, periodistas, traductores, intérpretes de lengua de señas y lingüistas.",
           "265.0": "Artistas, actores, locutores de medios de comunicación",
           "311.0": "Técnicos en ciencias físicas, químicas, técnicos en ingeniería y dibujantes técnicos.",
-          "312.0": "Supervisores de minas, de industrias manufactureras y de la construcción.",
+          "312.0": "Síupervisores de minas, de industrias manufactureras y de la construcción.",
           "313.0": "Técnicos en control de procesos en instalaciones de producción de energía, agua, productos químicos, gas natural y m",
           "314.0": "Técnicos en ciencias biológicas (excluyendo la medicina), agropecuarias, acuícolas y forestales.",
           "315.0": "Técnicos y controladores en navegación marítima y aeronáutica",
@@ -1919,7 +1919,7 @@
           "331.0": "Agentes de bolsas, ejecutivos de créditos, asistentes contables y otros técnicos en finanzas y matemáticas.",
           "332.0": "Agentes de seguros, representantes comerciales, agentes de compras y consignatarios.",
           "333.0": "Agentes de aduana, organizadores de eventos, agentes de empleo, de bienes raíces y otros agentes de servicios comercial",
-          "334.0": "Supervisores de oficina, secretarios administrativos y especializados.",
+          "334.0": "Síupervisores de oficina, secretarios administrativos y especializados.",
           "335.0": "Agentes de la administración pública para la aplicación de la ley.",
           "341.0": "Técnicos de los servicios jurídicos, sociales y religiosos.",
           "342.0": "Deportistas, entrenadores, árbitros e instructores de actividades deportivas y recreativas.",
@@ -1928,7 +1928,7 @@
           "352.0": "Técnicos en radiodifusión, grabación audiovisual y técnicos de las telecomunicaciones.",
           "361.0": "Técnicos en educación.",
           "411.0": "Trabajadores de tareas administrativas generales.",
-          "412.0": "Secretarios generales.",
+          "412.0": "Síecretarios generales.",
           "413.0": "Operadores de equipo de oficina.",
           "421.0": "Cajeros de bancos y de casas de cambio; receptores de apuestas, prestamistas y cobradores.",
           "422.0": "Empleados de servicios de información al cliente",
@@ -1939,7 +1939,7 @@
           "512.0": "Cocineros.",
           "513.0": "Garzones de mesa y bármanes.",
           "514.0": "Peluqueros, cosmetólogos y especialistas en tratamientos de belleza.",
-          "515.0": "Supervisores de mantenimiento y limpieza, mayordomos domésticos y conserjes.",
+          "515.0": "Síupervisores de mantenimiento y limpieza, mayordomos domésticos y conserjes.",
           "516.0": "Otros trabajadores de servicios a las personas.",
           "521.0": "Vendedores en quioscos o puestos de feria y vendedores ambulantes de comidas y bebidas de consumo inmediato (elaboració",
           "522.0": "Comerciantes, dueños - operadores, supervisores y vendedores de tiendas, almacenes y puestos de mercado.",
@@ -1969,7 +1969,7 @@
           "742.0": "Instaladores y reparadores de equipos electrónicos y de telecomunicaciones.",
           "751.0": "Operarios de procesamiento, elaboración, conservación, cata y clasificación de alimentos, bebidas y tabaco.",
           "752.0": "Operarios del tratamiento de la madera, ebanistas y operarios de máquinas para trabajar madera.",
-          "753.0": "Sastres, modistos, patronistas de tela, costureros, tapiceros, apelambradores y zapateros.",
+          "753.0": "Síastres, modistos, patronistas de tela, costureros, tapiceros, apelambradores y zapateros.",
           "754.0": "Buzos, dinamiteros, clasificadores, probadores e inspectores de calidad de productos no comestibles, fumigadores y otros",
           "777.0": "No aplica",
           "811.0": "Mineros y operadores de instalaciones mineras, perforadores de pozos y operadores de máquinas para fabricar cemento y o",
@@ -2004,7 +2004,7 @@
         "label": "CIUO 08 2 Digitos",
         "value_labels": {
           "1.0": "Oficiales de las Fuerzas Armadas",
-          "2.0": "Suboficiales de las Fuerzas Armadas",
+          "2.0": "Síuboficiales de las Fuerzas Armadas",
           "3.0": "Otros miembros de las Fuerzas Armadas",
           "11.0": "Miembros del Poder Ejecutivo y Legislativo, personal directivo de la administración pública y de otras organizaciones",
           "12.0": "Directores y gerentes administrativos y de servicios comerciales",
@@ -2059,8 +2059,8 @@
         "label": "Considerando todos los ingresos líquidos de su hogar: sueldos, jubilaciones, pensiones, dividendos, subsidios, aportes familiares y cualquier otro ingreso, ¿Cuál es el ingreso mensual aproximado de su hogar?",
         "value_labels": {}
       },
-      "GSE": {
-        "label": "GSE",
+      "GSíE": {
+        "label": "GSíE",
         "value_labels": {
           "1.0": "AB",
           "2.0": "C1a",
@@ -2075,8 +2075,8 @@
         "label": "PONDERACION",
         "value_labels": {}
       },
-      "GSE_5_Categorias": {
-        "label": "GSE (Recodificada=5 categorías)",
+      "GSíE_5_Categorias": {
+        "label": "GSíE (Recodificada=5 categorías)",
         "value_labels": {
           "1.0": "ABC1a",
           "2.0": "C1b",
@@ -2085,8 +2085,8 @@
           "5.0": "D+E"
         }
       },
-      "GSE_4_Categorias": {
-        "label": "GSE (Recodificada=4 categorías)",
+      "GSíE_4_Categorias": {
+        "label": "GSíE (Recodificada=4 categorías)",
         "value_labels": {
           "1.0": "ABC1",
           "2.0": "C2",
@@ -2099,7 +2099,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_B_REC": {
@@ -2107,7 +2107,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_C_REC": {
@@ -2115,7 +2115,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_D_REC": {
@@ -2123,7 +2123,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_E_REC": {
@@ -2131,7 +2131,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_F_REC": {
@@ -2139,7 +2139,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_G_REC": {
@@ -2147,7 +2147,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "F4_H_REC": {
@@ -2155,7 +2155,7 @@
         "value_labels": {
           "1.0": "Nada + Poco",
           "2.0": "Algo + Mucho",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_A_REC": {
@@ -2163,7 +2163,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_B_REC": {
@@ -2171,7 +2171,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_C_REC": {
@@ -2179,7 +2179,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_D_REC": {
@@ -2187,7 +2187,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_E_REC": {
@@ -2195,7 +2195,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_F_REC": {
@@ -2203,7 +2203,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_G_REC": {
@@ -2211,7 +2211,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_H_REC": {
@@ -2219,7 +2219,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I1_I_REC": {
@@ -2227,7 +2227,7 @@
         "value_labels": {
           "1.0": "Nada + Poco importante",
           "2.0": "Algo + Muy importante",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_A_REC": {
@@ -2235,7 +2235,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_B_REC": {
@@ -2243,7 +2243,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_C_REC": {
@@ -2251,7 +2251,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_D_REC": {
@@ -2259,7 +2259,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_E_REC": {
@@ -2267,7 +2267,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I2_F_REC": {
@@ -2275,7 +2275,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_A_REC": {
@@ -2283,7 +2283,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_B_REC": {
@@ -2291,7 +2291,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_C_REC": {
@@ -2299,7 +2299,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I3_D_REC": {
@@ -2307,7 +2307,7 @@
         "value_labels": {
           "1.0": "Muy en desacuerdo + En desacuerdo",
           "2.0": "De acuerdo + Muy de acuerdo",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_A_REC": {
@@ -2315,7 +2315,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_B_REC": {
@@ -2323,7 +2323,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_C_REC": {
@@ -2331,7 +2331,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_D_REC": {
@@ -2339,7 +2339,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_E_REC": {
@@ -2347,7 +2347,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_F_REC": {
@@ -2355,7 +2355,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_G_REC": {
@@ -2363,7 +2363,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_H_REC": {
@@ -2371,7 +2371,7 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "G1_I_REC": {
@@ -2379,14 +2379,14 @@
         "value_labels": {
           "1.0": "Autoridades nacionales",
           "2.0": "Autoridades comunales + regionales",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "filter_$": {
         "label": "I5 = 1 (FILTER)",
         "value_labels": {
-          "0.0": "Not Selected",
-          "1.0": "Selected"
+          "0.0": "Not Síelected",
+          "1.0": "Síelected"
         }
       },
       "I4_A_REC": {
@@ -2394,7 +2394,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_B_REC": {
@@ -2402,7 +2402,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_C_REC": {
@@ -2410,7 +2410,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_D_REC": {
@@ -2418,7 +2418,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_E_REC": {
@@ -2426,7 +2426,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_F_REC": {
@@ -2434,7 +2434,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I4_G_REC": {
@@ -2442,7 +2442,7 @@
         "value_labels": {
           "1.0": "Nada + Poco urgente",
           "2.0": "Algo + Muy urgente",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I7_1_REC": {
@@ -2451,7 +2451,7 @@
           "1.0": "Muy bajo + bajo",
           "2.0": "Indiferente",
           "3.0": "Alto + Muy alto",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I7_2_REC": {
@@ -2460,7 +2460,7 @@
           "1.0": "Muy bajo + bajo",
           "2.0": "Indiferente",
           "3.0": "Alto + Muy alto",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       },
       "I7_3_REC": {
@@ -2469,7 +2469,7 @@
           "1.0": "Muy bajo + bajo",
           "2.0": "Indiferente",
           "3.0": "Alto + Muy alto",
-          "98.0": "NS/NR"
+          "98.0": "NSí/NR"
         }
       }
     }
@@ -2495,7 +2495,7 @@
       }
     },
     "top_problemas": {
-      "Seguridad": {
+      "Síeguridad": {
         "count": 42,
         "weighted_count": 44.01,
         "percentage": 9.9
@@ -2552,39 +2552,90 @@
       }
     },
     "pertenencia": {
-      "Su barrio": {
+      "Síu barrio": {
         "count": 25,
         "weighted_count": 28.07,
         "percentage": 6.1
       },
-      "Su pueblo o localidad": {
+      "Síu pueblo o localidad": {
         "count": 85,
         "weighted_count": 82.8,
         "percentage": 18.1
       },
-      "Su comuna": {
+      "Síu comuna": {
         "count": 81,
         "weighted_count": 75.27,
         "percentage": 16.4
       },
-      "Su ciudad": {
+      "Síu ciudad": {
         "count": 68,
         "weighted_count": 66.69,
         "percentage": 14.6
       },
-      "Su región": {
+      "Síu región": {
         "count": 162,
         "weighted_count": 167.75,
         "percentage": 36.6
       },
-      "Su país": {
+      "Síu país": {
         "count": 38,
         "weighted_count": 37.56,
         "percentage": 8.2
       }
     },
+    "confianza_c1": {
+      "Síe puede confiar en las personas": {
+        "count": 218,
+        "weighted_count": 213.19,
+        "percentage": 46.9
+      },
+      "No se puede confiar en las personas": {
+        "count": 238,
+        "weighted_count": 241.15,
+        "percentage": 53.1
+      }
+    },
+    "participacion_c2": {
+      "Síí": {
+        "count": 218,
+        "weighted_count": 209.38,
+        "percentage": 45.0
+      },
+      "No": {
+        "count": 247,
+        "weighted_count": 255.62,
+        "percentage": 55.0
+      }
+    },
+    "organizacion_c2_2": {
+      "Voluntariado": {
+        "count": 12,
+        "weighted_count": 11.32,
+        "percentage": 5.6
+      },
+      "Talleres y agrupaciones": {
+        "count": 86,
+        "weighted_count": 80.76,
+        "percentage": 40.3
+      },
+      "Organizaciones sociales": {
+        "count": 98,
+        "weighted_count": 96.83,
+        "percentage": 48.3
+      },
+      "Organizaciones políticas": {
+        "count": 3,
+        "weighted_count": 1.94,
+        "percentage": 1.0
+      },
+      "Organizaciones gremiales": {
+        "count": 11,
+        "weighted_count": 9.55,
+        "percentage": 4.8
+      }
+    },
     "uaysen_conocimiento": {
-      "Sí": {
+      "Síí": {
         "count": 391,
         "weighted_count": 393.98,
         "percentage": 85.1
@@ -2804,7 +2855,7 @@
         }
       },
       "B3_F": {
-        "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+        "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
         "mean": 4.308835775530622,
         "distribution": {
           "1": {
@@ -4033,7 +4084,7 @@
         }
       },
       "top_problemas": {
-        "Seguridad": {
+        "Síeguridad": {
           "count": 21,
           "weighted_count": 23.72,
           "percentage": 10.2
@@ -4090,39 +4141,90 @@
         }
       },
       "pertenencia": {
-        "Su barrio": {
+        "Síu barrio": {
           "count": 12,
           "weighted_count": 14.15,
           "percentage": 6.1
         },
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 20,
           "weighted_count": 23.19,
           "percentage": 10.0
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 34,
           "weighted_count": 39.29,
           "percentage": 16.9
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 30,
           "weighted_count": 33.93,
           "percentage": 14.6
         },
-        "Su región": {
+        "Síu región": {
           "count": 87,
           "weighted_count": 98.49,
           "percentage": 42.3
         },
-        "Su país": {
+        "Síu país": {
           "count": 21,
           "weighted_count": 23.75,
           "percentage": 10.2
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 101,
+          "weighted_count": 113.22,
+          "percentage": 48.8
+        },
+        "No se puede confiar en las personas": {
+          "count": 102,
+          "weighted_count": 118.57,
+          "percentage": 51.2
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 81,
+          "weighted_count": 92.84,
+          "percentage": 39.4
+        },
+        "No": {
+          "count": 125,
+          "weighted_count": 142.87,
+          "percentage": 60.6
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 2,
+          "weighted_count": 2.08,
+          "percentage": 2.3
+        },
+        "Talleres y agrupaciones": {
+          "count": 28,
+          "weighted_count": 30.99,
+          "percentage": 34.8
+        },
+        "Organizaciones sociales": {
+          "count": 43,
+          "weighted_count": 50.77,
+          "percentage": 56.9
+        },
+        "Organizaciones políticas": {
+          "count": 1,
+          "weighted_count": 1.01,
+          "percentage": 1.1
+        },
+        "Organizaciones gremiales": {
+          "count": 4,
+          "weighted_count": 4.32,
+          "percentage": 4.8
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 187,
           "weighted_count": 213.42,
           "percentage": 90.5
@@ -4342,7 +4444,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 4.284747267406093,
           "distribution": {
             "1": {
@@ -5582,19 +5684,55 @@
         }
       },
       "pertenencia": {
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 3,
           "weighted_count": 3.59,
           "percentage": 60.5
         },
-        "Su región": {
+        "Síu región": {
           "count": 2,
           "weighted_count": 2.34,
           "percentage": 39.5
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 2,
+          "weighted_count": 2.53,
+          "percentage": 52.7
+        },
+        "No se puede confiar en las personas": {
+          "count": 2,
+          "weighted_count": 2.27,
+          "percentage": 47.3
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 4,
+          "weighted_count": 4.49,
+          "percentage": 75.5
+        },
+        "No": {
+          "count": 1,
+          "weighted_count": 1.45,
+          "percentage": 24.5
+        }
+      },
+      "organizacion_c2_2": {
+        "Talleres y agrupaciones": {
+          "count": 2,
+          "weighted_count": 2.21,
+          "percentage": 49.4
+        },
+        "Organizaciones sociales": {
+          "count": 2,
+          "weighted_count": 2.27,
+          "percentage": 50.6
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 5,
           "weighted_count": 5.94,
           "percentage": 100.0
@@ -5709,7 +5847,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 6.8087328266651514,
           "distribution": {
             "6": {
@@ -6527,7 +6665,7 @@
         }
       },
       "top_problemas": {
-        "Seguridad": {
+        "Síeguridad": {
           "count": 11,
           "weighted_count": 11.58,
           "percentage": 11.3
@@ -6574,39 +6712,85 @@
         }
       },
       "pertenencia": {
-        "Su barrio": {
+        "Síu barrio": {
           "count": 9,
           "weighted_count": 10.19,
           "percentage": 9.7
         },
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 11,
           "weighted_count": 9.46,
           "percentage": 9.0
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 15,
           "weighted_count": 14.96,
           "percentage": 14.3
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 27,
           "weighted_count": 24.78,
           "percentage": 23.6
         },
-        "Su región": {
+        "Síu región": {
           "count": 43,
           "weighted_count": 39.93,
           "percentage": 38.1
         },
-        "Su país": {
+        "Síu país": {
           "count": 5,
           "weighted_count": 5.56,
           "percentage": 5.3
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 38,
+          "weighted_count": 36.34,
+          "percentage": 34.4
+        },
+        "No se puede confiar en las personas": {
+          "count": 73,
+          "weighted_count": 69.44,
+          "percentage": 65.6
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 46,
+          "weighted_count": 41.26,
+          "percentage": 37.9
+        },
+        "No": {
+          "count": 68,
+          "weighted_count": 67.56,
+          "percentage": 62.1
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 1,
+          "weighted_count": 0.98,
+          "percentage": 2.5
+        },
+        "Talleres y agrupaciones": {
+          "count": 27,
+          "weighted_count": 24.8,
+          "percentage": 62.7
+        },
+        "Organizaciones sociales": {
+          "count": 14,
+          "weighted_count": 11.89,
+          "percentage": 30.0
+        },
+        "Organizaciones gremiales": {
+          "count": 2,
+          "weighted_count": 1.89,
+          "percentage": 4.8
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 88,
           "weighted_count": 81.92,
           "percentage": 76.7
@@ -6826,7 +7010,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 3.9958686215734236,
           "distribution": {
             "1": {
@@ -8049,7 +8233,7 @@
         }
       },
       "top_problemas": {
-        "Seguridad": {
+        "Síeguridad": {
           "count": 1,
           "weighted_count": 0.9,
           "percentage": 3.9
@@ -8086,34 +8270,80 @@
         }
       },
       "pertenencia": {
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 10,
           "weighted_count": 7.44,
           "percentage": 30.3
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 3,
           "weighted_count": 2.61,
           "percentage": 10.7
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 2,
           "weighted_count": 1.41,
           "percentage": 5.8
         },
-        "Su región": {
+        "Síu región": {
           "count": 10,
           "weighted_count": 11.09,
           "percentage": 45.2
         },
-        "Su país": {
+        "Síu país": {
           "count": 2,
           "weighted_count": 1.97,
           "percentage": 8.0
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 18,
+          "weighted_count": 14.7,
+          "percentage": 67.0
+        },
+        "No se puede confiar en las personas": {
+          "count": 7,
+          "weighted_count": 7.24,
+          "percentage": 33.0
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 20,
+          "weighted_count": 15.56,
+          "percentage": 63.5
+        },
+        "No": {
+          "count": 7,
+          "weighted_count": 8.96,
+          "percentage": 36.5
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 2,
+          "weighted_count": 1.12,
+          "percentage": 7.2
+        },
+        "Talleres y agrupaciones": {
+          "count": 7,
+          "weighted_count": 5.59,
+          "percentage": 35.9
+        },
+        "Organizaciones sociales": {
+          "count": 9,
+          "weighted_count": 7.72,
+          "percentage": 49.6
+        },
+        "Organizaciones gremiales": {
+          "count": 2,
+          "weighted_count": 1.12,
+          "percentage": 7.2
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 23,
           "weighted_count": 21.22,
           "percentage": 86.5
@@ -8288,7 +8518,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 5.174480975544159,
           "distribution": {
             "2": {
@@ -9433,34 +9663,70 @@
         }
       },
       "pertenencia": {
-        "Su barrio": {
+        "Síu barrio": {
           "count": 1,
           "weighted_count": 0.56,
           "percentage": 9.1
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 3,
           "weighted_count": 2.27,
           "percentage": 36.9
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 2,
           "weighted_count": 1.9,
           "percentage": 30.9
         },
-        "Su región": {
+        "Síu región": {
           "count": 1,
           "weighted_count": 0.85,
           "percentage": 13.9
         },
-        "Su país": {
+        "Síu país": {
           "count": 1,
           "weighted_count": 0.56,
           "percentage": 9.1
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 3,
+          "weighted_count": 1.69,
+          "percentage": 27.4
+        },
+        "No se puede confiar en las personas": {
+          "count": 5,
+          "weighted_count": 4.46,
+          "percentage": 72.6
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 6,
+          "weighted_count": 4.73,
+          "percentage": 77.0
+        },
+        "No": {
+          "count": 2,
+          "weighted_count": 1.42,
+          "percentage": 23.0
+        }
+      },
+      "organizacion_c2_2": {
+        "Talleres y agrupaciones": {
+          "count": 2,
+          "weighted_count": 1.12,
+          "percentage": 23.8
+        },
+        "Organizaciones sociales": {
+          "count": 4,
+          "weighted_count": 3.61,
+          "percentage": 76.2
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 5,
           "weighted_count": 4.17,
           "percentage": 67.8
@@ -9610,7 +9876,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 4.643523086767495,
           "distribution": {
             "3": {
@@ -10553,7 +10819,7 @@
         }
       },
       "top_problemas": {
-        "Seguridad": {
+        "Síeguridad": {
           "count": 1,
           "weighted_count": 0.63,
           "percentage": 3.1
@@ -10585,34 +10851,80 @@
         }
       },
       "pertenencia": {
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 4,
           "weighted_count": 5.39,
           "percentage": 23.9
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 6,
           "weighted_count": 4.44,
           "percentage": 19.7
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 4,
           "weighted_count": 3.1,
           "percentage": 13.8
         },
-        "Su región": {
+        "Síu región": {
           "count": 7,
           "weighted_count": 6.99,
           "percentage": 31.0
         },
-        "Su país": {
+        "Síu país": {
           "count": 4,
           "weighted_count": 2.6,
           "percentage": 11.5
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 15,
+          "weighted_count": 14.48,
+          "percentage": 64.3
+        },
+        "No se puede confiar en las personas": {
+          "count": 10,
+          "weighted_count": 8.04,
+          "percentage": 35.7
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 13,
+          "weighted_count": 12.7,
+          "percentage": 56.4
+        },
+        "No": {
+          "count": 12,
+          "weighted_count": 9.82,
+          "percentage": 43.6
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 3,
+          "weighted_count": 5.07,
+          "percentage": 45.7
+        },
+        "Talleres y agrupaciones": {
+          "count": 3,
+          "weighted_count": 1.9,
+          "percentage": 17.2
+        },
+        "Organizaciones sociales": {
+          "count": 5,
+          "weighted_count": 3.73,
+          "percentage": 33.7
+        },
+        "Organizaciones políticas": {
+          "count": 1,
+          "weighted_count": 0.38,
+          "percentage": 3.5
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 21,
           "weighted_count": 19.82,
           "percentage": 88.0
@@ -10792,7 +11104,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 4.806641577478726,
           "distribution": {
             "3": {
@@ -11905,7 +12217,7 @@
         }
       },
       "top_problemas": {
-        "Seguridad": {
+        "Síeguridad": {
           "count": 3,
           "weighted_count": 1.56,
           "percentage": 11.9
@@ -11947,34 +12259,80 @@
         }
       },
       "pertenencia": {
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 3,
           "weighted_count": 1.56,
           "percentage": 11.9
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 11,
           "weighted_count": 5.61,
           "percentage": 42.8
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 2,
           "weighted_count": 1.01,
           "percentage": 7.7
         },
-        "Su región": {
+        "Síu región": {
           "count": 6,
           "weighted_count": 3.41,
           "percentage": 26.0
         },
-        "Su país": {
+        "Síu país": {
           "count": 2,
           "weighted_count": 1.52,
           "percentage": 11.6
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 13,
+          "weighted_count": 7.29,
+          "percentage": 55.6
+        },
+        "No se puede confiar en las personas": {
+          "count": 11,
+          "weighted_count": 5.83,
+          "percentage": 44.4
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 13,
+          "weighted_count": 6.59,
+          "percentage": 50.2
+        },
+        "No": {
+          "count": 11,
+          "weighted_count": 6.53,
+          "percentage": 49.8
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 1,
+          "weighted_count": 0.38,
+          "percentage": 6.2
+        },
+        "Talleres y agrupaciones": {
+          "count": 3,
+          "weighted_count": 1.47,
+          "percentage": 23.7
+        },
+        "Organizaciones sociales": {
+          "count": 6,
+          "weighted_count": 3.32,
+          "percentage": 53.4
+        },
+        "Organizaciones gremiales": {
+          "count": 2,
+          "weighted_count": 1.04,
+          "percentage": 16.8
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 18,
           "weighted_count": 9.57,
           "percentage": 72.9
@@ -12179,7 +12537,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 5.12369525427293,
           "distribution": {
             "3": {
@@ -13324,29 +13682,70 @@
         }
       },
       "pertenencia": {
-        "Su comuna": {
+        "Síu comuna": {
           "count": 2,
           "weighted_count": 0.98,
           "percentage": 32.3
         },
-        "Su ciudad": {
+        "Síu ciudad": {
           "count": 1,
           "weighted_count": 0.55,
           "percentage": 18.2
         },
-        "Su región": {
+        "Síu región": {
           "count": 2,
           "weighted_count": 1.01,
           "percentage": 33.4
         },
-        "Su país": {
+        "Síu país": {
           "count": 1,
           "weighted_count": 0.49,
           "percentage": 16.1
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 3,
+          "weighted_count": 1.53,
+          "percentage": 50.4
+        },
+        "No se puede confiar en las personas": {
+          "count": 3,
+          "weighted_count": 1.5,
+          "percentage": 49.6
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 4,
+          "weighted_count": 2.16,
+          "percentage": 71.2
+        },
+        "No": {
+          "count": 2,
+          "weighted_count": 0.87,
+          "percentage": 28.8
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 1,
+          "weighted_count": 0.49,
+          "percentage": 22.7
+        },
+        "Organizaciones sociales": {
+          "count": 2,
+          "weighted_count": 1.12,
+          "percentage": 51.9
+        },
+        "Organizaciones políticas": {
+          "count": 1,
+          "weighted_count": 0.55,
+          "percentage": 25.5
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 6,
           "weighted_count": 3.03,
           "percentage": 100.0
@@ -13466,7 +13865,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 5.25462124758229,
           "distribution": {
             "4": {
@@ -14406,24 +14805,60 @@
         }
       },
       "pertenencia": {
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 1,
           "weighted_count": 0.55,
           "percentage": 21.6
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 3,
           "weighted_count": 1.61,
           "percentage": 63.3
         },
-        "Su región": {
+        "Síu región": {
           "count": 1,
           "weighted_count": 0.38,
           "percentage": 15.1
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 3,
+          "weighted_count": 1.56,
+          "percentage": 61.5
+        },
+        "No se puede confiar en las personas": {
+          "count": 2,
+          "weighted_count": 0.98,
+          "percentage": 38.5
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 5,
+          "weighted_count": 2.54,
+          "percentage": 100.0
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 1,
+          "weighted_count": 0.63,
+          "percentage": 24.8
+        },
+        "Talleres y agrupaciones": {
+          "count": 2,
+          "weighted_count": 0.87,
+          "percentage": 34.3
+        },
+        "Organizaciones sociales": {
+          "count": 2,
+          "weighted_count": 1.04,
+          "percentage": 40.9
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 5,
           "weighted_count": 2.54,
           "percentage": 100.0
@@ -14528,7 +14963,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 5.2679984873577,
           "distribution": {
             "5": {
@@ -15423,34 +15858,75 @@
         }
       },
       "pertenencia": {
-        "Su barrio": {
+        "Síu barrio": {
           "count": 2,
           "weighted_count": 1.99,
           "percentage": 12.1
         },
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 13,
           "weighted_count": 9.63,
           "percentage": 58.3
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 2,
           "weighted_count": 1.52,
           "percentage": 9.2
         },
-        "Su región": {
+        "Síu región": {
           "count": 2,
           "weighted_count": 2.24,
           "percentage": 13.6
         },
-        "Su país": {
+        "Síu país": {
           "count": 2,
           "weighted_count": 1.12,
           "percentage": 6.8
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 13,
+          "weighted_count": 10.39,
+          "percentage": 63.0
+        },
+        "No se puede confiar en las personas": {
+          "count": 8,
+          "weighted_count": 6.11,
+          "percentage": 37.0
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 10,
+          "weighted_count": 9.17,
+          "percentage": 55.6
+        },
+        "No": {
+          "count": 11,
+          "weighted_count": 7.32,
+          "percentage": 44.4
+        }
+      },
+      "organizacion_c2_2": {
+        "Voluntariado": {
+          "count": 1,
+          "weighted_count": 0.55,
+          "percentage": 7.3
+        },
+        "Talleres y agrupaciones": {
+          "count": 6,
+          "weighted_count": 5.35,
+          "percentage": 70.7
+        },
+        "Organizaciones sociales": {
+          "count": 2,
+          "weighted_count": 1.66,
+          "percentage": 22.0
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 15,
           "weighted_count": 12.86,
           "percentage": 78.0
@@ -15630,7 +16106,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 5.301204692121155,
           "distribution": {
             "1": {
@@ -16758,7 +17234,7 @@
         }
       },
       "top_problemas": {
-        "Seguridad": {
+        "Síeguridad": {
           "count": 5,
           "weighted_count": 5.61,
           "percentage": 24.6
@@ -16785,29 +17261,70 @@
         }
       },
       "pertenencia": {
-        "Su barrio": {
+        "Síu barrio": {
           "count": 1,
           "weighted_count": 1.18,
           "percentage": 4.5
         },
-        "Su pueblo o localidad": {
+        "Síu pueblo o localidad": {
           "count": 20,
           "weighted_count": 21.99,
           "percentage": 84.1
         },
-        "Su comuna": {
+        "Síu comuna": {
           "count": 2,
           "weighted_count": 1.97,
           "percentage": 7.5
         },
-        "Su región": {
+        "Síu región": {
           "count": 1,
           "weighted_count": 1.01,
           "percentage": 3.8
         }
       },
+      "confianza_c1": {
+        "Síe puede confiar en las personas": {
+          "count": 9,
+          "weighted_count": 9.44,
+          "percentage": 36.1
+        },
+        "No se puede confiar en las personas": {
+          "count": 15,
+          "weighted_count": 16.7,
+          "percentage": 63.9
+        }
+      },
+      "participacion_c2": {
+        "Síí": {
+          "count": 16,
+          "weighted_count": 17.33,
+          "percentage": 66.3
+        },
+        "No": {
+          "count": 8,
+          "weighted_count": 8.82,
+          "percentage": 33.7
+        }
+      },
+      "organizacion_c2_2": {
+        "Talleres y agrupaciones": {
+          "count": 6,
+          "weighted_count": 6.45,
+          "percentage": 37.2
+        },
+        "Organizaciones sociales": {
+          "count": 9,
+          "weighted_count": 9.7,
+          "percentage": 56.0
+        },
+        "Organizaciones gremiales": {
+          "count": 1,
+          "weighted_count": 1.18,
+          "percentage": 6.8
+        }
+      },
       "uaysen_conocimiento": {
-        "Sí": {
+        "Síí": {
           "count": 18,
           "weighted_count": 19.49,
           "percentage": 74.5
@@ -16982,7 +17499,7 @@
           }
         },
         "B3_F": {
-          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Seguridad ciudadana",
+          "label": "Utilizando una escala como en el colegio, de 1 a 7, siendo 1 “pésimo” y 7 “excelente”, ¿qué nota le pondría usted a la Región de Aysén en las siguientes materias? | Síeguridad ciudadana",
           "mean": 2.718865422349533,
           "distribution": {
             "1": {
@@ -17998,6 +18515,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": null,
@@ -18059,6 +18579,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -18120,6 +18643,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -18181,6 +18707,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -18242,6 +18771,9 @@
       "B1": 1,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -18303,6 +18835,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 60.0,
       "I8": 5.0,
@@ -18364,6 +18899,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -18425,6 +18963,9 @@
       "B1": 3,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": null,
@@ -18486,6 +19027,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 6.0,
@@ -18547,6 +19091,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -18608,6 +19155,9 @@
       "B1": 1,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -18669,6 +19219,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -18730,6 +19283,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -18791,6 +19347,9 @@
       "B1": 98,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 98,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 6.0,
@@ -18852,6 +19411,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 85.0,
       "I8": 5.0,
@@ -18913,6 +19475,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 90.0,
       "I8": 7.0,
@@ -18974,6 +19539,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 10.0,
       "I8": 5.0,
@@ -19035,6 +19603,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 3.0,
@@ -19096,6 +19667,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -19157,6 +19731,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 8.0,
       "I8": null,
@@ -19218,6 +19795,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -19279,6 +19859,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 40.0,
       "I8": 5.0,
@@ -19340,6 +19923,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -19401,6 +19987,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -19462,6 +20051,9 @@
       "B1": 1,
       "B2_RECOD": 10,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -19523,6 +20115,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 40.0,
       "I8": 5.0,
@@ -19584,6 +20179,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 2.0,
@@ -19645,6 +20243,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 5.0,
@@ -19706,6 +20307,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 4.0,
@@ -19767,6 +20371,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 5.0,
       "I8": 5.0,
@@ -19828,6 +20435,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 3.0,
@@ -19889,6 +20499,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -19950,6 +20563,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -20011,6 +20627,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 3.0,
@@ -20072,6 +20691,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 1,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 7.0,
@@ -20133,6 +20755,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -20194,6 +20819,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -20255,6 +20883,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -20316,6 +20947,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -20377,6 +21011,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -20438,6 +21075,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -20499,6 +21139,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 98,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 4.0,
@@ -20560,6 +21203,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 1,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -20621,6 +21267,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -20682,6 +21331,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 2,
       "I6": 60.0,
       "I8": 5.0,
@@ -20743,6 +21395,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -20804,6 +21459,9 @@
       "B1": 3,
       "B2_RECOD": 6,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -20865,6 +21523,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 25.0,
       "I8": 3.0,
@@ -20926,6 +21587,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 7.0,
@@ -20987,6 +21651,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -21048,6 +21715,9 @@
       "B1": 98,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -21109,6 +21779,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -21170,6 +21843,9 @@
       "B1": 1,
       "B2_RECOD": 11,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -21231,6 +21907,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -21292,6 +21971,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -21353,6 +22035,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 0.0,
       "I8": 5.0,
@@ -21414,6 +22099,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -21475,6 +22163,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 98.0,
       "I8": 6.0,
@@ -21536,6 +22227,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 1,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 65.0,
       "I8": 5.0,
@@ -21597,6 +22291,9 @@
       "B1": 1,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -21658,6 +22355,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -21719,6 +22419,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -21780,6 +22483,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -21841,6 +22547,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -21902,6 +22611,9 @@
       "B1": 1,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 59.0,
       "I8": 5.0,
@@ -21963,6 +22675,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -22024,6 +22739,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -22085,6 +22803,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -22146,6 +22867,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -22207,6 +22931,9 @@
       "B1": 2,
       "B2_RECOD": 2,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 99.0,
       "I8": 5.0,
@@ -22268,6 +22995,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 40.0,
       "I8": 3.0,
@@ -22329,6 +23059,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 10.0,
       "I8": 6.0,
@@ -22390,6 +23123,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -22451,6 +23187,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -22512,6 +23251,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 70.0,
       "I8": 5.0,
@@ -22573,6 +23315,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 25.0,
       "I8": 5.0,
@@ -22634,6 +23379,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -22695,6 +23443,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -22756,6 +23507,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -22817,6 +23571,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -22878,6 +23635,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -22939,6 +23699,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -23000,6 +23763,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": null,
@@ -23061,6 +23827,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -23122,6 +23891,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -23183,6 +23955,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -23244,6 +24019,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -23305,6 +24083,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -23366,6 +24147,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -23427,6 +24211,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -23488,6 +24275,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -23549,6 +24339,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -23610,6 +24403,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 0.0,
       "I8": null,
@@ -23671,6 +24467,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -23732,6 +24531,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -23793,6 +24595,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -23854,6 +24659,9 @@
       "B1": 3,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 3.0,
@@ -23915,6 +24723,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -23976,6 +24787,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 4.0,
@@ -24037,6 +24851,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 65.0,
       "I8": 5.0,
@@ -24098,6 +24915,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -24159,6 +24979,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -24220,6 +25043,9 @@
       "B1": 2,
       "B2_RECOD": 7,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 55.0,
       "I8": 4.0,
@@ -24281,6 +25107,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -24342,6 +25171,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -24403,6 +25235,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": null,
@@ -24464,6 +25299,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -24525,6 +25363,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 3.0,
@@ -24586,6 +25427,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -24647,6 +25491,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 6.0,
@@ -24708,6 +25555,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -24769,6 +25619,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 70.0,
       "I8": 4.0,
@@ -24830,6 +25683,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 30.0,
       "I8": 4.0,
@@ -24891,6 +25747,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -24952,6 +25811,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -25013,6 +25875,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 6.0,
@@ -25074,6 +25939,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -25135,6 +26003,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 1.0,
@@ -25196,6 +26067,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -25257,6 +26131,9 @@
       "B1": 1,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -25318,6 +26195,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 98,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -25379,6 +26259,9 @@
       "B1": 1,
       "B2_RECOD": 10,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 5.0,
       "I8": 6.0,
@@ -25440,6 +26323,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -25501,6 +26387,9 @@
       "B1": 1,
       "B2_RECOD": 3,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -25562,6 +26451,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -25623,6 +26515,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -25684,6 +26579,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -25745,6 +26643,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -25806,6 +26707,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -25867,6 +26771,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -25928,6 +26835,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -25989,6 +26899,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -26050,6 +26963,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -26111,6 +27027,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -26172,6 +27091,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -26233,6 +27155,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -26294,6 +27219,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -26355,6 +27283,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -26416,6 +27347,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": null,
@@ -26477,6 +27411,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -26538,6 +27475,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 7.0,
@@ -26599,6 +27539,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -26660,6 +27603,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 2.0,
@@ -26721,6 +27667,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 98,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -26782,6 +27731,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -26843,6 +27795,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -26904,6 +27859,9 @@
       "B1": 3,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -26965,6 +27923,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -27026,6 +27987,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -27087,6 +28051,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 4.0,
@@ -27148,6 +28115,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 7.0,
@@ -27209,6 +28179,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -27270,6 +28243,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": null,
@@ -27331,6 +28307,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -27392,6 +28371,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -27453,6 +28435,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 6.0,
@@ -27514,6 +28499,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -27575,6 +28563,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -27636,6 +28627,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 4.0,
@@ -27697,6 +28691,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -27758,6 +28755,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 1,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -27819,6 +28819,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -27880,6 +28883,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -27941,6 +28947,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 60.0,
       "I8": 5.0,
@@ -28002,6 +29011,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -28063,6 +29075,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 1,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 10.0,
       "I8": 5.0,
@@ -28124,6 +29139,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -28185,6 +29203,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 4,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -28246,6 +29267,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -28307,6 +29331,9 @@
       "B1": 3,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -28368,6 +29395,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -28429,6 +29459,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 6.0,
       "I8": 7.0,
@@ -28490,6 +29523,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -28551,6 +29587,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -28612,6 +29651,9 @@
       "B1": 1,
       "B2_RECOD": 11,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -28673,6 +29715,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -28734,6 +29779,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -28795,6 +29843,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -28856,6 +29907,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -28917,6 +29971,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -28978,6 +30035,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -29039,6 +30099,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -29100,6 +30163,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 1.0,
@@ -29161,6 +30227,9 @@
       "B1": 2,
       "B2_RECOD": 7,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -29222,6 +30291,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -29283,6 +30355,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -29344,6 +30419,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": null,
@@ -29405,6 +30483,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 1,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 0.0,
       "I8": null,
@@ -29466,6 +30547,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -29527,6 +30611,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 0.0,
       "I8": 3.0,
@@ -29588,6 +30675,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -29649,6 +30739,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -29710,6 +30803,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -29771,6 +30867,9 @@
       "B1": 2,
       "B2_RECOD": 5,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -29832,6 +30931,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 85.0,
       "I8": 5.0,
@@ -29893,6 +30995,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -29954,6 +31059,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -30015,6 +31123,9 @@
       "B1": 2,
       "B2_RECOD": 2,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -30076,6 +31187,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 1.0,
@@ -30137,6 +31251,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 50.0,
       "I8": 6.0,
@@ -30198,6 +31315,9 @@
       "B1": 1,
       "B2_RECOD": 3,
       "A1": 2,
+      "C1": 98,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -30259,6 +31379,9 @@
       "B1": 1,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -30320,6 +31443,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 6.0,
@@ -30381,6 +31507,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -30442,6 +31571,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 60.0,
       "I8": 5.0,
@@ -30503,6 +31635,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 6.0,
@@ -30564,6 +31699,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -30625,6 +31763,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -30686,6 +31827,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -30747,6 +31891,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -30808,6 +31955,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -30869,6 +32019,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 98,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -30930,6 +32083,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 4.0,
@@ -30991,6 +32147,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 100.0,
       "I8": 5.0,
@@ -31052,6 +32211,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 7.0,
@@ -31113,6 +32275,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 100.0,
       "I8": 7.0,
@@ -31174,6 +32339,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 20.0,
       "I8": 3.0,
@@ -31235,6 +32403,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -31296,6 +32467,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -31357,6 +32531,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -31418,6 +32595,9 @@
       "B1": 2,
       "B2_RECOD": 11,
       "A1": 4,
+      "C1": 98,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 20.0,
       "I8": 4.0,
@@ -31479,6 +32659,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 0.0,
       "I8": null,
@@ -31540,6 +32723,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -31601,6 +32787,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -31662,6 +32851,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 98,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 30.0,
       "I8": 7.0,
@@ -31723,6 +32915,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 5.0,
       "I8": 4.0,
@@ -31784,6 +32979,9 @@
       "B1": 3,
       "B2_RECOD": 444,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 10.0,
       "I8": 4.0,
@@ -31845,6 +33043,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -31906,6 +33107,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 20.0,
       "I8": 6.0,
@@ -31967,6 +33171,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -32028,6 +33235,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 52.0,
       "I8": 6.0,
@@ -32089,6 +33299,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -32150,6 +33363,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -32211,6 +33427,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -32272,6 +33491,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 30.0,
       "I8": 6.0,
@@ -32333,6 +33555,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -32394,6 +33619,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 90.0,
       "I8": 7.0,
@@ -32455,6 +33683,9 @@
       "B1": 1,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -32516,6 +33747,9 @@
       "B1": 1,
       "B2_RECOD": 2,
       "A1": 1,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 85.0,
       "I8": 6.0,
@@ -32577,6 +33811,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 98,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -32638,6 +33875,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -32699,6 +33939,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -32760,6 +34003,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 6.0,
       "I8": 6.0,
@@ -32821,6 +34067,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -32882,6 +34131,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 10.0,
       "I8": 7.0,
@@ -32943,6 +34195,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -33004,6 +34259,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -33065,6 +34323,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 5.0,
@@ -33126,6 +34387,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -33187,6 +34451,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 2.0,
       "I8": 4.0,
@@ -33248,6 +34515,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 2,
+      "C1": 98,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -33309,6 +34579,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -33370,6 +34643,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -33431,6 +34707,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -33492,6 +34771,9 @@
       "B1": 1,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -33553,6 +34835,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": null,
@@ -33614,6 +34899,9 @@
       "B1": 3,
       "B2_RECOD": 444,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 30.0,
       "I8": 3.0,
@@ -33675,6 +34963,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 100.0,
       "I8": 3.0,
@@ -33736,6 +35027,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 60.0,
       "I8": 4.0,
@@ -33797,6 +35091,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -33858,6 +35155,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -33919,6 +35219,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -33980,6 +35283,9 @@
       "B1": 3,
       "B2_RECOD": 444,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -34041,6 +35347,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -34102,6 +35411,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 65.0,
       "I8": 4.0,
@@ -34163,6 +35475,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 0.0,
       "I8": 7.0,
@@ -34224,6 +35539,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -34285,6 +35603,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -34346,6 +35667,9 @@
       "B1": 3,
       "B2_RECOD": 1,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": null,
@@ -34407,6 +35731,9 @@
       "B1": 1,
       "B2_RECOD": 10,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -34468,6 +35795,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 98,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -34529,6 +35859,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 40.0,
       "I8": 5.0,
@@ -34590,6 +35923,9 @@
       "B1": 1,
       "B2_RECOD": 444,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -34651,6 +35987,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -34712,6 +36051,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -34773,6 +36115,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 7.0,
@@ -34834,6 +36179,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -34895,6 +36243,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -34956,6 +36307,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -35017,6 +36371,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -35078,6 +36435,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 4.0,
@@ -35139,6 +36499,9 @@
       "B1": 1,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 20.0,
       "I8": 5.0,
@@ -35200,6 +36563,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 1,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 75.0,
       "I8": 5.0,
@@ -35261,6 +36627,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -35322,6 +36691,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 2.0,
@@ -35383,6 +36755,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": null,
       "I6": 30.0,
       "I8": 3.0,
@@ -35444,6 +36819,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 2.0,
@@ -35505,6 +36883,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 0.0,
       "I8": null,
@@ -35566,6 +36947,9 @@
       "B1": 1,
       "B2_RECOD": 10,
       "A1": 98,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 7.0,
@@ -35627,6 +37011,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 0.0,
       "I8": 2.0,
@@ -35688,6 +37075,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 10.0,
       "I8": 4.0,
@@ -35749,6 +37139,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -35810,6 +37203,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -35871,6 +37267,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 4.0,
@@ -35932,6 +37331,9 @@
       "B1": 1,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 30.0,
       "I8": 4.0,
@@ -35993,6 +37395,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 20.0,
       "I8": 6.0,
@@ -36054,6 +37459,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 10.0,
       "I8": 4.0,
@@ -36115,6 +37523,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -36176,6 +37587,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 100.0,
       "I8": null,
@@ -36237,6 +37651,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": 2.0,
@@ -36298,6 +37715,9 @@
       "B1": 1,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -36359,6 +37779,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 0.0,
       "I8": 6.0,
@@ -36420,6 +37843,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 0.0,
       "I8": null,
@@ -36481,6 +37907,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -36542,6 +37971,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -36603,6 +38035,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 20.0,
       "I8": 6.0,
@@ -36664,6 +38099,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -36725,6 +38163,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -36786,6 +38227,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": null,
@@ -36847,6 +38291,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 1,
+      "C1": 98,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 3.0,
@@ -36908,6 +38355,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -36969,6 +38419,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -37030,6 +38483,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 2.0,
@@ -37091,6 +38547,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 4.0,
@@ -37152,6 +38611,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 6.0,
@@ -37213,6 +38675,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": 3.0,
@@ -37274,6 +38739,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -37335,6 +38803,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": null,
@@ -37396,6 +38867,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 5.0,
@@ -37457,6 +38931,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": 7.0,
@@ -37518,6 +38995,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -37579,6 +39059,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -37640,6 +39123,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -37701,6 +39187,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -37762,6 +39251,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -37823,6 +39315,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -37884,6 +39379,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -37945,6 +39443,9 @@
       "B1": 1,
       "B2_RECOD": 6,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 4.0,
       "I8": 4.0,
@@ -38006,6 +39507,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 20.0,
       "I8": null,
@@ -38067,6 +39571,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -38128,6 +39635,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 2,
+      "C1": 98,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -38189,6 +39699,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -38250,6 +39763,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -38311,6 +39827,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -38372,6 +39891,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 30.0,
       "I8": 1.0,
@@ -38433,6 +39955,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 90.0,
       "I8": 6.0,
@@ -38494,6 +40019,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 3.0,
@@ -38555,6 +40083,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -38616,6 +40147,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -38677,6 +40211,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 98,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 7.0,
@@ -38738,6 +40275,9 @@
       "B1": 1,
       "B2_RECOD": 6,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -38799,6 +40339,9 @@
       "B1": 2,
       "B2_RECOD": 7,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 100.0,
       "I8": null,
@@ -38860,6 +40403,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -38921,6 +40467,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -38982,6 +40531,9 @@
       "B1": 1,
       "B2_RECOD": 444,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 3.0,
       "I8": 5.0,
@@ -39043,6 +40595,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -39104,6 +40659,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -39165,6 +40723,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 80.0,
       "I8": 5.0,
@@ -39226,6 +40787,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -39287,6 +40851,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 60.0,
       "I8": 7.0,
@@ -39348,6 +40915,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -39409,6 +40979,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -39470,6 +41043,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -39531,6 +41107,9 @@
       "B1": 1,
       "B2_RECOD": 11,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 98.0,
       "I8": null,
@@ -39592,6 +41171,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -39653,6 +41235,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -39714,6 +41299,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 1,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 40.0,
       "I8": 3.0,
@@ -39775,6 +41363,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -39836,6 +41427,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 50.0,
       "I8": null,
@@ -39897,6 +41491,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -39958,6 +41555,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -40019,6 +41619,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -40080,6 +41683,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -40141,6 +41747,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -40202,6 +41811,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -40263,6 +41875,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -40324,6 +41939,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 4,
       "I5": 1,
       "I6": 0.0,
       "I8": 3.0,
@@ -40385,6 +42003,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -40446,6 +42067,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 60.0,
       "I8": 6.0,
@@ -40507,6 +42131,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -40568,6 +42195,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 10.0,
       "I8": null,
@@ -40629,6 +42259,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -40690,6 +42323,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -40751,6 +42387,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 30.0,
       "I8": 3.0,
@@ -40812,6 +42451,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 3.0,
@@ -40873,6 +42515,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 50.0,
       "I8": 6.0,
@@ -40934,6 +42579,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 4.0,
@@ -40995,6 +42643,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -41056,6 +42707,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -41117,6 +42771,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 100.0,
       "I8": 7.0,
@@ -41178,6 +42835,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 4.0,
@@ -41239,6 +42899,9 @@
       "B1": 1,
       "B2_RECOD": 4,
       "A1": 4,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 3.0,
       "I8": 6.0,
@@ -41300,6 +42963,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -41361,6 +43027,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 7.0,
@@ -41422,6 +43091,9 @@
       "B1": 1,
       "B2_RECOD": 11,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 6.0,
@@ -41483,6 +43155,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -41544,6 +43219,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": null,
@@ -41605,6 +43283,9 @@
       "B1": 3,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -41666,6 +43347,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -41727,6 +43411,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 6.0,
@@ -41788,6 +43475,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -41849,6 +43539,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 7.0,
@@ -41910,6 +43603,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -41971,6 +43667,9 @@
       "B1": 3,
       "B2_RECOD": 4,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -42032,6 +43731,9 @@
       "B1": 3,
       "B2_RECOD": 3,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -42093,6 +43795,9 @@
       "B1": 1,
       "B2_RECOD": 7,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -42154,6 +43859,9 @@
       "B1": 2,
       "B2_RECOD": 6,
       "A1": 6,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -42215,6 +43923,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 40.0,
       "I8": 4.0,
@@ -42276,6 +43987,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 3.0,
@@ -42337,6 +44051,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 0.0,
       "I8": 5.0,
@@ -42398,6 +44115,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -42459,6 +44179,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 70.0,
       "I8": 2.0,
@@ -42520,6 +44243,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 5.0,
@@ -42581,6 +44307,9 @@
       "B1": 2,
       "B2_RECOD": 2,
       "A1": 6,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 10.0,
       "I8": 7.0,
@@ -42642,6 +44371,9 @@
       "B1": 2,
       "B2_RECOD": 3,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -42703,6 +44435,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -42764,6 +44499,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -42825,6 +44563,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -42886,6 +44627,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 20.0,
       "I8": 5.0,
@@ -42947,6 +44691,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -43008,6 +44755,9 @@
       "B1": 3,
       "B2_RECOD": 3,
       "A1": 4,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 4,
       "I5": 1,
       "I6": 10.0,
       "I8": 1.0,
@@ -43069,6 +44819,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -43130,6 +44883,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 75.0,
       "I8": 5.0,
@@ -43191,6 +44947,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 20.0,
       "I8": 4.0,
@@ -43252,6 +45011,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -43313,6 +45075,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -43374,6 +45139,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -43435,6 +45203,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -43496,6 +45267,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 20.0,
       "I8": 3.0,
@@ -43557,6 +45331,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -43618,6 +45395,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 6.0,
@@ -43679,6 +45459,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 3,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -43740,6 +45523,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 60.0,
       "I8": 4.0,
@@ -43801,6 +45587,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -43862,6 +45651,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": null,
@@ -43923,6 +45715,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -43984,6 +45779,9 @@
       "B1": 1,
       "B2_RECOD": 2,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 0.0,
       "I8": 3.0,
@@ -44045,6 +45843,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 6,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 20.0,
       "I8": 3.0,
@@ -44106,6 +45907,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 90.0,
       "I8": 6.0,
@@ -44167,6 +45971,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": null,
@@ -44228,6 +46035,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 1,
       "I5": 1,
       "I6": 80.0,
       "I8": 5.0,
@@ -44289,6 +46099,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -44350,6 +46163,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 0.0,
       "I8": null,
@@ -44411,6 +46227,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 6,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 40.0,
       "I8": 4.0,
@@ -44472,6 +46291,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 90.0,
       "I8": 5.0,
@@ -44533,6 +46355,9 @@
       "B1": 1,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -44594,6 +46419,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 444,
       "I5": 1,
       "I6": 100.0,
       "I8": 7.0,
@@ -44655,6 +46483,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 70.0,
       "I8": 7.0,
@@ -44716,6 +46547,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 80.0,
       "I8": 6.0,
@@ -44777,6 +46611,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 100.0,
       "I8": 5.0,
@@ -44838,6 +46675,9 @@
       "B1": 3,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 80.0,
       "I8": 5.0,
@@ -44899,6 +46739,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 5.0,
       "I8": 1.0,
@@ -44960,6 +46803,9 @@
       "B1": 1,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 5,
       "I5": 1,
       "I6": 25.0,
       "I8": 4.0,
@@ -45021,6 +46867,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -45082,6 +46931,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 2,
       "I6": 10.0,
       "I8": 1.0,
@@ -45143,6 +46995,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -45204,6 +47059,9 @@
       "B1": 3,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 10.0,
       "I8": 3.0,
@@ -45265,6 +47123,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 10.0,
       "I8": 3.0,
@@ -45326,6 +47187,9 @@
       "B1": 3,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 99.0,
       "I8": 6.0,
@@ -45387,6 +47251,9 @@
       "B1": 2,
       "B2_RECOD": 8,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 2,
       "I6": 50.0,
       "I8": 4.0,
@@ -45448,6 +47315,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 0.0,
       "I8": null,
@@ -45509,6 +47379,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -45570,6 +47443,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 50.0,
       "I8": 4.0,
@@ -45631,6 +47507,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 4.0,
@@ -45692,6 +47571,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 70.0,
       "I8": 5.0,
@@ -45753,6 +47635,9 @@
       "B1": 2,
       "B2_RECOD": 444,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 60.0,
       "I8": 5.0,
@@ -45814,6 +47699,9 @@
       "B1": 2,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 1,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 50.0,
       "I8": 3.0,
@@ -45875,6 +47763,9 @@
       "B1": 2,
       "B2_RECOD": 1,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 3,
       "I5": 1,
       "I6": 30.0,
       "I8": 5.0,
@@ -45936,6 +47827,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 20.0,
       "I8": 2.0,
@@ -45997,6 +47891,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 2,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 30.0,
       "I8": 4.0,
@@ -46058,6 +47955,9 @@
       "B1": 2,
       "B2_RECOD": 10,
       "A1": 3,
+      "C1": 2,
+      "C2": 1,
+      "C2_2_RECOD": 2,
       "I5": 1,
       "I6": 60.0,
       "I8": 6.0,
@@ -46119,6 +48019,9 @@
       "B1": 2,
       "B2_RECOD": 4,
       "A1": 2,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 70.0,
       "I8": 6.0,
@@ -46180,6 +48083,9 @@
       "B1": 1,
       "B2_RECOD": 9,
       "A1": 5,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 2,
       "I6": 50.0,
       "I8": 4.0,
@@ -46241,6 +48147,9 @@
       "B1": 1,
       "B2_RECOD": 1,
       "A1": 3,
+      "C1": 1,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 50.0,
       "I8": 5.0,
@@ -46302,6 +48211,9 @@
       "B1": 98,
       "B2_RECOD": 9,
       "A1": 1,
+      "C1": 2,
+      "C2": 2,
+      "C2_2_RECOD": null,
       "I5": 1,
       "I6": 98.0,
       "I8": 7.0,

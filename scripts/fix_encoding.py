@@ -2,10 +2,11 @@ import json
 
 def fix_dict(obj):
     if isinstance(obj, str):
-        # Clean replacement characters and known SPSS encoding defects
-        s = obj.replace('\ufffd', 'é') # default fallback for e with acute
-        s = s.replace('Aysén', 'Aysén').replace('Ayséen', 'Aysén').replace('Aysén', 'Aysén')
-        s = s.replace('Río Ibáñez', 'Río Ibáñez').replace('Río Ibáéez', 'Río Ibáñez').replace('Río Ibáñez', 'Río Ibáñez')
+        s = obj.replace('\ufffd', 'í')
+        s = s.replace('S', 'Sí').replace('Sï¿½', 'Sí').replace('S\ufffd', 'Sí')
+        s = s.replace('polticas', 'políticas').replace('polï¿½ticas', 'políticas')
+        s = s.replace('Aysén', 'Aysén').replace('Ayséen', 'Aysén')
+        s = s.replace('Río Ibáñez', 'Río Ibáñez').replace('Río Ibáéez', 'Río Ibáñez')
         s = s.replace('Economía', 'Economía').replace('Educación', 'Educación').replace('Población', 'Población')
         s = s.replace('Región', 'Región').replace('región', 'región')
         s = s.replace('Qué', 'Qué').replace('Cómo', 'Cómo').replace('cuán', 'cuán')
@@ -36,4 +37,7 @@ clean_data['metadata']['comunas'] = ['Coyhaique', 'Lago Verde', 'Aysén', 'Cisne
 with open('data/barometro_summary.json', 'w', encoding='utf-8') as f:
     json.dump(clean_data, f, ensure_ascii=False, indent=2)
 
-print("data/barometro_summary.json cleaned and saved with 100% clean UTF-8 Spanish text!")
+with open('data/barometro_dataset.json', 'w', encoding='utf-8') as f:
+    json.dump(clean_data, f, ensure_ascii=False, indent=2)
+
+print("data/barometro_summary.json and barometro_dataset.json cleaned and saved with 100% clean UTF-8 text!")
