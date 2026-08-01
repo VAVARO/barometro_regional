@@ -133,6 +133,7 @@ def process_data():
             "n_weighted": round(n_weighted, 1),
             "rumbo_regional": weighted_counts(sub_df['B1'], weights, meta.variable_value_labels.get('B1')),
             "top_problemas": weighted_counts(sub_df['B2_RECOD'], weights, meta.variable_value_labels.get('B2_RECOD')),
+            "top_problemas_2": weighted_counts(sub_df['B2_2_RECOD'], weights, meta.variable_value_labels.get('B2_2_RECOD')),
             "pertenencia": weighted_counts(sub_df['A1'], weights, meta.variable_value_labels.get('A1')),
             "deseo_movilidad": weighted_counts(sub_df['A2'], weights, meta.variable_value_labels.get('A2')),
             "destino_movilidad": weighted_counts(sub_df['A3'], weights, meta.variable_value_labels.get('A3')),
@@ -141,10 +142,15 @@ def process_data():
             "organizacion_c2_2": weighted_counts(sub_df['C2_2_RECOD'], weights, meta.variable_value_labels.get('C2_2_RECOD')),
             "medio_principal": weighted_counts(sub_df['E2'], weights, meta.variable_value_labels.get('E2')),
             "ventaja_regional": weighted_counts(sub_df['F1'], weights, meta.variable_value_labels.get('F1')),
+            "ventaja_regional_2": weighted_counts(sub_df['F2'], weights, meta.variable_value_labels.get('F2')),
             "centralismo_g2": weighted_counts(sub_df['G2'], weights, meta.variable_value_labels.get('G2')),
             "gobernador_g3": weighted_counts(sub_df['G3'], weights, meta.variable_value_labels.get('G3')),
             "democracia_h1": weighted_counts(sub_df['H1'], weights, meta.variable_value_labels.get('H1')),
             "politica_h2": weighted_counts(sub_df['H2'], weights, meta.variable_value_labels.get('H2')),
+            "nivel_educacional": weighted_counts(sub_df['J1'], weights, meta.variable_value_labels.get('J1')),
+            "matriz_ocupacional": weighted_counts(sub_df['CIUO08_1N'], weights, meta.variable_value_labels.get('CIUO08_1N')),
+            "gse_4_cat": weighted_counts(sub_df['GSE_4_Categorias'], weights, meta.variable_value_labels.get('GSE_4_Categorias')),
+            "uaysen_spontaneous": weighted_counts(sub_df['I51_COD'], weights, meta.variable_value_labels.get('I51_COD')),
             "uaysen_conocimiento": weighted_counts(sub_df['I5'], weights, meta.variable_value_labels.get('I5')),
             "uaysen_identificacion_mean": weighted_mean(sub_df['I6'], weights),
             "uaysen_nota_mean": weighted_mean(sub_df['I8'], weights),
@@ -260,6 +266,7 @@ def process_data():
             "weight": float(row['PONDERADOR']) if not pd.isna(row['PONDERADOR']) else 1.0,
             "B1": int(row['B1']) if not pd.isna(row['B1']) else None,
             "B2_RECOD": int(row['B2_RECOD']) if not pd.isna(row['B2_RECOD']) else None,
+            "B2_2_RECOD": int(row['B2_2_RECOD']) if not pd.isna(row['B2_2_RECOD']) else None,
             "A1": int(row['A1']) if not pd.isna(row['A1']) else None,
             "A2": int(row['A2']) if not pd.isna(row['A2']) else None,
             "A3": int(row['A3']) if not pd.isna(row['A3']) else None,
@@ -274,6 +281,11 @@ def process_data():
             "G3": int(row['G3']) if not pd.isna(row['G3']) else None,
             "H1": int(row['H1']) if not pd.isna(row['H1']) else None,
             "H2": int(row['H2']) if not pd.isna(row['H2']) else None,
+            "J1": int(row['J1']) if not pd.isna(row['J1']) else None,
+            "J7": float(row['J7']) if not pd.isna(row['J7']) else None,
+            "GSE_4_Categorias": int(row['GSE_4_Categorias']) if not pd.isna(row['GSE_4_Categorias']) else None,
+            "CIUO08_1N": int(row['CIUO08_1N']) if not pd.isna(row['CIUO08_1N']) else None,
+            "I51_COD": int(row['I51_COD']) if not pd.isna(row['I51_COD']) else None,
             "I5": int(row['I5']) if not pd.isna(row['I5']) else None,
             "I6": float(row['I6']) if not pd.isna(row['I6']) and row['I6'] <= 100 else None,
             "I8": float(row['I8']) if not pd.isna(row['I8']) and row['I8'] <= 7 else None
@@ -306,7 +318,7 @@ def process_data():
     with open("data/barometro_summary.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
         
-    print(f"Successfully generated data/barometro_summary.json with 100% survey coverage.")
+    print(f"Successfully generated data/barometro_summary.json with J1, J7, GSE_4_Categorias, CIUO08_1N, I51_COD.")
 
 if __name__ == "__main__":
     process_data()

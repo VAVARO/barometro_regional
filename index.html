@@ -134,6 +134,9 @@
       <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="confianza">
         <span class="material-symbols-outlined text-base align-sub mr-1">handshake</span>Confianza Social
       </button>
+      <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="demografia">
+        <span class="material-symbols-outlined text-base align-sub mr-1">group</span>Perfil Demográfico
+      </button>
       <button class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="explorer">
         <span class="material-symbols-outlined text-base align-sub mr-1">insights</span>Data Intelligence
       </button>
@@ -168,6 +171,7 @@
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="medioambiente">Medioambiente & Futuro</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="uaysen">UAysén en el Territorio</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="confianza">Confianza & Cohesión Social</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="demografia">Perfil Demográfico & Laboral</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="explorer">Data Intelligence</button>
         </nav>
       </div>
@@ -623,6 +627,17 @@
             <canvas id="chart-uaysen-aporte-canvas"></canvas>
           </div>
         </div>
+
+        <!-- Menciones Cualitativas Espontáneas UAysén I51_COD -->
+        <div class="lg:col-span-12 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Percepción Cualitativa Espontánea</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">¿Qué ha escuchado sobre la Universidad de Aysén? (I51_COD)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-uaysen-cualitativo-canvas"></canvas>
+          </div>
+        </div>
       </section>
     </div>
 
@@ -709,6 +724,98 @@
       </section>
     </div>
 
+    <!-- SECTION: PERFIL DEMOGRÁFICO & LABORAL -->
+    <div id="tab-content-demografia" class="tab-panel hidden space-y-8">
+      <section class="mb-2">
+        <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Perfil Demográfico, Educacional & Ocupacional</h2>
+        <p class="text-sm text-on-surface-variant">Caracterización socioeconómica de los habitantes de la Región de Aysén, nivel educacional, distribución del ingreso e inserción laboral.</p>
+      </section>
+
+      <!-- KPI Scorecards Grid (3 Cards) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- KPI 1: Ingreso Promedio del Hogar J7 -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
+              <span class="material-symbols-outlined text-2xl">payments</span>
+            </div>
+            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md">Variable J7</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Ingreso Mensual Hogar</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-ingreso-promedio" class="text-2xl md:text-3xl font-extrabold text-primary font-display-lg">$1.526.091 CLP</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Promedio ponderado del ingreso mensual del hogar</p>
+        </div>
+
+        <!-- KPI 2: Nivel Educacional Predominante -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-primary-container/10 rounded-xl text-primary-container">
+              <span class="material-symbols-outlined text-2xl">school</span>
+            </div>
+            <span class="text-xs font-bold text-primary bg-primary-container/10 px-2 py-1 rounded-md">Variable J1</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Educación Predominante</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-top-educacion" class="text-lg md:text-xl font-bold text-primary truncate max-w-[220px]">Media Completa</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Nivel educacional más frecuente en la muestra</p>
+        </div>
+
+        <!-- KPI 3: Ocupación Principal -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-3">
+            <div class="p-2.5 bg-secondary-container/10 rounded-xl text-secondary">
+              <span class="material-symbols-outlined text-2xl">work</span>
+            </div>
+            <span class="text-xs font-bold text-secondary-container bg-secondary-container/10 px-2 py-1 rounded-md">CIUO 08</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Sector Ocupacional Top</p>
+          <div class="flex items-baseline gap-2">
+            <span id="kpi-top-ocupacion" class="text-lg md:text-xl font-bold text-primary truncate max-w-[220px]">Servicios y Comercio</span>
+          </div>
+          <p class="text-xs text-outline mt-3">Categoría ocupacional principal</p>
+        </div>
+      </section>
+
+      <!-- Bento Grid Charts -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Chart 1: Nivel Educacional J1 -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Escolaridad</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Nivel Educacional Alcanzado (J1)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-educacion-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Grupos Socioeconómicos GSE 4 Categorías -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Nivel Socioeconómico</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Distribución por GSE (4 Categorías)</p>
+          </div>
+          <div class="relative h-80 w-full flex items-center justify-center">
+            <canvas id="chart-gse-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Matriz Ocupacional CIUO08 -->
+        <div class="lg:col-span-12 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Fuerza de Trabajo</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Matriz Ocupacional Regional (CIUO 08)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-ocupacion-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <!-- SECTION: DATA INTELLIGENCE EXPLORER -->
     <div id="tab-content-explorer" class="tab-panel hidden space-y-8">
       <section class="mb-2">
@@ -736,7 +843,11 @@
               <option value="G3">Impacto Gobernador Regional (G3)</option>
               <option value="H1">Valoración Democracia (H1)</option>
               <option value="H2">Posición Política (H2)</option>
+              <option value="J1">Nivel Educacional (J1)</option>
+              <option value="GSE_4_Categorias">GSE 4 Categorías</option>
+              <option value="CIUO08_1N">Matriz Ocupacional (CIUO08)</option>
               <option value="I5">Conocimiento UAysén (I5)</option>
+              <option value="I51_COD">Percepción Cualitativa UAysén (I51)</option>
             </select>
           </div>
 

@@ -1,5 +1,5 @@
 /**
- * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine (V2.0 Shielded)
+ * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine (V2.0 Complete & Shielded)
  */
 
 let appData = null;
@@ -63,7 +63,7 @@ function getVariableLabel(varName, code) {
 
   const numKey = Math.round(Number(code));
 
-  // 1. Core Explicit Fallback Maps
+  // Core Explicit Fallback Maps
   if (varName === "B1") {
     const mapB1 = { "1": "Progresando", "2": "Estancada", "3": "En decadencia" };
     if (mapB1[numKey]) return mapB1[numKey];
@@ -146,13 +146,73 @@ function getVariableLabel(varName, code) {
     };
     if (mapH2[numKey]) return mapH2[numKey];
   }
+  if (varName === "J1") {
+    const mapJ1 = {
+      "1": "No Estudió",
+      "2": "Básica Incompleta",
+      "3": "Básica Completa",
+      "4": "Media Incompleta",
+      "5": "Media Completa",
+      "6": "IP/CFT Incompleto",
+      "7": "IP/CFT Completo",
+      "8": "Universitaria Incompleta",
+      "9": "Universitaria Completa",
+      "10": "Postgrado"
+    };
+    if (mapJ1[numKey]) return mapJ1[numKey];
+  }
+  if (varName === "GSE_4_Categorias") {
+    const mapGSE4 = {
+      "1": "ABC1",
+      "2": "C2",
+      "3": "C3",
+      "4": "D+E"
+    };
+    if (mapGSE4[numKey]) return mapGSE4[numKey];
+  }
+  if (varName === "CIUO08_1N") {
+    const mapCIUO = {
+      "0": "Fuerzas Armadas",
+      "1": "Directores y Gerentes",
+      "2": "Profesionales y Científicos",
+      "3": "Técnicos Nivel Medio",
+      "4": "Apoyo Administrativo",
+      "5": "Servicios y Comercio",
+      "6": "Agropecuario y Pesca",
+      "7": "Artesanos y Operarios",
+      "8": "Operadores de Maquinaria",
+      "9": "Ocupaciones Elementales"
+    };
+    if (mapCIUO[numKey]) return mapCIUO[numKey];
+  }
+  if (varName === "I51_COD") {
+    const mapI51 = {
+      "11": "Nuevas carreras",
+      "12": "Buena calidad educación",
+      "13": "Realizan investigaciones",
+      "14": "Fomenta educación regional",
+      "15": "Charlas y capacitaciones",
+      "21": "Solo de nombre",
+      "22": "Es universidad nueva",
+      "23": "Sobre oferta de carreras",
+      "24": "Conoce egresados/estudiantes",
+      "31": "Problemas financieros",
+      "32": "Mala administración",
+      "33": "Quiebra",
+      "34": "Falta mejorar calidad",
+      "35": "Muy politizada",
+      "36": "Despidos masivos",
+      "444": "Otro"
+    };
+    if (mapI51[numKey]) return mapI51[numKey];
+  }
 
   // Demographics filter strings
   if (["comuna", "zona", "edad", "gse", "sexo"].includes(varName)) {
     return String(code);
   }
 
-  // 2. Lookup in appData.variables (Primary) or appData.metadata
+  // Lookup in appData.variables (Primary) or appData.metadata
   const varObj = (appData && appData.variables && appData.variables[varName]) 
               || (appData && appData.metadata && appData.metadata.variable_info && appData.metadata.variable_info[varName]);
 
@@ -498,13 +558,53 @@ function calculateWeightedCounts(records, varName) {
   return result;
 }
 
-function calculateWeightedMean(records, varName) {
+function calculateConsolidatedWeightedCounts(records, col1, col2) {
+  let totalW = 0;
+  const counts = {};
+
+  records.forEach(r => {
+    const w = Number(r.weight || r.PONDERADOR) || 1.0;
+    totalW += w;
+    const val1 = r[col1];
+    const val2 = r[col2];
+
+    const added = new Set();
+    [val1, val2].forEach(val => {
+      if (val !== null && val !== undefined && val < 97) {
+        const key = String(val);
+        if (!added.has(key)) {
+          added.add(key);
+          if (!counts[key]) {
+            counts[key] = { weighted_count: 0, unweighted_count: 0 };
+          }
+          counts[key].weighted_count += w;
+          counts[key].unweighted_count += 1;
+        }
+      }
+    });
+  });
+
+  const result = {};
+  for (const [code, data] of Object.entries(counts)) {
+    const lbl = getVariableLabel(col1, code);
+    result[lbl] = {
+      code: code,
+      count: data.unweighted_count,
+      weighted_count: data.weighted_count,
+      percentage: totalW > 0 ? (data.weighted_count / totalW) * 100 : 0
+    };
+  }
+
+  return result;
+}
+
+function calculateWeightedMean(records, varName, minVal = 0, maxVal = 97) {
   let totalW = 0;
   let sumWX = 0;
 
   records.forEach(r => {
     const val = r[varName];
-    if (val !== null && val !== undefined && val < 97) {
+    if (val !== null && val !== undefined && val >= minVal && val < maxVal) {
       const w = Number(r.weight || r.PONDERADOR) || 1.0;
       totalW += w;
       sumWX += val * w;
@@ -531,7 +631,8 @@ function updateDashboard() {
   const elProgBar = document.getElementById("kpi-progreso-bar");
   if (elProgBar) elProgBar.style.width = `${progPct}%`;
 
-  const probCounts = calculateWeightedCounts(filtered, "B2_RECOD");
+  // Top Problem (Consolidated M1 + M2)
+  const probCounts = calculateConsolidatedWeightedCounts(filtered, "B2_RECOD", "B2_2_RECOD");
   let topProb = { name: "Seguridad", code: "1", pct: 0 };
   for (const [pName, pData] of Object.entries(probCounts)) {
     if (pData.percentage > topProb.pct) {
@@ -561,7 +662,10 @@ function updateDashboard() {
   // 2. Confianza Social Panel Updates
   updateConfianzaPanel(filtered);
 
-  // 3. Safe Chart Renderers Execution
+  // 3. Perfil Demográfico Panel Updates
+  updateDemografiaPanel(filtered);
+
+  // 4. Safe Chart Renderers Execution
   const chartRenderers = [
     () => renderRumboChart(rumboCounts),
     () => renderProblemasChart(probCounts),
@@ -579,7 +683,8 @@ function updateDashboard() {
     () => renderEconomiaChart(filtered),
     () => renderSalmonImpactosChart(filtered),
     () => renderTurismoMitosChart(filtered),
-    () => renderUAysenceAporteChart(filtered)
+    () => renderUAysenceAporteChart(filtered),
+    () => renderUAysenceCualitativoChart(filtered)
   ];
 
   chartRenderers.forEach(fn => {
@@ -590,12 +695,58 @@ function updateDashboard() {
     }
   });
 
-  // 4. Update Explorer
+  // 5. Update Explorer
   renderExplorerTable();
 }
 
 // ----------------------------------------------------
-// Confianza Social Panel Logic & Calculations
+// Demografía Panel Logic
+// ----------------------------------------------------
+function updateDemografiaPanel(filteredRecords) {
+  if (!filteredRecords) return;
+
+  try {
+    // 1. Ingreso Promedio Hogar (J7: > 10000 CLP)
+    const incomeMean = calculateWeightedMean(filteredRecords, "J7", 10000, 99000000);
+    if (incomeMean !== null) {
+      const formattedIncome = "$" + Math.round(incomeMean).toLocaleString("es-CL") + " CLP";
+      safeSetText("kpi-ingreso-promedio", formattedIncome);
+    } else {
+      safeSetText("kpi-ingreso-promedio", "--");
+    }
+
+    // 2. Educación Predominante J1
+    const eduCounts = calculateWeightedCounts(filteredRecords, "J1");
+    let topEdu = { name: "Media Completa", pct: 0 };
+    for (const [eName, eData] of Object.entries(eduCounts)) {
+      if (eData.percentage > topEdu.pct) {
+        topEdu = { name: eName, pct: eData.percentage };
+      }
+    }
+    safeSetText("kpi-top-educacion", topEdu.name);
+
+    // 3. Matriz Ocupacional Top CIUO08_1N
+    const ocCounts = calculateWeightedCounts(filteredRecords, "CIUO08_1N");
+    let topOc = { name: "Servicios y Comercio", pct: 0 };
+    for (const [oName, oData] of Object.entries(ocCounts)) {
+      if (oData.percentage > topOc.pct) {
+        topOc = { name: oName, pct: oData.percentage };
+      }
+    }
+    safeSetText("kpi-top-ocupacion", topOc.name);
+
+    // 4. Render Demographic Charts
+    renderEducacionChart(eduCounts);
+    renderGseChart(filteredRecords);
+    renderOcupacionChart(ocCounts);
+
+  } catch (err) {
+    console.error("[Demografia Panel Error]:", err);
+  }
+}
+
+// ----------------------------------------------------
+// Confianza Social Panel Logic
 // ----------------------------------------------------
 function updateConfianzaPanel(filteredRecords) {
   if (!filteredRecords) return;
@@ -654,6 +805,142 @@ const BRAND_COLORS = {
   amber: "#f59e0b",
   indigo: "#6366f1"
 };
+
+function renderEducacionChart(eduCounts) {
+  const ctx = safeGetCanvas("chart-educacion-canvas");
+  if (!ctx) return;
+
+  const sorted = Object.entries(eduCounts)
+    .map(([k, v]) => ({ name: k, pct: v.percentage }))
+    .sort((a, b) => b.pct - a.pct);
+
+  const labels = sorted.map(s => s.name);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.educacion) charts.educacion.destroy();
+
+  charts.educacion = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Nivel Educacional",
+        data: data,
+        backgroundColor: BRAND_COLORS.primary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
+
+function renderGseChart(filtered) {
+  const ctx = safeGetCanvas("chart-gse-canvas");
+  if (!ctx) return;
+
+  const gseCounts = calculateWeightedCounts(filtered, "GSE_4_Categorias");
+  const labels = ["ABC1", "C2", "C3", "D+E"];
+  const data = labels.map(l => gseCounts[l] ? gseCounts[l].percentage.toFixed(1) : 0);
+
+  if (charts.gse) charts.gse.destroy();
+
+  charts.gse = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: [BRAND_COLORS.accent, BRAND_COLORS.secondary, BRAND_COLORS.primary, BRAND_COLORS.muted],
+        borderWidth: 2,
+        borderColor: "#ffffff"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
+      }
+    }
+  });
+}
+
+function renderOcupacionChart(ocCounts) {
+  const ctx = safeGetCanvas("chart-ocupacion-canvas");
+  if (!ctx) return;
+
+  const sorted = Object.entries(ocCounts)
+    .map(([k, v]) => ({ name: k, pct: v.percentage }))
+    .sort((a, b) => b.pct - a.pct);
+
+  const labels = sorted.map(s => s.name);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.ocupacion) charts.ocupacion.destroy();
+
+  charts.ocupacion = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Matriz Ocupacional",
+        data: data,
+        backgroundColor: BRAND_COLORS.emerald,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
+
+function renderUAysenceCualitativoChart(filtered) {
+  const ctx = safeGetCanvas("chart-uaysen-cualitativo-canvas");
+  if (!ctx) return;
+
+  const i51Counts = calculateWeightedCounts(filtered, "I51_COD");
+  const sorted = Object.entries(i51Counts)
+    .map(([k, v]) => ({ name: k, pct: v.percentage }))
+    .sort((a, b) => b.pct - a.pct)
+    .slice(0, 10);
+
+  const labels = sorted.map(s => s.name);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.uaysenCualitativo) charts.uaysenCualitativo.destroy();
+
+  charts.uaysenCualitativo = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Mención Espontánea",
+        data: data,
+        backgroundColor: BRAND_COLORS.primary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
 
 function renderRumboChart(rumboCounts) {
   const ctx = safeGetCanvas("chart-rumbo-canvas");
@@ -835,7 +1122,7 @@ function renderProblemasChart(probCounts) {
     data: {
       labels: labels,
       datasets: [{
-        label: "% Mención",
+        label: "% Mención Consolidada (1° + 2°)",
         data: data,
         backgroundColor: BRAND_COLORS.primary,
         borderRadius: 8
