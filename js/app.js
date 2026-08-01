@@ -1,5 +1,5 @@
 /**
- * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine
+ * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine (V2.0)
  */
 
 let appData = null;
@@ -40,18 +40,33 @@ async function initApp() {
 function getVariableLabel(varName, code) {
   if (code === null || code === undefined || code === "") return "";
 
-  // 1. Core Fallback Maps
+  const numKey = Math.round(Number(code));
+
+  // 1. Core Explicit Fallback Maps
   if (varName === "B1") {
     const mapB1 = { "1": "Progresando", "2": "Estancada", "3": "En decadencia" };
-    if (mapB1[Math.round(Number(code))]) return mapB1[Math.round(Number(code))];
+    if (mapB1[numKey]) return mapB1[numKey];
+  }
+  if (varName === "A2") {
+    const mapA2 = { "1": "Sí, desea irse", "2": "No, prefiere quedarse" };
+    if (mapA2[numKey]) return mapA2[numKey];
+  }
+  if (varName === "A3") {
+    const mapA3 = {
+      "1": "Misma comuna",
+      "2": "Otra comuna en Aysén",
+      "3": "Otra Región del país",
+      "4": "Otro país"
+    };
+    if (mapA3[numKey]) return mapA3[numKey];
   }
   if (varName === "C1") {
     const mapC1 = { "1": "Se puede confiar en las personas", "2": "No se puede confiar en las personas" };
-    if (mapC1[Math.round(Number(code))]) return mapC1[Math.round(Number(code))];
+    if (mapC1[numKey]) return mapC1[numKey];
   }
-  if (varName === "C2" || varName === "I5") {
+  if (varName === "C2" || varName === "I5" || varName === "F3") {
     const mapYesNo = { "1": "Sí", "2": "No" };
-    if (mapYesNo[Math.round(Number(code))]) return mapYesNo[Math.round(Number(code))];
+    if (mapYesNo[numKey]) return mapYesNo[numKey];
   }
   if (varName === "C2_2_RECOD") {
     const mapC2_2 = {
@@ -62,7 +77,53 @@ function getVariableLabel(varName, code) {
       "5": "Organizaciones gremiales",
       "444": "Otro"
     };
-    if (mapC2_2[Math.round(Number(code))]) return mapC2_2[Math.round(Number(code))];
+    if (mapC2_2[numKey]) return mapC2_2[numKey];
+  }
+  if (varName === "E2") {
+    const mapE2 = {
+      "1": "TV Nacional",
+      "2": "TV Local/Regional",
+      "3": "Radios Nacionales",
+      "4": "Radios Locales",
+      "5": "Web Noticias Nacional",
+      "6": "Web Noticias Regional",
+      "7": "Redes Sociales"
+    };
+    if (mapE2[numKey]) return mapE2[numKey];
+  }
+  if (varName === "G2") {
+    const mapG2 = {
+      "1": "Aumentó Centralismo",
+      "2": "Mayor Autonomía Regional"
+    };
+    if (mapG2[numKey]) return mapG2[numKey];
+  }
+  if (varName === "G3") {
+    const mapG3 = {
+      "1": "Impulso al desarrollo",
+      "2": "Igual que antes",
+      "3": "Más problemas"
+    };
+    if (mapG3[numKey]) return mapG3[numKey];
+  }
+  if (varName === "H1") {
+    const mapH1 = {
+      "1": "Democracia preferible",
+      "2": "Gobierno autoritario",
+      "3": "Da lo mismo el régimen"
+    };
+    if (mapH1[numKey]) return mapH1[numKey];
+  }
+  if (varName === "H2") {
+    const mapH2 = {
+      "1": "Izquierda",
+      "2": "Centro Izquierda",
+      "3": "Centro",
+      "4": "Centro Derecha",
+      "5": "Derecha",
+      "97": "Ninguna"
+    };
+    if (mapH2[numKey]) return mapH2[numKey];
   }
 
   // Demographics filter strings
@@ -77,7 +138,6 @@ function getVariableLabel(varName, code) {
   if (varObj) {
     const vMap = varObj.values || varObj.value_labels;
     if (vMap) {
-      const numKey = Math.round(Number(code));
       if (vMap[code]) return vMap[code];
       if (vMap[String(code)]) return vMap[String(code)];
       if (!isNaN(numKey)) {
@@ -474,15 +534,23 @@ function updateDashboard() {
   // 2. Confianza Social Panel Updates (C1, C2, C2_2_RECOD)
   updateConfianzaPanel(filtered);
 
-  // 3. Render General Charts
+  // 3. Render General Charts across all sections
   renderRumboChart(rumboCounts);
   renderProblemasChart(probCounts);
   renderPertenenciaChart(filtered);
   renderServiciosChart(filtered);
+  renderServiciosCompletoChart(filtered);
+  renderMovilidadCharts(filtered);
   renderGobernanzaChart(filtered);
   renderInstitucionesChart(filtered);
+  renderMediosCharts(filtered);
+  renderCentralismoCharts(filtered);
+  renderPoliticaCharts(filtered);
   renderAmbientalChart(filtered);
+  renderAfectacionAmbientalChart(filtered);
   renderEconomiaChart(filtered);
+  renderSalmonImpactosChart(filtered);
+  renderTurismoMitosChart(filtered);
   renderUAysenceAporteChart(filtered);
 
   // 4. Update Explorer
@@ -495,7 +563,6 @@ function updateDashboard() {
 function updateConfianzaPanel(filteredRecords) {
   if (!filteredRecords) return;
 
-  // 1. Calculate Weighted % for C1 (Confianza Interpersonal = Code 1)
   const c1ValidRecords = filteredRecords.filter(r => r.C1 !== null && r.C1 !== undefined && (Number(r.C1) === 1 || Number(r.C1) === 2));
   const c1TrustWeightedSum = c1ValidRecords
     .filter(r => Number(r.C1) === 1)
@@ -505,7 +572,6 @@ function updateConfianzaPanel(filteredRecords) {
 
   const trustPct = c1TotalWeightedSum > 0 ? (c1TrustWeightedSum / c1TotalWeightedSum) * 100 : 0;
 
-  // 2. Calculate Weighted % for C2 (Participación Activa = Code 1)
   const c2ValidRecords = filteredRecords.filter(r => r.C2 !== null && r.C2 !== undefined && (Number(r.C2) === 1 || Number(r.C2) === 2));
   const c2YesWeightedSum = c2ValidRecords
     .filter(r => Number(r.C2) === 1)
@@ -515,7 +581,6 @@ function updateConfianzaPanel(filteredRecords) {
 
   const partPct = c2TotalWeightedSum > 0 ? (c2YesWeightedSum / c2TotalWeightedSum) * 100 : 0;
 
-  // 3. Update Top Organization C2_2_RECOD
   const c22Counts = calculateWeightedCounts(filteredRecords, "C2_2_RECOD");
   let topOrg = { name: "Organizaciones sociales", pct: 0 };
   for (const [oName, oData] of Object.entries(c22Counts)) {
@@ -524,7 +589,6 @@ function updateConfianzaPanel(filteredRecords) {
     }
   }
 
-  // 4. Update KPI Card DOM
   const elTrust = document.getElementById("kpi-confianza-pct");
   const elPart = document.getElementById("kpi-participacion-pct");
   const elTopOrg = document.getElementById("kpi-top-org");
@@ -533,11 +597,8 @@ function updateConfianzaPanel(filteredRecords) {
   if (elPart) elPart.textContent = `${partPct.toFixed(1)}%`;
   if (elTopOrg) elTopOrg.textContent = topOrg.name;
 
-  // 5. Update Doughnut Chart (chart-confianza-canvas)
   const noTrustWeightedSum = c1TotalWeightedSum - c1TrustWeightedSum;
   renderConfianzaChart(c1TrustWeightedSum, noTrustWeightedSum);
-
-  // 6. Update Bar Chart (chart-participacion-canvas)
   renderParticipacionChart(c22Counts);
 }
 
@@ -552,7 +613,8 @@ const BRAND_COLORS = {
   gray: "#e2e8f0",
   rose: "#f43f5e",
   emerald: "#10b981",
-  amber: "#f59e0b"
+  amber: "#f59e0b",
+  indigo: "#6366f1"
 };
 
 function renderRumboChart(rumboCounts) {
@@ -580,11 +642,7 @@ function renderRumboChart(rumboCounts) {
       maintainAspectRatio: false,
       plugins: {
         legend: { position: "bottom" },
-        tooltip: {
-          callbacks: {
-            label: (item) => ` ${item.label}: ${item.raw}%`
-          }
-        }
+        tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
       }
     }
   });
@@ -619,14 +677,71 @@ function renderConfianzaChart(trustWeightedSum, noTrustWeightedSum) {
       maintainAspectRatio: false,
       plugins: {
         legend: { position: "bottom" },
-        tooltip: {
-          callbacks: {
-            label: (item) => ` ${item.label}: ${item.raw}%`
-          }
-        }
+        tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
       }
     }
   });
+}
+
+function renderMovilidadCharts(filtered) {
+  const ctxMov = document.getElementById("chart-movilidad-canvas");
+  const ctxDes = document.getElementById("chart-destino-canvas");
+
+  if (ctxMov) {
+    const a2Counts = calculateWeightedCounts(filtered, "A2");
+    const labels = ["No, prefiere quedarse", "Sí, desea irse"];
+    const data = labels.map(l => a2Counts[l] ? a2Counts[l].percentage.toFixed(1) : 0);
+
+    if (charts.movilidad) charts.movilidad.destroy();
+    charts.movilidad = new Chart(ctxMov, {
+      type: "doughnut",
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: [BRAND_COLORS.emerald, BRAND_COLORS.rose],
+          borderWidth: 2,
+          borderColor: "#ffffff"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: "bottom" } }
+      }
+    });
+  }
+
+  if (ctxDes) {
+    const a3Counts = calculateWeightedCounts(filtered, "A3");
+    const sorted = Object.entries(a3Counts)
+      .map(([k, v]) => ({ name: k, pct: v.percentage }))
+      .sort((a, b) => b.pct - a.pct);
+
+    const labels = sorted.map(s => s.name);
+    const data = sorted.map(s => s.pct.toFixed(1));
+
+    if (charts.destino) charts.destino.destroy();
+    charts.destino = new Chart(ctxDes, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "% Destino",
+          data: data,
+          backgroundColor: BRAND_COLORS.primary,
+          borderRadius: 8
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { ticks: { callback: v => `${v}%` } } }
+      }
+    });
+  }
 }
 
 function renderParticipacionChart(c22Counts) {
@@ -692,12 +807,8 @@ function renderProblemasChart(probCounts) {
       indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
-      },
-      scales: {
-        x: { ticks: { callback: v => `${v}%` } }
-      }
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
     }
   });
 }
@@ -783,6 +894,60 @@ function renderServiciosChart(filtered) {
   });
 }
 
+function renderServiciosCompletoChart(filtered) {
+  const ctx = document.getElementById("chart-servicios-completo-canvas");
+  if (!ctx) return;
+
+  const items = [
+    { col: "B3_A", label: "Salud pública" },
+    { col: "B3_B", label: "Educación pública" },
+    { col: "B3_C", label: "Transporte y conectividad" },
+    { col: "B3_D", label: "Vivienda" },
+    { col: "B3_E", label: "Seguridad y orden" },
+    { col: "B3_F", label: "Opciones de empleo" },
+    { col: "B3_G", label: "Recreación y cultura" },
+    { col: "B3_H", label: "Calidad del medioambiente" },
+    { col: "B3_I", label: "Conexión a Internet" },
+    { col: "B4_A", label: "Oportunidades de trabajo" },
+    { col: "B4_B", label: "Recreación y cultura (B4)" },
+    { col: "B4_C", label: "Posibilidad de buen sueldo" },
+    { col: "B4_D", label: "Posibilidad de consumir" },
+    { col: "B4_E", label: "Participación ciudadana" }
+  ];
+
+  const sorted = items.map(it => ({
+    label: it.label,
+    mean: calculateWeightedMean(filtered, it.col)
+  }))
+  .filter(i => i.mean !== null)
+  .sort((a, b) => b.mean - a.mean);
+
+  const labels = sorted.map(s => s.label);
+  const means = sorted.map(s => s.mean.toFixed(2));
+
+  if (charts.serviciosCompleto) charts.serviciosCompleto.destroy();
+
+  charts.serviciosCompleto = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Nota Promedio (1 a 7)",
+        data: means,
+        backgroundColor: BRAND_COLORS.accent,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { min: 1, max: 7 } }
+    }
+  });
+}
+
 function renderGobernanzaChart(filtered) {
   const ctx = document.getElementById("chart-gobernanza-canvas");
   if (!ctx || !filtered || filtered.length === 0) return;
@@ -810,9 +975,9 @@ function renderGobernanzaChart(filtered) {
         const w = Number(r.PONDERADOR || r.weight) || 1.0;
 
         if (val === 1) {
-          nacW += w; // 1 = Autoridades Nacionales
+          nacW += w;
         } else if (val === 2 || val === 3) {
-          regW += w; // 2 = Autoridades Regionales, 3 = Autoridades Comunales
+          regW += w;
         }
       }
     });
@@ -834,34 +999,150 @@ function renderGobernanzaChart(filtered) {
     data: {
       labels: labels,
       datasets: [
-        { 
-          label: "Decisión Regional/Comunal", 
-          data: regPct, 
-          backgroundColor: BRAND_COLORS.secondary || "#00A3E0" 
-        },
-        { 
-          label: "Decisión Gobierno Nacional", 
-          data: nacPct, 
-          backgroundColor: BRAND_COLORS.primary || "#0A2540" 
-        }
+        { label: "Decisión Regional/Comunal", data: regPct, backgroundColor: BRAND_COLORS.secondary || "#00A3E0" },
+        { label: "Decisión Gobierno Nacional", data: nacPct, backgroundColor: BRAND_COLORS.primary || "#0A2540" }
       ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        tooltip: {
-          callbacks: {
-            label: (item) => ` ${item.dataset.label}: ${item.raw}%`
-          }
-        }
-      },
-      scales: {
-        x: { stacked: true },
-        y: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } }
-      }
+      plugins: { tooltip: { callbacks: { label: (item) => ` ${item.dataset.label}: ${item.raw}%` } } },
+      scales: { x: { stacked: true }, y: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } } }
     }
   });
+}
+
+function renderMediosCharts(filtered) {
+  const ctxMain = document.getElementById("chart-medio-principal-canvas");
+
+  if (ctxMain) {
+    const e2Counts = calculateWeightedCounts(filtered, "E2");
+    const sorted = Object.entries(e2Counts)
+      .map(([k, v]) => ({ name: k, pct: v.percentage }))
+      .sort((a, b) => b.pct - a.pct);
+
+    const labels = sorted.map(s => s.name);
+    const data = sorted.map(s => s.pct.toFixed(1));
+
+    if (charts.medioPrincipal) charts.medioPrincipal.destroy();
+    charts.medioPrincipal = new Chart(ctxMain, {
+      type: "doughnut",
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: [
+            BRAND_COLORS.accent, BRAND_COLORS.primary, BRAND_COLORS.secondary,
+            BRAND_COLORS.emerald, BRAND_COLORS.amber, BRAND_COLORS.rose, BRAND_COLORS.indigo
+          ],
+          borderWidth: 2,
+          borderColor: "#ffffff"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: "bottom" } }
+      }
+    });
+  }
+}
+
+function renderCentralismoCharts(filtered) {
+  const ctxCent = document.getElementById("chart-centralismo-canvas");
+  if (!ctxCent) return;
+
+  const g2Counts = calculateWeightedCounts(filtered, "G2");
+  const g3Counts = calculateWeightedCounts(filtered, "G3");
+
+  const labels = ["Centralismo aum. (G2)", "Autonomía reg. (G2)", "Gobernador: Impulso (G3)", "Gobernador: Igual (G3)", "Gobernador: Problemas (G3)"];
+  const data = [
+    g2Counts["Aumentó Centralismo"]?.percentage || 0,
+    g2Counts["Mayor Autonomía Regional"]?.percentage || 0,
+    g3Counts["Impulso al desarrollo"]?.percentage || 0,
+    g3Counts["Igual que antes"]?.percentage || 0,
+    g3Counts["Más problemas"]?.percentage || 0
+  ].map(v => Number(v.toFixed(1)));
+
+  if (charts.centralismo) charts.centralismo.destroy();
+
+  charts.centralismo = new Chart(ctxCent, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Respuesta",
+        data: data,
+        backgroundColor: [BRAND_COLORS.rose, BRAND_COLORS.emerald, BRAND_COLORS.accent, BRAND_COLORS.muted, BRAND_COLORS.amber],
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
+
+function renderPoliticaCharts(filtered) {
+  const ctxDem = document.getElementById("chart-democracia-canvas");
+  const ctxPol = document.getElementById("chart-posicion-politica-canvas");
+
+  if (ctxDem) {
+    const h1Counts = calculateWeightedCounts(filtered, "H1");
+    const sorted = Object.entries(h1Counts).map(([k, v]) => ({ name: k, pct: v.percentage }));
+
+    const labels = sorted.map(s => s.name);
+    const data = sorted.map(s => s.pct.toFixed(1));
+
+    if (charts.democracia) charts.democracia.destroy();
+    charts.democracia = new Chart(ctxDem, {
+      type: "doughnut",
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: [BRAND_COLORS.emerald, BRAND_COLORS.rose, BRAND_COLORS.muted],
+          borderWidth: 2,
+          borderColor: "#ffffff"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: "bottom" } }
+      }
+    });
+  }
+
+  if (ctxPol) {
+    const h2Counts = calculateWeightedCounts(filtered, "H2");
+    const labels = ["Izquierda", "Centro Izquierda", "Centro", "Centro Derecha", "Derecha", "Ninguna"];
+    const data = labels.map(l => h2Counts[l] ? h2Counts[l].percentage.toFixed(1) : 0);
+
+    if (charts.politica) charts.politica.destroy();
+    charts.politica = new Chart(ctxPol, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "% Identificación Polítca",
+          data: data,
+          backgroundColor: BRAND_COLORS.primary,
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { ticks: { callback: v => `${v}%` } } }
+      }
+    });
+  }
 }
 
 function renderInstitucionesChart(filtered) {
@@ -957,6 +1238,65 @@ function renderAmbientalChart(filtered) {
   });
 }
 
+function renderAfectacionAmbientalChart(filtered) {
+  const ctx = document.getElementById("chart-afectacion-ambiental-canvas");
+  if (!ctx) return;
+
+  const items = [
+    { col: "D1_A", label: "Centrales energéticas" },
+    { col: "D1_B", label: "Faenas mineras" },
+    { col: "D1_C", label: "Efectos pesca industrial" },
+    { col: "D1_D", label: "Contaminación agua/aire" },
+    { col: "D1_E", label: "Contaminación suelo" },
+    { col: "D1_F", label: "Deterioro patrimonio natural" },
+    { col: "D1_G", label: "Construcción autopistas" },
+    { col: "D1_H", label: "Actividad salmonicultura" }
+  ];
+
+  const sorted = items.map(it => {
+    let affectedW = 0;
+    let totalW = 0;
+    filtered.forEach(r => {
+      const val = Math.round(Number(r[it.col]));
+      if (val === 1 || val === 2) {
+        const w = Number(r.PONDERADOR || r.weight) || 1.0;
+        totalW += w;
+        if (val === 1) affectedW += w;
+      }
+    });
+    return {
+      label: it.label,
+      pct: totalW > 0 ? (affectedW / totalW) * 100 : 0
+    };
+  })
+  .sort((a, b) => b.pct - a.pct);
+
+  const labels = sorted.map(s => s.label);
+  const data = sorted.map(s => s.pct.toFixed(1));
+
+  if (charts.afectacionAmbiental) charts.afectacionAmbiental.destroy();
+
+  charts.afectacionAmbiental = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Afectado",
+        data: data,
+        backgroundColor: BRAND_COLORS.rose,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
+
 function renderEconomiaChart(filtered) {
   const ctx = document.getElementById("chart-economia-canvas");
   if (!ctx) return;
@@ -1000,6 +1340,110 @@ function renderEconomiaChart(filtered) {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: { x: { min: 1, max: 4 } }
+    }
+  });
+}
+
+function renderSalmonImpactosChart(filtered) {
+  const ctx = document.getElementById("chart-salmon-impactos-canvas");
+  if (!ctx) return;
+
+  const items = [
+    { col: "I2_A", label: "Habría menos empleo" },
+    { col: "I2_B", label: "Habría más recursos mar" },
+    { col: "I2_C", label: "Progresaría menos econ." },
+    { col: "I2_D", label: "Menos conflictos soc." },
+    { col: "I2_E", label: "Menos conflictos amb." },
+    { col: "I2_F", label: "Aumentaría la pobreza" }
+  ];
+
+  const labels = items.map(i => i.label);
+  const agreePct = [];
+
+  items.forEach(it => {
+    let agreeW = 0;
+    let totalW = 0;
+    filtered.forEach(r => {
+      const val = Math.round(Number(r[it.col]));
+      if (val >= 1 && val <= 4) {
+        const w = Number(r.PONDERADOR || r.weight) || 1.0;
+        totalW += w;
+        if (val === 3 || val === 4) agreeW += w;
+      }
+    });
+    agreePct.push(totalW > 0 ? Number(((agreeW / totalW) * 100).toFixed(1)) : 0);
+  });
+
+  if (charts.salmonImpactos) charts.salmonImpactos.destroy();
+
+  charts.salmonImpactos = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% De Acuerdo / Muy De Acuerdo",
+        data: agreePct,
+        backgroundColor: BRAND_COLORS.primary,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { max: 100, ticks: { callback: v => `${v}%` } } }
+    }
+  });
+}
+
+function renderTurismoMitosChart(filtered) {
+  const ctx = document.getElementById("chart-turismo-mitos-canvas");
+  if (!ctx) return;
+
+  const items = [
+    { col: "I3_A", label: "Principal actividad futura" },
+    { col: "I3_B", label: "Genera molestias habitantes" },
+    { col: "I3_C", label: "Sustentable y respeta medioambiente" },
+    { col: "I3_D", label: "Beneficios solo para algunos" }
+  ];
+
+  const labels = items.map(i => i.label);
+  const agreePct = [];
+
+  items.forEach(it => {
+    let agreeW = 0;
+    let totalW = 0;
+    filtered.forEach(r => {
+      const val = Math.round(Number(r[it.col]));
+      if (val >= 1 && val <= 4) {
+        const w = Number(r.PONDERADOR || r.weight) || 1.0;
+        totalW += w;
+        if (val === 3 || val === 4) agreeW += w;
+      }
+    });
+    agreePct.push(totalW > 0 ? Number(((agreeW / totalW) * 100).toFixed(1)) : 0);
+  });
+
+  if (charts.turismoMitos) charts.turismoMitos.destroy();
+
+  charts.turismoMitos = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% De Acuerdo / Muy De Acuerdo",
+        data: agreePct,
+        backgroundColor: BRAND_COLORS.emerald,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { max: 100, ticks: { callback: v => `${v}%` } } }
     }
   });
 }
@@ -1078,7 +1522,6 @@ function renderExplorerTable() {
     return;
   }
 
-  // Unique X Values (Rows)
   const xSet = new Set();
   filteredRecords.forEach(r => {
     if (r[varX] !== null && r[varX] !== undefined && r[varX] < 97) {
@@ -1087,7 +1530,6 @@ function renderExplorerTable() {
   });
   const xValues = Array.from(xSet).sort((a, b) => Number(a) - Number(b));
 
-  // Unique Y Values (Columns)
   const ySet = new Set();
   filteredRecords.forEach(r => {
     if (r[varY] !== null && r[varY] !== undefined && r[varY] !== "") {
@@ -1096,7 +1538,6 @@ function renderExplorerTable() {
   });
   const yValues = Array.from(ySet).sort();
 
-  // Column Totals
   const colTotals = {};
   let grandTotalWeight = 0;
   let grandTotalCount = 0;
@@ -1116,7 +1557,6 @@ function renderExplorerTable() {
     }
   });
 
-  // Build Table Header
   let headHtml = `<tr class="bg-primary-container text-white text-xs uppercase tracking-wider">`;
   headHtml += `<th class="p-3 font-bold border-r border-white/10">Variable ${varX} \\ ${varY.toUpperCase()}</th>`;
   yValues.forEach(yVal => {
@@ -1126,7 +1566,6 @@ function renderExplorerTable() {
   headHtml += `<th class="p-3 font-bold text-center">Total</th></tr>`;
   thead.innerHTML = headHtml;
 
-  // Build Table Body Rows
   tbody.innerHTML = "";
 
   xValues.forEach(xVal => {
@@ -1168,7 +1607,6 @@ function renderExplorerTable() {
     tbody.innerHTML += rowHtml;
   });
 
-  // Summary Foot Row (Total)
   let footHtml = `<tr class="bg-surface-container-high/80 font-bold border-t-2 border-primary-container text-xs">`;
   footHtml += `<td class="p-3 uppercase text-primary border-r border-outline-variant/20">Total</td>`;
 

@@ -365,6 +365,17 @@
             <canvas id="chart-problemas-canvas"></canvas>
           </div>
         </div>
+
+        <!-- Chart 3: Evaluacion Completa 14 Servicios B3 y B4 -->
+        <div class="lg:col-span-12 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Evaluación Detallada de Calidad de Vida</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Evaluación de 14 Infraestructuras, Servicios y Oportunidades (Notas 1 a 7)</p>
+          </div>
+          <div class="relative h-96 w-full">
+            <canvas id="chart-servicios-completo-canvas"></canvas>
+          </div>
+        </div>
       </section>
     </div>
 
@@ -395,6 +406,28 @@
           </div>
           <div class="relative h-72 w-full">
             <canvas id="chart-servicios-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Deseo de Movilidad (A2) -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Movilidad & Retención</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Deseo de Cambiarse o Irse de Vivir (A2)</p>
+          </div>
+          <div class="relative h-72 w-full flex items-center justify-center">
+            <canvas id="chart-movilidad-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Destino Deseado (A3) -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Destino Preferido</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Lugar de Destino Deseado (A3)</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="chart-destino-canvas"></canvas>
           </div>
         </div>
       </section>
@@ -430,6 +463,52 @@
           </div>
         </div>
       </section>
+
+      <!-- Sub-sección: Medios de Comunicación & Descentralización -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Ecología de Medios</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Medio Principal de Información Noticias (E2)</p>
+          </div>
+          <div class="relative h-72 w-full flex items-center justify-center">
+            <canvas id="chart-medio-principal-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Centralismo y Descentralización</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Percepción del Centralismo (G2) y Elección Gobernador (G3)</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="chart-centralismo-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sub-sección: Democracia y Espectro Político -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Cultura Democrática</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Valoración del Régimen Democrático (H1)</p>
+          </div>
+          <div class="relative h-72 w-full flex items-center justify-center">
+            <canvas id="chart-democracia-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Identificación Política</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Ubicación en el Espectro Político (H2)</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="chart-posicion-politica-canvas"></canvas>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- SECTION 4: MEDIOAMBIENTE & FUTURO ECONÓMICO -->
@@ -459,6 +538,42 @@
           </div>
           <div class="relative h-80 w-full">
             <canvas id="chart-economia-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sub-sección: Afectación Socioambiental D1 -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-12 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Impacto Ambiental Percibido</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Porcentaje de Población Afectada por Conflictos Socioambientales (D1)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-afectacion-ambiental-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sub-sección: Escenarios Salmonicultura I2 y Turismo I3 -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Escenario Salmonicultura</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Impactos ante un Eventual Cierre de la Industria (I2)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-salmon-impactos-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-6">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Desarrollo Turístico</h3>
+            <p class="text-lg font-bold text-primary font-headline-md">Mitos y Realidades del Turismo en la Patagonia (I3)</p>
+          </div>
+          <div class="relative h-80 w-full">
+            <canvas id="chart-turismo-mitos-canvas"></canvas>
           </div>
         </div>
       </section>
@@ -609,10 +724,18 @@
             <select id="explorer-var-x" class="w-full bg-surface border border-outline-variant/50 rounded-xl text-sm p-3 font-semibold text-primary">
               <option value="B1">Rumbo Regional (B1)</option>
               <option value="A1">Pertenencia Territorial (A1)</option>
+              <option value="A2">Deseo de Movilidad (A2)</option>
+              <option value="A3">Destino Deseado (A3)</option>
               <option value="B2_RECOD">Top Problema Regional (B2)</option>
               <option value="C1">Confianza Interpersonal (C1)</option>
               <option value="C2">Participación Social (C2)</option>
               <option value="C2_2_RECOD">Tipo de Organización (C2_2)</option>
+              <option value="E2">Medio Principal Noticias (E2)</option>
+              <option value="F1">Ventaja Desarrollo Regional (F1)</option>
+              <option value="G2">Centralismo (G2)</option>
+              <option value="G3">Impacto Gobernador Regional (G3)</option>
+              <option value="H1">Valoración Democracia (H1)</option>
+              <option value="H2">Posición Política (H2)</option>
               <option value="I5">Conocimiento UAysén (I5)</option>
             </select>
           </div>
