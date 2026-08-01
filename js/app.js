@@ -1456,7 +1456,7 @@ function renderCentralismoChart(filtered) {
   });
 }
 
-// Pregunta G3: Impacto Gobernadores (Horizontal Bar Chart)
+// Pregunta G3: Impacto Gobernadores (Horizontal Bar Chart with Multiline Y-Labels)
 function renderGobernadoresChart(filtered) {
   const ctx = safeGetCanvas("chart-gobernadores-canvas");
   if (!ctx || !filtered || filtered.length === 0) return;
@@ -1471,10 +1471,11 @@ function renderGobernadoresChart(filtered) {
     else if (val === 3) { problemasW += w; totalW += w; } // 3 = Más problemas
   });
 
+  // Array of arrays forces Chart.js to render multi-line Y-axis labels cleanly
   const labels = [
-    "Ha dejado las cosas igual",
-    "Ha sido un impulso",
-    "Ha traído más problemas"
+    ["Ha dejado las", "cosas igual"],
+    ["Ha sido un", "impulso"],
+    ["Ha traído más", "problemas"]
   ];
 
   const data = totalW > 0 ? [
@@ -1500,8 +1501,33 @@ function renderGobernadoresChart(filtered) {
       indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: { x: { max: 100, ticks: { callback: v => `${v}%` } } }
+      layout: {
+        padding: {
+          left: 5,
+          right: 15,
+          top: 5,
+          bottom: 5
+        }
+      },
+      plugins: { 
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            // Join multiline label into single line string inside tooltip
+            title: (items) => Array.isArray(items[0].label) ? items[0].label.join(" ") : items[0].label,
+            label: (item) => ` ${item.raw}%`
+          }
+        }
+      },
+      scales: { 
+        x: { max: 100, ticks: { callback: v => `${v}%` } },
+        y: {
+          ticks: {
+            font: { size: 11, weight: "500" },
+            color: "#475569"
+          }
+        }
+      }
     }
   });
 }
