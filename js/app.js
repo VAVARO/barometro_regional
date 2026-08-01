@@ -267,9 +267,18 @@ function setupNavigation() {
       }
     });
 
-    const drawer = document.getElementById("mobile-drawer");
-    if (drawer) drawer.classList.add("hidden");
-    window.dispatchEvent(new Event("resize"));
+    document.getElementById("mobile-drawer")?.classList.add("hidden");
+
+    // CRITICAL FIX: Trigger window resize event and re-render dashboard so Chart.js recalculates dimensions on unhidden tabs
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+      Object.values(charts).forEach(chart => {
+        if (chart && typeof chart.resize === "function") {
+          chart.resize();
+        }
+      });
+      updateDashboard();
+    }, 50);
   }
 
   tabs.forEach(tab => {
