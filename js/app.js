@@ -685,7 +685,8 @@ function updateDashboard() {
     () => renderGobernanzaChart(filtered),
     () => renderInstitucionesChart(filtered),
     () => renderMediosCharts(filtered),
-    () => renderCentralismoCharts(filtered),
+    () => renderCentralismoChart(filtered),
+    () => renderGobernadoresChart(filtered),
     () => renderPoliticaCharts(filtered),
     () => renderAmbientalChart(filtered),
     () => renderAfectacionAmbientalChart(filtered),
@@ -1414,64 +1415,95 @@ function renderMediosCharts(filtered) {
   }
 }
 
-function renderCentralismoCharts(filtered) {
-  const ctxCent = safeGetCanvas("chart-centralismo-canvas");
-  const ctxGob = safeGetCanvas("chart-gobernadores-canvas");
+// Pregunta G2: Centralismo vs Autonomía (Doughnut Chart)
+function renderCentralismoChart(filtered) {
+  const ctx = safeGetCanvas("chart-centralismo-canvas");
+  if (!ctx || !filtered || filtered.length === 0) return;
 
-  if (ctxCent) {
-    const g2Counts = calculateWeightedCounts(filtered, "G2");
-    const labelsG2 = ["Aumentó Centralismo", "Mayor Autonomía Regional"];
-    const dataG2 = labelsG2.map(l => g2Counts[l] ? g2Counts[l].percentage.toFixed(1) : 0);
+  let centW = 0, autoW = 0, totalW = 0;
 
-    if (charts.centralismo) charts.centralismo.destroy();
-    charts.centralismo = new Chart(ctxCent, {
-      type: "doughnut",
-      data: {
-        labels: labelsG2,
-        datasets: [{
-          data: dataG2,
-          backgroundColor: [BRAND_COLORS.rose, BRAND_COLORS.emerald],
-          borderWidth: 2,
-          borderColor: "#ffffff"
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: "bottom" },
-          tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
-        }
+  filtered.forEach(r => {
+    const val = Math.round(Number(r.G2));
+    const w = Number(r.PONDERADOR || r.weight) || 1.0;
+    if (val === 1) { centW += w; totalW += w; }      // 1 = Aumentó centralismo
+    else if (val === 2) { autoW += w; totalW += w; } // 2 = Mayor autonomía
+  });
+
+  const centPct = totalW > 0 ? Number(((centW / totalW) * 100).toFixed(1)) : 0;
+  const autoPct = totalW > 0 ? Number(((autoW / totalW) * 100).toFixed(1)) : 0;
+
+  if (charts.centralismo) charts.centralismo.destroy();
+
+  charts.centralismo = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Aumentó el centralismo", "Mayor autonomía regional"],
+      datasets: [{
+        data: [centPct, autoPct],
+        backgroundColor: ["#F43F5E", "#10B981"],
+        borderWidth: 2,
+        borderColor: "#ffffff"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { font: { size: 11 } } },
+        tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
       }
-    });
-  }
+    }
+  });
+}
 
-  if (ctxGob) {
-    const g3Counts = calculateWeightedCounts(filtered, "G3");
-    const labelsG3 = ["Impulso al desarrollo", "Igual que antes", "Más problemas"];
-    const dataG3 = labelsG3.map(l => g3Counts[l] ? g3Counts[l].percentage.toFixed(1) : 0);
+// Pregunta G3: Impacto Gobernadores (Horizontal Bar Chart)
+function renderGobernadoresChart(filtered) {
+  const ctx = safeGetCanvas("chart-gobernadores-canvas");
+  if (!ctx || !filtered || filtered.length === 0) return;
 
-    if (charts.gobernadores) charts.gobernadores.destroy();
-    charts.gobernadores = new Chart(ctxGob, {
-      type: "bar",
-      data: {
-        labels: labelsG3,
-        datasets: [{
-          label: "% Impacto Gobernador",
-          data: dataG3,
-          backgroundColor: [BRAND_COLORS.accent, BRAND_COLORS.muted, BRAND_COLORS.amber],
-          borderRadius: 6
-        }]
-      },
-      options: {
-        indexAxis: "y",
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { ticks: { callback: v => `${v}%` } } }
-      }
-    });
-  }
+  let igualW = 0, impulsoW = 0, problemasW = 0, totalW = 0;
+
+  filtered.forEach(r => {
+    const val = Math.round(Number(r.G3));
+    const w = Number(r.PONDERADOR || r.weight) || 1.0;
+    if (val === 1) { impulsoW += w; totalW += w; }      // 1 = Impulso
+    else if (val === 2) { igualW += w; totalW += w; }   // 2 = Dejó igual
+    else if (val === 3) { problemasW += w; totalW += w; } // 3 = Más problemas
+  });
+
+  const labels = [
+    "Ha dejado las cosas igual",
+    "Ha sido un impulso",
+    "Ha traído más problemas"
+  ];
+
+  const data = totalW > 0 ? [
+    Number(((igualW / totalW) * 100).toFixed(1)),
+    Number(((impulsoW / totalW) * 100).toFixed(1)),
+    Number(((problemasW / totalW) * 100).toFixed(1))
+  ] : [0, 0, 0];
+
+  if (charts.gobernadores) charts.gobernadores.destroy();
+
+  charts.gobernadores = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% de respuesta",
+        data: data,
+        backgroundColor: ["#64748B", "#00A3E0", "#F59E0B"],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { max: 100, ticks: { callback: v => `${v}%` } } }
+    }
+  });
 }
 
 function renderPoliticaCharts(filtered) {
