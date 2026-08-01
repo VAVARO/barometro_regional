@@ -1416,41 +1416,62 @@ function renderMediosCharts(filtered) {
 
 function renderCentralismoCharts(filtered) {
   const ctxCent = safeGetCanvas("chart-centralismo-canvas");
-  if (!ctxCent) return;
+  const ctxGob = safeGetCanvas("chart-gobernadores-canvas");
 
-  const g2Counts = calculateWeightedCounts(filtered, "G2");
-  const g3Counts = calculateWeightedCounts(filtered, "G3");
+  if (ctxCent) {
+    const g2Counts = calculateWeightedCounts(filtered, "G2");
+    const labelsG2 = ["Aumentó Centralismo", "Mayor Autonomía Regional"];
+    const dataG2 = labelsG2.map(l => g2Counts[l] ? g2Counts[l].percentage.toFixed(1) : 0);
 
-  const labels = ["Centralismo aum. (G2)", "Autonomía reg. (G2)", "Gobernador: Impulso (G3)", "Gobernador: Igual (G3)", "Gobernador: Problemas (G3)"];
-  const data = [
-    g2Counts["Aumentó Centralismo"]?.percentage || 0,
-    g2Counts["Mayor Autonomía Regional"]?.percentage || 0,
-    g3Counts["Impulso al desarrollo"]?.percentage || 0,
-    g3Counts["Igual que antes"]?.percentage || 0,
-    g3Counts["Más problemas"]?.percentage || 0
-  ].map(v => Number(v.toFixed(1)));
+    if (charts.centralismo) charts.centralismo.destroy();
+    charts.centralismo = new Chart(ctxCent, {
+      type: "doughnut",
+      data: {
+        labels: labelsG2,
+        datasets: [{
+          data: dataG2,
+          backgroundColor: [BRAND_COLORS.rose, BRAND_COLORS.emerald],
+          borderWidth: 2,
+          borderColor: "#ffffff"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "bottom" },
+          tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
+        }
+      }
+    });
+  }
 
-  if (charts.centralismo) charts.centralismo.destroy();
+  if (ctxGob) {
+    const g3Counts = calculateWeightedCounts(filtered, "G3");
+    const labelsG3 = ["Impulso al desarrollo", "Igual que antes", "Más problemas"];
+    const dataG3 = labelsG3.map(l => g3Counts[l] ? g3Counts[l].percentage.toFixed(1) : 0);
 
-  charts.centralismo = new Chart(ctxCent, {
-    type: "bar",
-    data: {
-      labels: labels,
-      datasets: [{
-        label: "% Respuesta",
-        data: data,
-        backgroundColor: [BRAND_COLORS.rose, BRAND_COLORS.emerald, BRAND_COLORS.accent, BRAND_COLORS.muted, BRAND_COLORS.amber],
-        borderRadius: 8
-      }]
-    },
-    options: {
-      indexAxis: "y",
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: { x: { ticks: { callback: v => `${v}%` } } }
-    }
-  });
+    if (charts.gobernadores) charts.gobernadores.destroy();
+    charts.gobernadores = new Chart(ctxGob, {
+      type: "bar",
+      data: {
+        labels: labelsG3,
+        datasets: [{
+          label: "% Impacto Gobernador",
+          data: dataG3,
+          backgroundColor: [BRAND_COLORS.accent, BRAND_COLORS.muted, BRAND_COLORS.amber],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { ticks: { callback: v => `${v}%` } } }
+      }
+    });
+  }
 }
 
 function renderPoliticaCharts(filtered) {
