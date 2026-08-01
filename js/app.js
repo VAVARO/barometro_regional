@@ -1,5 +1,5 @@
 /**
- * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine (V2.0)
+ * Barómetro Regional UAysén 2025 - Interactive Dashboard Engine (V2.0 Shielded)
  */
 
 let appData = null;
@@ -12,6 +12,27 @@ const filterState = {
   edad: "Todos",
   gse: "Todos"
 };
+
+// ----------------------------------------------------
+// Safe Element Helper
+// ----------------------------------------------------
+function safeGetCanvas(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) {
+    console.warn(`[Dashboard Warning] Canvas element with ID "${canvasId}" was not found in index.html.`);
+    return null;
+  }
+  return canvas;
+}
+
+function safeSetText(id, text) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.textContent = text;
+  } else {
+    console.warn(`[Dashboard Warning] Element with ID "${id}" was not found in index.html.`);
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initApp();
@@ -186,7 +207,8 @@ function setupNavigation() {
       }
     });
 
-    document.getElementById("mobile-drawer").classList.add("hidden");
+    const drawer = document.getElementById("mobile-drawer");
+    if (drawer) drawer.classList.add("hidden");
     window.dispatchEvent(new Event("resize"));
   }
 
@@ -336,43 +358,55 @@ function setupFilters() {
   const gseSel = document.getElementById("filter-gse");
   const resetBtn = document.getElementById("reset-filters-btn");
 
-  comunaSel.addEventListener("change", (e) => {
-    filterState.comuna = e.target.value;
-    updateDashboard();
-  });
+  if (comunaSel) {
+    comunaSel.addEventListener("change", (e) => {
+      filterState.comuna = e.target.value;
+      updateDashboard();
+    });
+  }
 
-  zonaSel.addEventListener("change", (e) => {
-    filterState.zona = e.target.value;
-    updateDashboard();
-  });
+  if (zonaSel) {
+    zonaSel.addEventListener("change", (e) => {
+      filterState.zona = e.target.value;
+      updateDashboard();
+    });
+  }
 
-  edadSel.addEventListener("change", (e) => {
-    filterState.edad = e.target.value;
-    updateDashboard();
-  });
+  if (edadSel) {
+    edadSel.addEventListener("change", (e) => {
+      filterState.edad = e.target.value;
+      updateDashboard();
+    });
+  }
 
-  gseSel.addEventListener("change", (e) => {
-    filterState.gse = e.target.value;
-    updateDashboard();
-  });
+  if (gseSel) {
+    gseSel.addEventListener("change", (e) => {
+      filterState.gse = e.target.value;
+      updateDashboard();
+    });
+  }
 
-  resetBtn.addEventListener("click", () => {
-    comunaSel.value = "Todas";
-    zonaSel.value = "Todas";
-    edadSel.value = "Todos";
-    gseSel.value = "Todos";
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      if (comunaSel) comunaSel.value = "Todas";
+      if (zonaSel) zonaSel.value = "Todas";
+      if (edadSel) edadSel.value = "Todos";
+      if (gseSel) gseSel.value = "Todos";
 
-    filterState.comuna = "Todas";
-    filterState.zona = "Todas";
-    filterState.edad = "Todos";
-    filterState.gse = "Todos";
+      filterState.comuna = "Todas";
+      filterState.zona = "Todas";
+      filterState.edad = "Todos";
+      filterState.gse = "Todos";
 
-    updateDashboard();
-  });
+      updateDashboard();
+    });
+  }
 }
 
 function updateActiveChips() {
   const container = document.getElementById("active-chips-list");
+  if (!container) return;
+
   container.innerHTML = "";
 
   const chips = [];
@@ -400,20 +434,17 @@ function getFilteredRecords() {
   if (!appData || !appData.records) return [];
 
   return appData.records.filter(r => {
-    // Filter Comuna
     if (filterState.comuna !== "Todas") {
       const comunaLabel = r.comuna || getVariableLabel("COMUNA", r.COMUNA);
       if (comunaLabel !== filterState.comuna) return false;
     }
 
-    // Filter Zona (AREA: 1 = Urbano, 2 = Rural)
     if (filterState.zona !== "Todas") {
       const zonaLabel = r.zona || getVariableLabel("AREA", r.AREA);
       if (filterState.zona === "Urbana" && !zonaLabel.toLowerCase().includes("urb")) return false;
       if (filterState.zona === "Rural" && !zonaLabel.toLowerCase().includes("rur")) return false;
     }
 
-    // Filter Edad (TRAMOS: 1 = 18-29, 2 = 30-44, 3 = 45-59, 4 = 60+)
     if (filterState.edad !== "Todos") {
       if (r.edad) {
         if (r.edad !== filterState.edad) return false;
@@ -426,7 +457,6 @@ function getFilteredRecords() {
       }
     }
 
-    // Filter GSE
     if (filterState.gse !== "Todos") {
       const gseLabel = r.gse || getVariableLabel("GSE", r.GSE);
       if (gseLabel !== filterState.gse) return false;
@@ -491,17 +521,16 @@ function updateDashboard() {
   const filtered = getFilteredRecords();
   const sampleSize = filtered.length;
 
-  document.getElementById("kpi-sample-size").textContent = sampleSize;
+  safeSetText("kpi-sample-size", sampleSize);
   updateActiveChips();
 
   // 1. KPI Updates
-  // Rumbo
   const rumboCounts = calculateWeightedCounts(filtered, "B1");
   const progPct = rumboCounts["Progresando"] ? rumboCounts["Progresando"].percentage.toFixed(1) : "0.0";
-  document.getElementById("kpi-progreso-pct").textContent = `${progPct}%`;
-  document.getElementById("kpi-progreso-bar").style.width = `${progPct}%`;
+  safeSetText("kpi-progreso-pct", `${progPct}%`);
+  const elProgBar = document.getElementById("kpi-progreso-bar");
+  if (elProgBar) elProgBar.style.width = `${progPct}%`;
 
-  // Top Problem
   const probCounts = calculateWeightedCounts(filtered, "B2_RECOD");
   let topProb = { name: "Seguridad", code: "1", pct: 0 };
   for (const [pName, pData] of Object.entries(probCounts)) {
@@ -509,49 +538,57 @@ function updateDashboard() {
       topProb = { name: pName, code: pData.code, pct: pData.percentage };
     }
   }
-  document.getElementById("kpi-problema-pct").textContent = `${topProb.pct.toFixed(1)}%`;
-  document.getElementById("kpi-problema-name").textContent = topProb.name;
+  safeSetText("kpi-problema-pct", `${topProb.pct.toFixed(1)}%`);
+  safeSetText("kpi-problema-name", topProb.name);
 
-  // UAysén Identificación (I6: 0-100)
   const identMean = calculateWeightedMean(filtered, "I6");
   const identScore = identMean ? identMean.toFixed(1) : "--";
-  document.getElementById("kpi-ident-score").textContent = identScore;
-  document.getElementById("kpi-ident-bar").style.width = `${Math.min(100, Math.max(0, identMean || 0))}%`;
+  safeSetText("kpi-ident-score", identScore);
+  const elIdentBar = document.getElementById("kpi-ident-bar");
+  if (elIdentBar) elIdentBar.style.width = `${Math.min(100, Math.max(0, identMean || 0))}%`;
 
-  // UAysén Nota (I8: 1-7)
   const notaMean = calculateWeightedMean(filtered, "I8");
   const notaScore = notaMean ? notaMean.toFixed(1) : "--";
-  document.getElementById("kpi-nota-score").textContent = notaScore;
-  document.getElementById("uaysen-nota-big").textContent = notaScore;
+  safeSetText("kpi-nota-score", notaScore);
+  safeSetText("uaysen-nota-big", notaScore);
 
-  // UAysén Conocimiento (I5: 1=Sí, 2=No)
   const conCounts = calculateWeightedCounts(filtered, "I5");
   const conSi = conCounts["Sí"] ? conCounts["Sí"].percentage.toFixed(1) : "0.0";
   const conNo = conCounts["No"] ? conCounts["No"].percentage.toFixed(1) : "0.0";
-  document.getElementById("uaysen-conocimiento-si").textContent = `${conSi}%`;
-  document.getElementById("uaysen-conocimiento-no").textContent = `${conNo}%`;
+  safeSetText("uaysen-conocimiento-si", `${conSi}%`);
+  safeSetText("uaysen-conocimiento-no", `${conNo}%`);
 
-  // 2. Confianza Social Panel Updates (C1, C2, C2_2_RECOD)
+  // 2. Confianza Social Panel Updates
   updateConfianzaPanel(filtered);
 
-  // 3. Render General Charts across all sections
-  renderRumboChart(rumboCounts);
-  renderProblemasChart(probCounts);
-  renderPertenenciaChart(filtered);
-  renderServiciosChart(filtered);
-  renderServiciosCompletoChart(filtered);
-  renderMovilidadCharts(filtered);
-  renderGobernanzaChart(filtered);
-  renderInstitucionesChart(filtered);
-  renderMediosCharts(filtered);
-  renderCentralismoCharts(filtered);
-  renderPoliticaCharts(filtered);
-  renderAmbientalChart(filtered);
-  renderAfectacionAmbientalChart(filtered);
-  renderEconomiaChart(filtered);
-  renderSalmonImpactosChart(filtered);
-  renderTurismoMitosChart(filtered);
-  renderUAysenceAporteChart(filtered);
+  // 3. Safe Chart Renderers Execution
+  const chartRenderers = [
+    () => renderRumboChart(rumboCounts),
+    () => renderProblemasChart(probCounts),
+    () => renderPertenenciaChart(filtered),
+    () => renderServiciosChart(filtered),
+    () => renderServiciosCompletoChart(filtered),
+    () => renderMovilidadCharts(filtered),
+    () => renderGobernanzaChart(filtered),
+    () => renderInstitucionesChart(filtered),
+    () => renderMediosCharts(filtered),
+    () => renderCentralismoCharts(filtered),
+    () => renderPoliticaCharts(filtered),
+    () => renderAmbientalChart(filtered),
+    () => renderAfectacionAmbientalChart(filtered),
+    () => renderEconomiaChart(filtered),
+    () => renderSalmonImpactosChart(filtered),
+    () => renderTurismoMitosChart(filtered),
+    () => renderUAysenceAporteChart(filtered)
+  ];
+
+  chartRenderers.forEach(fn => {
+    try {
+      fn();
+    } catch (err) {
+      console.error("[Dashboard Chart Error]:", err);
+    }
+  });
 
   // 4. Update Explorer
   renderExplorerTable();
@@ -563,43 +600,44 @@ function updateDashboard() {
 function updateConfianzaPanel(filteredRecords) {
   if (!filteredRecords) return;
 
-  const c1ValidRecords = filteredRecords.filter(r => r.C1 !== null && r.C1 !== undefined && (Number(r.C1) === 1 || Number(r.C1) === 2));
-  const c1TrustWeightedSum = c1ValidRecords
-    .filter(r => Number(r.C1) === 1)
-    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
-  const c1TotalWeightedSum = c1ValidRecords
-    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+  try {
+    const c1ValidRecords = filteredRecords.filter(r => r.C1 !== null && r.C1 !== undefined && (Number(r.C1) === 1 || Number(r.C1) === 2));
+    const c1TrustWeightedSum = c1ValidRecords
+      .filter(r => Number(r.C1) === 1)
+      .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+    const c1TotalWeightedSum = c1ValidRecords
+      .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
 
-  const trustPct = c1TotalWeightedSum > 0 ? (c1TrustWeightedSum / c1TotalWeightedSum) * 100 : 0;
+    const trustPct = c1TotalWeightedSum > 0 ? (c1TrustWeightedSum / c1TotalWeightedSum) * 100 : 0;
 
-  const c2ValidRecords = filteredRecords.filter(r => r.C2 !== null && r.C2 !== undefined && (Number(r.C2) === 1 || Number(r.C2) === 2));
-  const c2YesWeightedSum = c2ValidRecords
-    .filter(r => Number(r.C2) === 1)
-    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
-  const c2TotalWeightedSum = c2ValidRecords
-    .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+    const c2ValidRecords = filteredRecords.filter(r => r.C2 !== null && r.C2 !== undefined && (Number(r.C2) === 1 || Number(r.C2) === 2));
+    const c2YesWeightedSum = c2ValidRecords
+      .filter(r => Number(r.C2) === 1)
+      .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
+    const c2TotalWeightedSum = c2ValidRecords
+      .reduce((sum, r) => sum + (Number(r.weight || r.PONDERADOR) || 1.0), 0);
 
-  const partPct = c2TotalWeightedSum > 0 ? (c2YesWeightedSum / c2TotalWeightedSum) * 100 : 0;
+    const partPct = c2TotalWeightedSum > 0 ? (c2YesWeightedSum / c2TotalWeightedSum) * 100 : 0;
 
-  const c22Counts = calculateWeightedCounts(filteredRecords, "C2_2_RECOD");
-  let topOrg = { name: "Organizaciones sociales", pct: 0 };
-  for (const [oName, oData] of Object.entries(c22Counts)) {
-    if (oData.percentage > topOrg.pct) {
-      topOrg = { name: oName, pct: oData.percentage };
+    const c22Counts = calculateWeightedCounts(filteredRecords, "C2_2_RECOD");
+    let topOrg = { name: "Organizaciones sociales", pct: 0 };
+    for (const [oName, oData] of Object.entries(c22Counts)) {
+      if (oData.percentage > topOrg.pct) {
+        topOrg = { name: oName, pct: oData.percentage };
+      }
     }
+
+    safeSetText("kpi-confianza-pct", `${trustPct.toFixed(1)}%`);
+    safeSetText("kpi-participacion-pct", `${partPct.toFixed(1)}%`);
+    safeSetText("kpi-top-org", topOrg.name);
+
+    const noTrustWeightedSum = c1TotalWeightedSum - c1TrustWeightedSum;
+    renderConfianzaChart(c1TrustWeightedSum, noTrustWeightedSum);
+    renderParticipacionChart(c22Counts);
+
+  } catch (err) {
+    console.error("[Confianza Panel Error]:", err);
   }
-
-  const elTrust = document.getElementById("kpi-confianza-pct");
-  const elPart = document.getElementById("kpi-participacion-pct");
-  const elTopOrg = document.getElementById("kpi-top-org");
-
-  if (elTrust) elTrust.textContent = `${trustPct.toFixed(1)}%`;
-  if (elPart) elPart.textContent = `${partPct.toFixed(1)}%`;
-  if (elTopOrg) elTopOrg.textContent = topOrg.name;
-
-  const noTrustWeightedSum = c1TotalWeightedSum - c1TrustWeightedSum;
-  renderConfianzaChart(c1TrustWeightedSum, noTrustWeightedSum);
-  renderParticipacionChart(c22Counts);
 }
 
 // ----------------------------------------------------
@@ -618,7 +656,7 @@ const BRAND_COLORS = {
 };
 
 function renderRumboChart(rumboCounts) {
-  const ctx = document.getElementById("chart-rumbo-canvas");
+  const ctx = safeGetCanvas("chart-rumbo-canvas");
   if (!ctx) return;
 
   const labels = ["Progresando", "Estancada", "En decadencia"];
@@ -649,7 +687,7 @@ function renderRumboChart(rumboCounts) {
 }
 
 function renderConfianzaChart(trustWeightedSum, noTrustWeightedSum) {
-  const ctx = document.getElementById("chart-confianza-canvas");
+  const ctx = safeGetCanvas("chart-confianza-canvas");
   if (!ctx) return;
 
   const total = trustWeightedSum + noTrustWeightedSum;
@@ -684,8 +722,8 @@ function renderConfianzaChart(trustWeightedSum, noTrustWeightedSum) {
 }
 
 function renderMovilidadCharts(filtered) {
-  const ctxMov = document.getElementById("chart-movilidad-canvas");
-  const ctxDes = document.getElementById("chart-destino-canvas");
+  const ctxMov = safeGetCanvas("chart-movilidad-canvas");
+  const ctxDes = safeGetCanvas("chart-destino-canvas");
 
   if (ctxMov) {
     const a2Counts = calculateWeightedCounts(filtered, "A2");
@@ -745,7 +783,7 @@ function renderMovilidadCharts(filtered) {
 }
 
 function renderParticipacionChart(c22Counts) {
-  const ctx = document.getElementById("chart-participacion-canvas");
+  const ctx = safeGetCanvas("chart-participacion-canvas");
   if (!ctx) return;
 
   const sorted = Object.entries(c22Counts)
@@ -779,7 +817,7 @@ function renderParticipacionChart(c22Counts) {
 }
 
 function renderProblemasChart(probCounts) {
-  const ctx = document.getElementById("chart-problemas-canvas");
+  const ctx = safeGetCanvas("chart-problemas-canvas");
   if (!ctx) return;
 
   const sorted = Object.entries(probCounts)
@@ -814,7 +852,7 @@ function renderProblemasChart(probCounts) {
 }
 
 function renderPertenenciaChart(filtered) {
-  const ctx = document.getElementById("chart-pertenencia-canvas");
+  const ctx = safeGetCanvas("chart-pertenencia-canvas");
   if (!ctx) return;
 
   const pCounts = calculateWeightedCounts(filtered, "A1");
@@ -849,7 +887,7 @@ function renderPertenenciaChart(filtered) {
 }
 
 function renderServiciosChart(filtered) {
-  const ctx = document.getElementById("chart-servicios-canvas");
+  const ctx = safeGetCanvas("chart-servicios-canvas");
   if (!ctx) return;
 
   const items = [
@@ -895,7 +933,7 @@ function renderServiciosChart(filtered) {
 }
 
 function renderServiciosCompletoChart(filtered) {
-  const ctx = document.getElementById("chart-servicios-completo-canvas");
+  const ctx = safeGetCanvas("chart-servicios-completo-canvas");
   if (!ctx) return;
 
   const items = [
@@ -949,7 +987,7 @@ function renderServiciosCompletoChart(filtered) {
 }
 
 function renderGobernanzaChart(filtered) {
-  const ctx = document.getElementById("chart-gobernanza-canvas");
+  const ctx = safeGetCanvas("chart-gobernanza-canvas");
   if (!ctx || !filtered || filtered.length === 0) return;
 
   const cols = [
@@ -1013,7 +1051,7 @@ function renderGobernanzaChart(filtered) {
 }
 
 function renderMediosCharts(filtered) {
-  const ctxMain = document.getElementById("chart-medio-principal-canvas");
+  const ctxMain = safeGetCanvas("chart-medio-principal-canvas");
 
   if (ctxMain) {
     const e2Counts = calculateWeightedCounts(filtered, "E2");
@@ -1049,7 +1087,7 @@ function renderMediosCharts(filtered) {
 }
 
 function renderCentralismoCharts(filtered) {
-  const ctxCent = document.getElementById("chart-centralismo-canvas");
+  const ctxCent = safeGetCanvas("chart-centralismo-canvas");
   if (!ctxCent) return;
 
   const g2Counts = calculateWeightedCounts(filtered, "G2");
@@ -1088,8 +1126,8 @@ function renderCentralismoCharts(filtered) {
 }
 
 function renderPoliticaCharts(filtered) {
-  const ctxDem = document.getElementById("chart-democracia-canvas");
-  const ctxPol = document.getElementById("chart-posicion-politica-canvas");
+  const ctxDem = safeGetCanvas("chart-democracia-canvas");
+  const ctxPol = safeGetCanvas("chart-posicion-politica-canvas");
 
   if (ctxDem) {
     const h1Counts = calculateWeightedCounts(filtered, "H1");
@@ -1146,7 +1184,7 @@ function renderPoliticaCharts(filtered) {
 }
 
 function renderInstitucionesChart(filtered) {
-  const ctx = document.getElementById("chart-instituciones-canvas");
+  const ctx = safeGetCanvas("chart-instituciones-canvas");
   if (!ctx) return;
 
   const insts = [
@@ -1193,7 +1231,7 @@ function renderInstitucionesChart(filtered) {
 }
 
 function renderAmbientalChart(filtered) {
-  const ctx = document.getElementById("chart-ambiental-canvas");
+  const ctx = safeGetCanvas("chart-ambiental-canvas");
   if (!ctx) return;
 
   const probs = [
@@ -1239,7 +1277,7 @@ function renderAmbientalChart(filtered) {
 }
 
 function renderAfectacionAmbientalChart(filtered) {
-  const ctx = document.getElementById("chart-afectacion-ambiental-canvas");
+  const ctx = safeGetCanvas("chart-afectacion-ambiental-canvas");
   if (!ctx) return;
 
   const items = [
@@ -1298,7 +1336,7 @@ function renderAfectacionAmbientalChart(filtered) {
 }
 
 function renderEconomiaChart(filtered) {
-  const ctx = document.getElementById("chart-economia-canvas");
+  const ctx = safeGetCanvas("chart-economia-canvas");
   if (!ctx) return;
 
   const secs = [
@@ -1345,7 +1383,7 @@ function renderEconomiaChart(filtered) {
 }
 
 function renderSalmonImpactosChart(filtered) {
-  const ctx = document.getElementById("chart-salmon-impactos-canvas");
+  const ctx = safeGetCanvas("chart-salmon-impactos-canvas");
   if (!ctx) return;
 
   const items = [
@@ -1398,7 +1436,7 @@ function renderSalmonImpactosChart(filtered) {
 }
 
 function renderTurismoMitosChart(filtered) {
-  const ctx = document.getElementById("chart-turismo-mitos-canvas");
+  const ctx = safeGetCanvas("chart-turismo-mitos-canvas");
   if (!ctx) return;
 
   const items = [
@@ -1449,7 +1487,7 @@ function renderTurismoMitosChart(filtered) {
 }
 
 function renderUAysenceAporteChart(filtered) {
-  const ctx = document.getElementById("chart-uaysen-aporte-canvas");
+  const ctx = safeGetCanvas("chart-uaysen-aporte-canvas");
   if (!ctx) return;
 
   const items = [
@@ -1511,10 +1549,15 @@ function setupExplorer() {
 }
 
 function renderExplorerTable() {
-  const varX = document.getElementById("explorer-var-x").value;
-  const varY = document.getElementById("explorer-var-y").value;
+  const elVarX = document.getElementById("explorer-var-x");
+  const elVarY = document.getElementById("explorer-var-y");
   const tbody = document.getElementById("explorer-table-body");
   const thead = document.getElementById("explorer-table-head");
+
+  if (!elVarX || !elVarY || !tbody || !thead) return;
+
+  const varX = elVarX.value;
+  const varY = elVarY.value;
 
   const filteredRecords = getFilteredRecords();
   if (!filteredRecords || filteredRecords.length === 0) {
@@ -1631,8 +1674,12 @@ function renderExplorerTable() {
 }
 
 function exportExplorerCSV() {
-  const varX = document.getElementById("explorer-var-x").value;
-  const varY = document.getElementById("explorer-var-y").value;
+  const elVarX = document.getElementById("explorer-var-x");
+  const elVarY = document.getElementById("explorer-var-y");
+  if (!elVarX || !elVarY) return;
+
+  const varX = elVarX.value;
+  const varY = elVarY.value;
   const filteredRecords = getFilteredRecords();
   if (!filteredRecords || filteredRecords.length === 0) return;
 
