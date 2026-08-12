@@ -3,6 +3,8 @@
  */
 
 let appData = null;
+let comparativaData = null;
+let currentActiveTab = "resumen";
 let charts = {};
 
 // Active Filter State
@@ -43,6 +45,14 @@ async function initApp() {
     const response = await fetch("data/barometro_summary.json");
     appData = await response.json();
     console.log("Data loaded successfully:", appData);
+
+    try {
+      const compResp = await fetch("data/comparativa_interregional.json");
+      comparativaData = await compResp.json();
+      console.log("Comparativa data loaded successfully:", comparativaData);
+    } catch (errComp) {
+      console.warn("Could not load comparativa_interregional.json:", errComp);
+    }
 
     setupNavigation();
     setupFilters();
@@ -241,6 +251,8 @@ function setupNavigation() {
   const panels = document.querySelectorAll(".tab-panel");
 
   function switchTab(tabId) {
+    currentActiveTab = tabId;
+
     tabs.forEach(t => {
       if (t.dataset.tab === tabId) {
         t.classList.add("active");
@@ -266,6 +278,17 @@ function setupNavigation() {
         p.classList.add("hidden");
       }
     });
+
+    const comunaSel = document.getElementById("filter-comuna");
+    if (comunaSel) {
+      if (tabId === "comparativa") {
+        comunaSel.disabled = true;
+        comunaSel.classList.add("opacity-50", "cursor-not-allowed");
+      } else {
+        comunaSel.disabled = false;
+        comunaSel.classList.remove("opacity-50", "cursor-not-allowed");
+      }
+    }
 
     document.getElementById("mobile-drawer")?.classList.add("hidden");
 
@@ -477,6 +500,11 @@ function updateActiveChips() {
   if (!container) return;
 
   container.innerHTML = "";
+
+  if (currentActiveTab === "comparativa") {
+    container.innerHTML = `<span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">public</span> Ámbito: Comparativa Nacional / Interregional (7 Regiones)</span>`;
+    return;
+  }
 
   const chips = [];
   if (filterState.comuna !== "Todas") chips.push(`Comuna: ${filterState.comuna}`);
@@ -694,7 +722,8 @@ function updateDashboard() {
     () => renderSalmonImpactosChart(filtered),
     () => renderTurismoMitosChart(filtered),
     () => renderUAysenceAporteChart(filtered),
-    () => renderUAysenceCualitativoChart(filtered)
+    () => renderUAysenceCualitativoChart(filtered),
+    () => updateComparativaPanel()
   ];
 
   chartRenderers.forEach(fn => {
@@ -2135,3 +2164,295 @@ function exportExplorerCSV() {
   link.click();
   document.body.removeChild(link);
 }
+
+// ----------------------------------------------------
+// Comparativa Interregional Panel & Charts Engine
+// ----------------------------------------------------
+function updateComparativaPanel() {
+  if (!comparativaData || !comparativaData.dimensiones) return;
+
+  const dims = comparativaData.dimensiones;
+  renderCompRumboChart(dims.rumbo);
+  renderCompConfianzaChart(dims.confianza);
+  renderCompCentralismoChart(dims.centralismo);
+  renderCompNotasChart(dims.notas_sectoriales);
+  renderCompMediosChart(dims.medios);
+}
+
+function getCompBgColors(items, highlightColor = "#00A3E0", defaultColor = "#94A3B8") {
+  return items.map(item => item.is_target || item.region === "Aysén" ? highlightColor : defaultColor);
+}
+
+function getCompHoverColors(items, highlightHover = "#0082B3", defaultHover = "#64748B") {
+  return items.map(item => item.is_target || item.region === "Aysén" ? highlightHover : defaultHover);
+}
+
+function renderCompRumboChart(rumboData) {
+  const canvas = safeGetCanvas("chart-comp-rumbo-canvas");
+  if (!canvas) return;
+
+  if (charts["chart-comp-rumbo-canvas"]) {
+    charts["chart-comp-rumbo-canvas"].destroy();
+  }
+
+  const labels = rumboData.map(d => d.region);
+  const estancadaValues = rumboData.map(d => d.estancada);
+
+  const bgColors = getCompBgColors(rumboData);
+  const hoverColors = getCompHoverColors(rumboData);
+
+  charts["chart-comp-rumbo-canvas"] = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Percibe Estancamiento",
+        data: estancadaValues,
+        backgroundColor: bgColors,
+        hoverBackgroundColor: hoverColors,
+        borderRadius: 8,
+        barThickness: 28
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` Estancamiento: ${ctx.parsed.y}%`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 70,
+          ticks: { callback: v => `${v}%` }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderCompConfianzaChart(confianzaData) {
+  const canvas = safeGetCanvas("chart-comp-confianza-canvas");
+  if (!canvas) return;
+
+  if (charts["chart-comp-confianza-canvas"]) {
+    charts["chart-comp-confianza-canvas"].destroy();
+  }
+
+  const labels = confianzaData.map(d => d.region);
+  const confiaValues = confianzaData.map(d => d.confia);
+
+  const bgColors = getCompBgColors(confianzaData);
+  const hoverColors = getCompHoverColors(confianzaData);
+
+  charts["chart-comp-confianza-canvas"] = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Se puede confiar en las personas",
+        data: confiaValues,
+        backgroundColor: bgColors,
+        hoverBackgroundColor: hoverColors,
+        borderRadius: 8,
+        barThickness: 28
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` Confianza: ${ctx.parsed.y}%`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 65,
+          ticks: { callback: v => `${v}%` }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderCompCentralismoChart(centralismoData) {
+  const canvas = safeGetCanvas("chart-comp-centralismo-canvas");
+  if (!canvas) return;
+
+  if (charts["chart-comp-centralismo-canvas"]) {
+    charts["chart-comp-centralismo-canvas"].destroy();
+  }
+
+  const labels = centralismoData.map(d => d.region);
+  const centralismoValues = centralismoData.map(d => d.centralismo);
+
+  const bgColors = getCompBgColors(centralismoData);
+  const hoverColors = getCompHoverColors(centralismoData);
+
+  charts["chart-comp-centralismo-canvas"] = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% Aumento de Centralismo",
+        data: centralismoValues,
+        backgroundColor: bgColors,
+        hoverBackgroundColor: hoverColors,
+        borderRadius: 8,
+        barThickness: 28
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` Centralismo: ${ctx.parsed.y}%`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 70,
+          ticks: { callback: v => `${v}%` }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderCompNotasChart(notasData) {
+  const canvas = safeGetCanvas("chart-comp-notas-canvas");
+  if (!canvas) return;
+
+  if (charts["chart-comp-notas-canvas"]) {
+    charts["chart-comp-notas-canvas"].destroy();
+  }
+
+  const labels = notasData.map(d => d.region);
+  const seguridadValues = notasData.map(d => d.seguridad);
+  const saludValues = notasData.map(d => d.salud);
+
+  const seguridadBg = notasData.map(d => (d.is_target || d.region === "Aysén") ? "#00A3E0" : "#94A3B8");
+  const saludBg = notasData.map(d => (d.is_target || d.region === "Aysén") ? "#0284C7" : "#CBD5E1");
+
+  charts["chart-comp-notas-canvas"] = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Seguridad Ciudadana",
+          data: seguridadValues,
+          backgroundColor: seguridadBg,
+          borderRadius: 6,
+          barThickness: 16
+        },
+        {
+          label: "Salud de Calidad",
+          data: saludValues,
+          backgroundColor: saludBg,
+          borderRadius: 6,
+          barThickness: 16
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "top" },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y} (nota 1-7)`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          min: 1.0,
+          max: 7.0,
+          ticks: { stepSize: 1.0 }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderCompMediosChart(mediosData) {
+  const canvas = safeGetCanvas("chart-comp-medios-canvas");
+  if (!canvas) return;
+
+  if (charts["chart-comp-medios-canvas"]) {
+    charts["chart-comp-medios-canvas"].destroy();
+  }
+
+  const labels = mediosData.map(d => d.region);
+  const radiosLoc = mediosData.map(d => d.radios_loc);
+  const tvNac = mediosData.map(d => d.tv_nac);
+
+  const radiosBg = mediosData.map(d => (d.is_target || d.region === "Aysén") ? "#00A3E0" : "#94A3B8");
+  const tvNacBg = mediosData.map(d => (d.is_target || d.region === "Aysén") ? "#0A2540" : "#CBD5E1");
+
+  charts["chart-comp-medios-canvas"] = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "% Radios Locales / Comunitarias",
+          data: radiosLoc,
+          backgroundColor: radiosBg,
+          borderRadius: 6,
+          barThickness: 22
+        },
+        {
+          label: "% TV Nacional",
+          data: tvNac,
+          backgroundColor: tvNacBg,
+          borderRadius: 6,
+          barThickness: 22
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "top" },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y}%`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 40,
+          ticks: { callback: v => `${v}%` }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+

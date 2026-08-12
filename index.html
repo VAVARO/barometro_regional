@@ -141,6 +141,9 @@
         <button class="nav-tab px-2.5 py-1.5 rounded-lg text-xs font-bold tracking-tight transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="explorer">
           <span class="material-symbols-outlined text-sm align-sub mr-1">insights</span>Explorer
         </button>
+        <button class="nav-tab px-2.5 py-1.5 rounded-lg text-xs font-bold tracking-tight transition-all text-white/80 hover:text-white hover:bg-white/10" data-tab="comparativa">
+          <span class="material-symbols-outlined text-base align-sub mr-1">compare_arrows</span>Comparativa Interregional
+        </button>
       </nav>
 
       <!-- Header Actions -->
@@ -175,6 +178,7 @@
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="confianza">Confianza & Cohesión Social</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="demografia">Perfil Demográfico & Laboral</button>
           <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="explorer">Data Intelligence</button>
+          <button class="mobile-nav-link text-left px-4 py-3 rounded-xl font-semibold hover:bg-white/10 text-white/90" data-tab="comparativa">Comparativa Interregional</button>
         </nav>
       </div>
       <div class="text-xs text-white/50 border-t border-white/10 pt-4">
@@ -906,6 +910,217 @@
               <!-- Dynamically populated -->
             </tbody>
           </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- SECTION 9: COMPARATIVA INTERREGIONAL -->
+    <div id="tab-content-comparativa" class="tab-panel space-y-8 hidden">
+      <!-- Header Banner -->
+      <section class="relative overflow-hidden rounded-3xl glacier-gradient min-h-[180px] flex flex-col justify-center p-6 md:p-8 text-white shadow-xl">
+        <div class="relative z-10 max-w-3xl">
+          <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 inline-block">Benchmarking Nacional 2024</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold font-headline-lg mb-2 tracking-tight">Aysén en el Contexto Interregional</h2>
+          <p class="text-sm md:text-base opacity-95 leading-relaxed">
+            Comparativa de la Región de Aysén frente a O'Higgins, Ñuble, Biobío, Los Ríos, Los Lagos y Magallanes (Barómetro Regional 2024, N Total = 3.813).
+          </p>
+        </div>
+      </section>
+
+      <!-- Ficha Técnica Interregional Summary Card -->
+      <section class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-4 border-b border-outline-variant/20 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined text-secondary">analytics</span>
+              Ficha Técnica del Consorcio Barómetro Regional 2024
+            </h3>
+            <p class="text-xs text-outline mt-0.5">Universo: Habitantes de 18 años y más (Censo 2017) | Levantamiento: Septiembre 2024 – Enero 2025 | N Total = 3.813 (Error Nacional: ±1.6%)</p>
+          </div>
+          <span class="px-3 py-1 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-full border border-emerald-200 shrink-0">7 Regiones Comparadas</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-xs">
+          <div class="p-3 bg-surface rounded-xl border border-outline-variant/30 text-center">
+            <span class="text-outline font-semibold block text-[11px]">O'Higgins</span>
+            <span class="text-base font-extrabold text-primary">N = 601</span>
+            <span class="text-[10px] text-outline block">Error ±4.0%</span>
+          </div>
+          <div class="p-3 bg-surface rounded-xl border border-outline-variant/30 text-center">
+            <span class="text-outline font-semibold block text-[11px]">Ñuble</span>
+            <span class="text-base font-extrabold text-primary">N = 500</span>
+            <span class="text-[10px] text-outline block">Error ±4.4%</span>
+          </div>
+          <div class="p-3 bg-surface rounded-xl border border-outline-variant/30 text-center">
+            <span class="text-outline font-semibold block text-[11px]">Biobío</span>
+            <span class="text-base font-extrabold text-primary">N = 500</span>
+            <span class="text-[10px] text-outline block">Error ±4.4%</span>
+          </div>
+          <div class="p-3 bg-surface rounded-xl border border-outline-variant/30 text-center">
+            <span class="text-outline font-semibold block text-[11px]">Los Ríos</span>
+            <span class="text-base font-extrabold text-primary">N = 482</span>
+            <span class="text-[10px] text-outline block">Error ±3.8%</span>
+          </div>
+          <div class="p-3 bg-surface rounded-xl border border-outline-variant/30 text-center">
+            <span class="text-outline font-semibold block text-[11px]">Los Lagos</span>
+            <span class="text-base font-extrabold text-primary">N = 601</span>
+            <span class="text-[10px] text-outline block">Error ±4.0%</span>
+          </div>
+          <div class="p-3 bg-sky-50 rounded-xl border-2 border-[#00A3E0] text-center shadow-xs">
+            <span class="text-[#00A3E0] font-extrabold block text-[11px]">Aysén (Objetivo)</span>
+            <span class="text-base font-extrabold text-[#00A3E0]">N = 465</span>
+            <span class="text-[10px] text-[#00A3E0] font-bold block">Error ±4.5%</span>
+          </div>
+          <div class="p-3 bg-surface rounded-xl border border-outline-variant/30 text-center">
+            <span class="text-outline font-semibold block text-[11px]">Magallanes</span>
+            <span class="text-base font-extrabold text-primary">N = 664</span>
+            <span class="text-[10px] text-outline block">Error ±4.4%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Aysén Distinction Highlights (4 Key Callout Cards) -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Card 1: Confianza Interpersonal -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-l-[#00A3E0] border-y border-r border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <div class="p-2 bg-sky-50 rounded-xl text-[#00A3E0]">
+              <span class="material-symbols-outlined text-2xl">handshake</span>
+            </div>
+            <span class="text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded">2° Lugar Nacional</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Alta Confianza Interpersonal</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-primary font-display-lg">45%</span>
+            <span class="text-xs font-semibold text-on-surface-variant">Confía en personas</span>
+          </div>
+          <p class="text-xs text-outline mt-2">Aysén ocupa el 2° lugar nacional, superando ampliamente a la zona centro-sur (26%-28%). Solo superado por Magallanes (53%).</p>
+        </div>
+
+        <!-- Card 2: Centralismo -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-l-amber-500 border-y border-r border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <div class="p-2 bg-amber-50 rounded-xl text-amber-600">
+              <span class="material-symbols-outlined text-2xl">hub</span>
+            </div>
+            <span class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">1° Máximo Nacional</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Máxima Percepción Centralismo</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-primary font-display-lg">57%</span>
+            <span class="text-xs font-semibold text-on-surface-variant">Aumento dependencia</span>
+          </div>
+          <p class="text-xs text-outline mt-2">Percibe aumento de dependencia frente a Santiago, siendo el nivel más alto registrado entre todas las regiones.</p>
+        </div>
+
+        <!-- Card 3: Radios Locales -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-l-emerald-500 border-y border-r border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <div class="p-2 bg-emerald-50 rounded-xl text-emerald-600">
+              <span class="material-symbols-outlined text-2xl">radio</span>
+            </div>
+            <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Líder Absoluto</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Uso de Radios Locales</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-primary font-display-lg">18%</span>
+            <span class="text-xs font-semibold text-on-surface-variant">Medio principal</span>
+          </div>
+          <p class="text-xs text-outline mt-2">Utiliza la radio como medio principal para informarse vs solo 1% en O'Higgins y Ñuble.</p>
+        </div>
+
+        <!-- Card 4: TV Nacional -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-l-indigo-500 border-y border-r border-outline-variant/30 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <div class="p-2 bg-indigo-50 rounded-xl text-indigo-600">
+              <span class="material-symbols-outlined text-2xl">tv_off</span>
+            </div>
+            <span class="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">Menor Consumo</span>
+          </div>
+          <p class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Baja Sintonía TV Nacional</p>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-extrabold text-primary font-display-lg">7%</span>
+            <span class="text-xs font-semibold text-on-surface-variant">Medio principal</span>
+          </div>
+          <p class="text-xs text-outline mt-2">Solo el 7% la considera su medio prioritario para noticias regionales (vs 32% en O'Higgins).</p>
+        </div>
+      </section>
+
+      <!-- Visual Charts Grid (5 Charts with Aysén Highlighting) -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Chart 1: Percepción de Rumbo Regional -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold text-secondary uppercase tracking-wider block mb-1">Rumbo Regional Comparado</span>
+              <h4 class="text-base font-bold text-primary font-headline-md">Percepción de Estancamiento vs Progreso</h4>
+            </div>
+            <span class="px-2.5 py-1 bg-surface-container rounded-lg text-xs font-bold text-outline">2024</span>
+          </div>
+          <p class="text-xs text-on-surface-variant">Porcentaje de habitantes que percibe su región en estado de "Estancamiento" (Aysén destaca con 58%).</p>
+          <div class="h-72 w-full">
+            <canvas id="chart-comp-rumbo-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Confianza Interpersonal -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold text-secondary uppercase tracking-wider block mb-1">Cohesión Social Comparada</span>
+              <h4 class="text-base font-bold text-primary font-headline-md">Confianza Interpersonal por Región</h4>
+            </div>
+            <span class="px-2.5 py-1 bg-surface-container rounded-lg text-xs font-bold text-outline">2024</span>
+          </div>
+          <p class="text-xs text-on-surface-variant">Porcentaje que afirma que "Se puede confiar en las personas" (Aysén destacado con 45%).</p>
+          <div class="h-72 w-full">
+            <canvas id="chart-comp-confianza-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Centralismo y Dependencia -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold text-secondary uppercase tracking-wider block mb-1">Descentralización</span>
+              <h4 class="text-base font-bold text-primary font-headline-md">Percepción de Aumento del Centralismo</h4>
+            </div>
+            <span class="px-2.5 py-1 bg-surface-container rounded-lg text-xs font-bold text-outline">2024</span>
+          </div>
+          <p class="text-xs text-on-surface-variant">Porcentaje que considera que en el último tiempo ha aumentado el centralismo y la dependencia de Santiago (Aysén lidera con 57%).</p>
+          <div class="h-72 w-full">
+            <canvas id="chart-comp-centralismo-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Evaluación Sectorial (Seguridad y Salud) -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold text-secondary uppercase tracking-wider block mb-1">Evaluación de Servicios (Notas 1 a 7)</span>
+              <h4 class="text-base font-bold text-primary font-headline-md">Seguridad Ciudadana y Salud de Calidad</h4>
+            </div>
+            <span class="px-2.5 py-1 bg-surface-container rounded-lg text-xs font-bold text-outline">2024</span>
+          </div>
+          <p class="text-xs text-on-surface-variant">Comparación de notas promedio asignadas a la Seguridad Ciudadana y Salud por región (Aysén obtiene la menor nota en Seguridad: 3.4).</p>
+          <div class="h-72 w-full">
+            <canvas id="chart-comp-notas-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 5: Uso de Medios de Comunicación -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 space-y-4 lg:col-span-2">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-bold text-secondary uppercase tracking-wider block mb-1">Hábitos de Información</span>
+              <h4 class="text-base font-bold text-primary font-headline-md">Radios Locales vs TV Nacional como Medio Principal</h4>
+            </div>
+            <span class="px-2.5 py-1 bg-surface-container rounded-lg text-xs font-bold text-outline">2024</span>
+          </div>
+          <p class="text-xs text-on-surface-variant">Contraste de preferencia informativa: Porcentaje de habitantes que elige Radios Locales vs Televisión Abierta Nacional como medio principal.</p>
+          <div class="h-80 w-full">
+            <canvas id="chart-comp-medios-canvas"></canvas>
+          </div>
         </div>
       </section>
     </div>
