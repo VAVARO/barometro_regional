@@ -15,6 +15,16 @@ const filterState = {
   gse: "Todos"
 };
 
+function getActiveFilterDescription() {
+  const parts = [];
+  if (filterState.comuna !== "Todas") parts.push(`Comuna: ${filterState.comuna}`);
+  if (filterState.zona !== "Todas") parts.push(`Zona: ${filterState.zona}`);
+  if (filterState.edad !== "Todos") parts.push(`Edad: ${filterState.edad}`);
+  if (filterState.gse !== "Todos") parts.push(`GSE: ${filterState.gse}`);
+  
+  return parts.length > 0 ? parts.join(" • ") : "Toda la Región de Aysén";
+}
+
 // ----------------------------------------------------
 // Safe Element Helper
 // ----------------------------------------------------
@@ -59,6 +69,7 @@ async function initApp() {
     setupExplorer();
     setupModals();
     updateDashboard();
+    setupChartCardActions();
 
   } catch (error) {
     console.error("Error loading dashboard data:", error);
@@ -297,6 +308,7 @@ function setupNavigation() {
       } else {
         if (typeof updateDashboard === "function") updateDashboard();
       }
+      setupChartCardActions();
     }, 50);
   }
 
@@ -732,6 +744,12 @@ function updateDashboard() {
 
   // 5. Update Explorer
   renderExplorerTable();
+
+  // 6. Update dynamic filter subtitles & attach chart card toolbar actions
+  document.querySelectorAll(".chart-filter-context").forEach(el => {
+    el.textContent = getActiveFilterDescription();
+  });
+  setupChartCardActions();
 }
 
 // ----------------------------------------------------
@@ -2238,5 +2256,139 @@ async function updateComparativaPanel() {
   renderCompChart("chart-comp-radios", compData.radios_locales, "pct");
   renderCompChart("chart-comp-migrar", compData.migrar, "pct");
 }
+
+// ----------------------------------------------------
+// Export & Clipboard Engine with Context Stamping
+// ----------------------------------------------------
+async function exportChartWithContext(canvasId, action = "download", customTitle = "") {
+  const sourceCanvas = document.getElementById(canvasId);
+  if (!sourceCanvas) return;
+
+  const card = sourceCanvas.closest(".bg-white") || sourceCanvas.parentElement;
+  const titleText = customTitle || card.querySelector("h3, h4, p.text-lg, p.font-bold")?.textContent?.trim() || "Gráfico Barómetro";
+  const filterText = `Filtros: ${getActiveFilterDescription()}`;
+  const sampleText = `Muestra actual: N = ${document.getElementById("kpi-sample-size")?.textContent || "465"} encuestados | Barómetro Regional UAysén 2025`;
+
+  // Create High-Res Export Canvas
+  const exportCanvas = document.createElement("canvas");
+  const ctx = exportCanvas.getContext("2d");
+  const padding = 30;
+  const headerHeight = 60;
+  const footerHeight = 35;
+
+  exportCanvas.width = sourceCanvas.width + padding * 2;
+  exportCanvas.height = sourceCanvas.height + headerHeight + footerHeight + padding;
+
+  // 1. Fill solid white background
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+
+  // 2. Render Header (Title & Active Filters)
+  ctx.fillStyle = "#0a2540";
+  ctx.font = "bold 16px 'Plus Jakarta Sans', sans-serif";
+  ctx.fillText(titleText, padding, padding + 15);
+
+  ctx.fillStyle = "#00a3e0";
+  ctx.font = "600 12px 'Inter', sans-serif";
+  ctx.fillText(filterText, padding, padding + 35);
+
+  // 3. Draw Chart Image
+  ctx.drawImage(sourceCanvas, padding, headerHeight + 15);
+
+  // 4. Render Footer Watermark
+  ctx.fillStyle = "#74777e";
+  ctx.font = "11px 'Inter', sans-serif";
+  ctx.fillText(sampleText, padding, exportCanvas.height - 15);
+
+  // 5. Execute Action (Clipboard or Download)
+  if (action === "copy") {
+    exportCanvas.toBlob(async (blob) => {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        showToast("¡Gráfico copiado al portapapeles!");
+      } catch (err) {
+        console.error("Error al copiar al portapapeles:", err);
+        // Fallback to download if clipboard API is blocked
+        downloadCanvas(exportCanvas, titleText);
+      }
+    });
+  } else {
+    downloadCanvas(exportCanvas, titleText);
+  }
+}
+
+function downloadCanvas(canvas, filename) {
+  const cleanName = filename.toLowerCase().replace(/[^a-z0-9]/gi, "_").substring(0, 35);
+  const link = document.createElement("a");
+  link.download = `barometro_${cleanName}.png`;
+  link.href = canvas.toDataURL("image/png");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast("Descargando imagen del gráfico...");
+}
+
+// Toast notification helper
+function showToast(message) {
+  let toast = document.getElementById("dashboard-toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "dashboard-toast";
+    toast.className = "fixed bottom-6 right-6 z-50 bg-primary-container text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-2 transition-all transform translate-y-10 opacity-0 pointer-events-none";
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<span class="material-symbols-outlined text-secondary-container text-base">check_circle</span> ${message}`;
+  toast.classList.remove("translate-y-10", "opacity-0", "pointer-events-none");
+  setTimeout(() => {
+    toast.classList.add("translate-y-10", "opacity-0", "pointer-events-none");
+  }, 2500);
+}
+
+// ----------------------------------------------------
+// Chart Card Action Buttons Injection
+// ----------------------------------------------------
+function setupChartCardActions() {
+  document.querySelectorAll("canvas").forEach(canvas => {
+    if (canvas.id.includes("explorer") || canvas.id.includes("toast")) return;
+    const card = canvas.closest(".bg-white");
+    if (!card || card.querySelector(".chart-actions-toolbar")) return;
+
+    let header = card.querySelector(".mb-4, .mb-6");
+    if (!header) {
+      const titles = card.querySelectorAll("h3, h4, p.text-lg, p.font-bold");
+      if (titles.length > 0) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "mb-4 flex justify-between items-start gap-2";
+        const titleContainer = document.createElement("div");
+        titles.forEach(t => titleContainer.appendChild(t));
+        wrapper.appendChild(titleContainer);
+        card.insertBefore(wrapper, card.firstChild);
+        header = wrapper;
+      } else {
+        header = card.firstElementChild;
+      }
+    }
+
+    if (header) {
+      header.classList.add("flex", "justify-between", "items-start", "gap-2");
+      
+      const toolbar = document.createElement("div");
+      toolbar.className = "chart-actions-toolbar flex items-center gap-1 shrink-0 bg-surface p-1 rounded-xl border border-outline-variant/30";
+      toolbar.innerHTML = `
+        <button title="Copiar gráfico al portapapeles" class="btn-copy-chart p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors flex items-center">
+          <span class="material-symbols-outlined text-sm">content_copy</span>
+        </button>
+        <button title="Descargar como imagen PNG" class="btn-download-chart p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors flex items-center">
+          <span class="material-symbols-outlined text-sm">download</span>
+        </button>
+      `;
+
+      toolbar.querySelector(".btn-copy-chart").addEventListener("click", () => exportChartWithContext(canvas.id, "copy"));
+      toolbar.querySelector(".btn-download-chart").addEventListener("click", () => exportChartWithContext(canvas.id, "download"));
+      header.appendChild(toolbar);
+    }
+  });
+}
+
 
 

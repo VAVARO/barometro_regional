@@ -119,3 +119,23 @@
 #explorer-table-body tr:hover {
   background-color: rgba(65, 190, 253, 0.05);
 }
+
+/* Chart Card Toolbar Actions */
+.chart-actions-toolbar {
+  opacity: 0.85;
+  transition: opacity 0.2s ease-in-out;
+}
+.chart-actions-toolbar:hover {
+  opacity: 1;
+}
+.chart-actions-toolbar button {
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.chart-actions-toolbar button:hover {
+  transform: translateY(-1px);
+}
+.chart-actions-toolbar button:active {
+  transform: scale(0.95);
+}
+
