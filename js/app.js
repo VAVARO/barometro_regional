@@ -398,38 +398,54 @@ function setupNavScrollControls() {
   const btnLeft = document.getElementById("nav-scroll-left");
   const btnRight = document.getElementById("nav-scroll-right");
 
-  if (!nav || !btnLeft || !btnRight) return;
+  if (!nav) return;
 
   function updateArrows() {
+    if (!btnLeft || !btnRight) return;
     const maxScroll = nav.scrollWidth - nav.clientWidth;
-    const canScrollLeft = nav.scrollLeft > 5;
-    const canScrollRight = nav.scrollLeft < maxScroll - 5;
+    const canScrollLeft = nav.scrollLeft > 10;
+    const canScrollRight = nav.scrollLeft < maxScroll - 10;
 
     btnLeft.classList.toggle("hidden", !canScrollLeft);
     btnRight.classList.toggle("hidden", !canScrollRight);
   }
 
-  btnLeft.addEventListener("click", () => {
-    nav.scrollBy({ left: -200, behavior: "smooth" });
-  });
+  if (btnLeft) {
+    btnLeft.addEventListener("click", (e) => {
+      e.stopPropagation();
+      nav.scrollBy({ left: -220, behavior: "smooth" });
+    });
+  }
 
-  btnRight.addEventListener("click", () => {
-    nav.scrollBy({ left: 200, behavior: "smooth" });
-  });
+  if (btnRight) {
+    btnRight.addEventListener("click", (e) => {
+      e.stopPropagation();
+      nav.scrollBy({ left: 220, behavior: "smooth" });
+    });
+  }
 
   nav.addEventListener("scroll", updateArrows);
   window.addEventListener("resize", updateArrows);
 
-  // Auto-scroll active tab into view when selected
+  // Safe inner tab focus (does NOT shift window viewport)
   document.querySelectorAll(".nav-tab").forEach(tab => {
     tab.addEventListener("click", () => {
-      tab.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
-      setTimeout(updateArrows, 300);
+      const tabLeft = tab.offsetLeft;
+      const tabWidth = tab.offsetWidth;
+      const navScroll = nav.scrollLeft;
+      const navWidth = nav.clientWidth;
+
+      if (tabLeft < navScroll + 40) {
+        nav.scrollTo({ left: Math.max(0, tabLeft - 40), behavior: "smooth" });
+      } else if (tabLeft + tabWidth > navScroll + navWidth - 40) {
+        nav.scrollTo({ left: tabLeft + tabWidth - navWidth + 40, behavior: "smooth" });
+      }
+
+      setTimeout(updateArrows, 250);
     });
   });
 
-  // Initial check
-  setTimeout(updateArrows, 100);
+  setTimeout(updateArrows, 150);
 }
 
 // ----------------------------------------------------

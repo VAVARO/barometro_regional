@@ -20,14 +20,32 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Hide native scrollbar while preserving touch/trackpad scroll */
-#main-nav-tabs {
-  scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+/* Viewport & Header Overflow Protection */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
+
+header {
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* Nav container strict containment */
+#nav-tabs-container {
+  min-width: 0; /* Critical: allows flex child to shrink below content size */
+  max-width: 100%;
+}
+
+#main-nav-tabs {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
 #main-nav-tabs::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 #nav-scroll-left:hover, #nav-scroll-right:hover {
