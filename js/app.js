@@ -256,10 +256,8 @@ function setupNavigation() {
     tabs.forEach(t => {
       if (t.dataset.tab === tabId) {
         t.classList.add("active");
-        t.classList.remove("text-white/80");
       } else {
         t.classList.remove("active");
-        t.classList.add("text-white/80");
       }
     });
 
@@ -279,6 +277,7 @@ function setupNavigation() {
       }
     });
 
+    // Toggle filter bar visibility for Comparativa
     const filterBar = document.getElementById("global-filter-bar");
     if (filterBar) {
       if (tabId === "comparativa") {
@@ -290,13 +289,13 @@ function setupNavigation() {
 
     document.getElementById("mobile-drawer")?.classList.add("hidden");
 
-    // CRITICAL FIX: Trigger window resize event and re-render dashboard so Chart.js recalculates dimensions on unhidden tabs
+    // Resize and render active charts
     setTimeout(() => {
       window.dispatchEvent(new Event("resize"));
       if (tabId === "comparativa") {
-        updateComparativaPanel();
+        if (typeof updateComparativaPanel === "function") updateComparativaPanel();
       } else {
-        updateDashboard();
+        if (typeof updateDashboard === "function") updateDashboard();
       }
     }, 50);
   }
