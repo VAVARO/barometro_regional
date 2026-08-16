@@ -7,6 +7,36 @@ let comparativaData = null;
 let currentActiveTab = "resumen";
 let charts = {};
 
+// Register DataLabels Plugin globally
+if (typeof ChartDataLabels !== "undefined") {
+  Chart.register(ChartDataLabels);
+}
+
+// Global defaults for clean datalabels
+if (typeof Chart !== "undefined" && Chart.defaults) {
+  Chart.defaults.set('plugins.datalabels', {
+    color: (context) => {
+      // White text inside dark bars/slices, dark slate text on light backgrounds
+      const bg = context.dataset.backgroundColor;
+      const itemBg = Array.isArray(bg) ? bg[context.dataIndex] : bg;
+      return (itemBg === "#0a2540" || itemBg === "#0A2540" || itemBg === "#00658d" || itemBg === "#00658D" || itemBg === "#0284C7" || itemBg === "#00A3E0") ? "#ffffff" : "#0f172a";
+    },
+    anchor: 'end',
+    align: 'start', // 'start' places label inside the tip of the bar; 'end' places it outside
+    offset: 4,
+    font: {
+      family: "'Inter', sans-serif",
+      weight: 'bold',
+      size: 11
+    },
+    formatter: (value, context) => {
+      if (value === 0 || value === "0" || value === null || value === undefined) return "";
+      const isGrade = context.chart.options.scales?.x?.max === 7 || context.chart.options.scales?.y?.max === 7;
+      return isGrade ? value : `${value}%`;
+    }
+  });
+}
+
 // Active Filter State
 const filterState = {
   comuna: "Todas",
@@ -1416,7 +1446,14 @@ function renderGobernanzaChart(filtered) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { tooltip: { callbacks: { label: (item) => ` ${item.dataset.label}: ${item.raw}%` } } },
+      plugins: {
+        tooltip: { callbacks: { label: (item) => ` ${item.dataset.label}: ${item.raw}%` } },
+        datalabels: {
+          align: 'center',
+          anchor: 'center',
+          color: '#ffffff'
+        }
+      },
       scales: { x: { stacked: true }, y: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } } }
     }
   });
@@ -2264,10 +2301,18 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
   const sourceCanvas = document.getElementById(canvasId);
   if (!sourceCanvas) return;
 
+  const isComparative = canvasId.includes("comp") || canvasId.startsWith("chart-comp");
   const card = sourceCanvas.closest(".bg-white") || sourceCanvas.parentElement;
   const titleText = customTitle || card.querySelector("h3, h4, p.text-lg, p.font-bold")?.textContent?.trim() || "Gráfico Barómetro";
-  const filterText = `Filtros: ${getActiveFilterDescription()}`;
-  const sampleText = `Muestra actual: N = ${document.getElementById("kpi-sample-size")?.textContent || "465"} encuestados | Barómetro Regional UAysén 2025`;
+  
+  // Dynamic header & footer according to scope
+  const filterText = isComparative 
+    ? "Ámbito: Benchmark Nacional / Interregional (7 Regiones)" 
+    : `Filtros: ${getActiveFilterDescription()}`;
+    
+  const sampleText = isComparative 
+    ? "Muestra Total: N = 3.813 encuestados (7 Regiones) | Barómetro Regional 2024" 
+    : `Muestra actual: N = ${document.getElementById("kpi-sample-size")?.textContent || "465"} encuestados | Barómetro Regional UAysén 2025`;
 
   // Create High-Res Export Canvas
   const exportCanvas = document.createElement("canvas");
@@ -2279,11 +2324,11 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
   exportCanvas.width = sourceCanvas.width + padding * 2;
   exportCanvas.height = sourceCanvas.height + headerHeight + footerHeight + padding;
 
-  // 1. Fill solid white background
+  // 1. Solid white background
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
 
-  // 2. Render Header (Title & Active Filters)
+  // 2. Header: Title & Subtitle
   ctx.fillStyle = "#0a2540";
   ctx.font = "bold 16px 'Plus Jakarta Sans', sans-serif";
   ctx.fillText(titleText, padding, padding + 15);
@@ -2292,15 +2337,15 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
   ctx.font = "600 12px 'Inter', sans-serif";
   ctx.fillText(filterText, padding, padding + 35);
 
-  // 3. Draw Chart Image
+  // 3. Draw Chart Image (with datalabels included)
   ctx.drawImage(sourceCanvas, padding, headerHeight + 15);
 
-  // 4. Render Footer Watermark
+  // 4. Footer Watermark
   ctx.fillStyle = "#74777e";
   ctx.font = "11px 'Inter', sans-serif";
   ctx.fillText(sampleText, padding, exportCanvas.height - 15);
 
-  // 5. Execute Action (Clipboard or Download)
+  // 5. Action
   if (action === "copy") {
     exportCanvas.toBlob(async (blob) => {
       try {
@@ -2308,7 +2353,6 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
         showToast("¡Gráfico copiado al portapapeles!");
       } catch (err) {
         console.error("Error al copiar al portapapeles:", err);
-        // Fallback to download if clipboard API is blocked
         downloadCanvas(exportCanvas, titleText);
       }
     });
