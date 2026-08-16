@@ -116,45 +116,59 @@
         </div>
       </div>
 
-      <!-- Main Navigation Tabs -->
-      <nav class="hidden lg:flex items-center gap-1.5 bg-black/20 p-1.5 rounded-full border border-white/10 overflow-x-auto max-w-full" id="main-nav-tabs">
-        <button class="nav-tab active" data-tab="resumen">
-          <span class="material-symbols-outlined">dashboard</span>
-          <span>Resumen</span>
+      <!-- Navigation Wrapper with Scroll Controls -->
+      <div class="relative hidden lg:flex items-center max-w-full group" id="nav-tabs-container">
+        
+        <!-- Left Scroll Button -->
+        <button id="nav-scroll-left" class="hidden absolute left-0 z-10 h-7 w-7 -ml-2 rounded-full bg-primary-container/90 hover:bg-secondary-container/80 text-white border border-white/20 shadow-md flex items-center justify-center transition-all backdrop-blur-md" title="Desplazar a la izquierda">
+          <span class="material-symbols-outlined text-sm">chevron_left</span>
         </button>
-        <button class="nav-tab" data-tab="identidad">
-          <span class="material-symbols-outlined">fingerprint</span>
-          <span>Identidad</span>
+
+        <!-- Scrollable Nav Tabs -->
+        <nav class="flex items-center gap-1.5 bg-black/20 p-1.5 rounded-full border border-white/10 overflow-x-auto no-scrollbar scroll-smooth max-w-full select-none" id="main-nav-tabs">
+          <button class="nav-tab active" data-tab="resumen">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Resumen</span>
+          </button>
+          <button class="nav-tab" data-tab="identidad">
+            <span class="material-symbols-outlined">fingerprint</span>
+            <span>Identidad</span>
+          </button>
+          <button class="nav-tab" data-tab="gobernanza">
+            <span class="material-symbols-outlined">account_balance</span>
+            <span>Gobernanza</span>
+          </button>
+          <button class="nav-tab" data-tab="medioambiente">
+            <span class="material-symbols-outlined">eco</span>
+            <span>Medioambiente</span>
+          </button>
+          <button class="nav-tab" data-tab="uaysen">
+            <span class="material-symbols-outlined">school</span>
+            <span>UAysén</span>
+          </button>
+          <button class="nav-tab" data-tab="confianza">
+            <span class="material-symbols-outlined">handshake</span>
+            <span>Confianza</span>
+          </button>
+          <button class="nav-tab" data-tab="demografia">
+            <span class="material-symbols-outlined">group</span>
+            <span>Demografía</span>
+          </button>
+          <button class="nav-tab" data-tab="explorer">
+            <span class="material-symbols-outlined">insights</span>
+            <span>Explorer</span>
+          </button>
+          <button class="nav-tab" data-tab="comparativa">
+            <span class="material-symbols-outlined">compare_arrows</span>
+            <span>Comparativa</span>
+          </button>
+        </nav>
+
+        <!-- Right Scroll Button -->
+        <button id="nav-scroll-right" class="hidden absolute right-0 z-10 h-7 w-7 -mr-2 rounded-full bg-primary-container/90 hover:bg-secondary-container/80 text-white border border-white/20 shadow-md flex items-center justify-center transition-all backdrop-blur-md" title="Desplazar a la derecha">
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
         </button>
-        <button class="nav-tab" data-tab="gobernanza">
-          <span class="material-symbols-outlined">account_balance</span>
-          <span>Gobernanza</span>
-        </button>
-        <button class="nav-tab" data-tab="medioambiente">
-          <span class="material-symbols-outlined">eco</span>
-          <span>Medioambiente</span>
-        </button>
-        <button class="nav-tab" data-tab="uaysen">
-          <span class="material-symbols-outlined">school</span>
-          <span>UAysén</span>
-        </button>
-        <button class="nav-tab" data-tab="confianza">
-          <span class="material-symbols-outlined">handshake</span>
-          <span>Confianza</span>
-        </button>
-        <button class="nav-tab" data-tab="demografia">
-          <span class="material-symbols-outlined">group</span>
-          <span>Demografía</span>
-        </button>
-        <button class="nav-tab" data-tab="explorer">
-          <span class="material-symbols-outlined">insights</span>
-          <span>Explorer</span>
-        </button>
-        <button class="nav-tab" data-tab="comparativa">
-          <span class="material-symbols-outlined">compare_arrows</span>
-          <span>Comparativa</span>
-        </button>
-      </nav>
+      </div>
 
       <!-- Header Actions -->
       <div class="flex items-center gap-2 shrink-0">

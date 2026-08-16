@@ -22,11 +22,16 @@
 
 /* Hide native scrollbar while preserving touch/trackpad scroll */
 #main-nav-tabs {
+  scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
 }
 #main-nav-tabs::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+#nav-scroll-left:hover, #nav-scroll-right:hover {
+  transform: scale(1.1);
 }
 
 /* Base Nav Tab Pill */

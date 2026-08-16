@@ -389,6 +389,47 @@ function setupNavigation() {
   if (closeBtn && drawer) {
     closeBtn.addEventListener("click", () => drawer.classList.add("hidden"));
   }
+
+  setupNavScrollControls();
+}
+
+function setupNavScrollControls() {
+  const nav = document.getElementById("main-nav-tabs");
+  const btnLeft = document.getElementById("nav-scroll-left");
+  const btnRight = document.getElementById("nav-scroll-right");
+
+  if (!nav || !btnLeft || !btnRight) return;
+
+  function updateArrows() {
+    const maxScroll = nav.scrollWidth - nav.clientWidth;
+    const canScrollLeft = nav.scrollLeft > 5;
+    const canScrollRight = nav.scrollLeft < maxScroll - 5;
+
+    btnLeft.classList.toggle("hidden", !canScrollLeft);
+    btnRight.classList.toggle("hidden", !canScrollRight);
+  }
+
+  btnLeft.addEventListener("click", () => {
+    nav.scrollBy({ left: -200, behavior: "smooth" });
+  });
+
+  btnRight.addEventListener("click", () => {
+    nav.scrollBy({ left: 200, behavior: "smooth" });
+  });
+
+  nav.addEventListener("scroll", updateArrows);
+  window.addEventListener("resize", updateArrows);
+
+  // Auto-scroll active tab into view when selected
+  document.querySelectorAll(".nav-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      tab.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+      setTimeout(updateArrows, 300);
+    });
+  });
+
+  // Initial check
+  setTimeout(updateArrows, 100);
 }
 
 // ----------------------------------------------------
