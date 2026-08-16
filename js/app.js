@@ -7,22 +7,24 @@ let comparativaData = null;
 let currentActiveTab = "resumen";
 let charts = {};
 
-// Register DataLabels Plugin globally
+// Register and configure DataLabels globally
 if (typeof ChartDataLabels !== "undefined") {
   Chart.register(ChartDataLabels);
 }
 
-// Global defaults for clean datalabels
 if (typeof Chart !== "undefined" && Chart.defaults) {
   Chart.defaults.set('plugins.datalabels', {
     color: (context) => {
-      // White text inside dark bars/slices, dark slate text on light backgrounds
       const bg = context.dataset.backgroundColor;
-      const itemBg = Array.isArray(bg) ? bg[context.dataIndex] : bg;
-      return (itemBg === "#0a2540" || itemBg === "#0A2540" || itemBg === "#00658d" || itemBg === "#00658D" || itemBg === "#0284C7" || itemBg === "#00A3E0") ? "#ffffff" : "#0f172a";
+      // White text on dark primary colors, dark slate on bright/accent colors
+      if (Array.isArray(bg)) {
+        const currentBg = bg[context.dataIndex];
+        return (currentBg === "#0a2540" || currentBg === "#0A2540") ? "#ffffff" : "#0f172a";
+      }
+      return (bg === "#0a2540" || bg === "#0A2540") ? "#ffffff" : "#0f172a";
     },
     anchor: 'end',
-    align: 'start', // 'start' places label inside the tip of the bar; 'end' places it outside
+    align: 'start',
     offset: 4,
     font: {
       family: "'Inter', sans-serif",
@@ -31,8 +33,35 @@ if (typeof Chart !== "undefined" && Chart.defaults) {
     },
     formatter: (value, context) => {
       if (value === 0 || value === "0" || value === null || value === undefined) return "";
-      const isGrade = context.chart.options.scales?.x?.max === 7 || context.chart.options.scales?.y?.max === 7;
-      return isGrade ? value : `${value}%`;
+
+      const chart = context.chart;
+      const canvasId = chart.canvas?.id || "";
+      const xMax = chart.options.scales?.x?.max;
+      const yMax = chart.options.scales?.y?.max;
+      const xMin = chart.options.scales?.x?.min;
+      const yMin = chart.options.scales?.y?.min;
+
+      // Detect if chart uses a mean score scale (1-4, 1-7) rather than percentage (0-100%)
+      const isScoreAxis = (xMax && xMax <= 10) || (yMax && yMax <= 10) || xMin === 1 || yMin === 1;
+      
+      // Explicit list of score/average canvas IDs
+      const isScoreChart = [
+        "chart-ambiental-canvas",
+        "chart-economia-canvas",
+        "chart-servicios-canvas",
+        "chart-servicios-completo-canvas",
+        "chart-instituciones-canvas",
+        "chart-uaysen-aporte-canvas",
+        "chart-comp-seguridad"
+      ].includes(canvasId);
+
+      // If it's a score scale, return as clean decimal number without '%'
+      if (isScoreAxis || isScoreChart || context.dataset.isScore) {
+        return Number(value).toFixed(2);
+      }
+
+      // Default for distribution charts: append '%'
+      return `${value}%`;
     }
   });
 }
