@@ -2410,7 +2410,7 @@ function renderActiveCompSubpanel() {
       const color = palette[idx % palette.length];
       return {
         label: catLabels[idx],
-        data: items.map(i => Number(i[k]) || 0),
+        data: items.map(i => Number(k === "region" && i.su_region !== undefined ? i.su_region : i[k]) || 0),
         backgroundColor: color,
         borderWidth: 1,
         borderColor: "#ffffff",
@@ -2492,16 +2492,16 @@ function renderActiveCompSubpanel() {
   // Render active subpanel charts dynamically
   if (currentCompSubtab === "coyuntura" && compData.coyuntura) {
     const c = compData.coyuntura;
-    // 1. Rumbo Regional (Evaluative Semantic Tri-Color)
+    // 1. Rumbo Regional (Evaluative Semantic Tri-Color: Emerald / Amber / Coral)
     renderCompStackedBar(
       "chart-comp-rumbo",
       c.rumbo,
       ["progresando", "estancada", "decadencia"],
       ["Progresando", "Estancada", "En Decadencia"],
-      ["#10B981", "#F59E0B", "#F43F5E"]
+      ["#059669", "#D97706", "#E11D48"]
     );
     renderCompBar("chart-comp-migrar", c.disposicion_migrar, "pct");
-    // 2. Destino de Migración (Sequential Territorial Palette)
+    // 2. Destino de Migración (Step Sequential: Sky -> Turquoise -> Deep Navy)
     renderCompStackedBar(
       "chart-comp-destino",
       c.destino_migracion,
@@ -2509,21 +2509,21 @@ function renderActiveCompSubpanel() {
       ["Otra Comuna", "Otra Región", "Al Extranjero"],
       ["#38BDF8", "#00A3E0", "#0A2540"]
     );
-    // 3. Espacio de Mayor Identificación (Hierarchy Scale)
+    // 3. Espacio de Mayor Identificación (Territorial Hierarchy Scale)
     renderCompStackedBar(
       "chart-comp-identificacion",
       c.identificacion_territorial,
-      ["barrio", "comuna", "su_region", "pais"],
+      ["barrio", "comuna", "region", "pais"],
       ["Barrio", "Comuna", "Región", "País"],
-      ["#38BDF8", "#00A3E0", "#0A2540", "#64748B"]
+      ["#7DD3FC", "#00A3E0", "#0369A1", "#0A2540"]
     );
-    // 4. Principal Problema Regional (Harmonious Categorical Palette)
+    // 4. Principal Problema Regional (Curated Editorial Palette)
     renderCompStackedBar(
       "chart-comp-problema",
       c.principal_problema,
-      ["seguridad", "salud", "empleo", "conectividad", "vivienda"],
-      ["Seguridad", "Salud", "Empleo", "Conectividad", "Vivienda"],
-      ["#F43F5E", "#F59E0B", "#00A3E0", "#0A2540", "#64748B"]
+      ["seguridad", "conectividad", "salud", "empleo", "vivienda"],
+      ["Seguridad", "Conectividad", "Salud", "Empleo", "Vivienda"],
+      ["#E11D48", "#0A2540", "#EA580C", "#00A3E0", "#64748B"]
     );
     renderCompBar("chart-comp-erd", c.conocimiento_erd, "pct");
 
@@ -2552,7 +2552,7 @@ function renderActiveCompSubpanel() {
         d.gobernadores,
         ["impulso", "igual", "problemas"],
         ["Ha sido un impulso", "Ha dejado igual", "Más problemas"],
-        ["#00A3E0", "#64748B", "#F59E0B"]
+        ["#00A3E0", "#64748B", "#E11D48"]
       );
     }
     renderCompBar("chart-comp-dec-obras", d.decision_obras, "pct");
@@ -2585,7 +2585,7 @@ function renderActiveCompSubpanel() {
         k.medio_principal,
         ["redes_sociales", "tv_abierta", "radios_locales", "prensa_digital"],
         ["Redes Sociales", "TV Abierta", "Radios Locales", "Prensa Digital"],
-        ["#00A3E0", "#0A2540", "#F59E0B", "#64748B"]
+        ["#00A3E0", "#0A2540", "#D97706", "#64748B"]
       );
     }
   }
@@ -2601,8 +2601,19 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
   const isComparative = canvasId.includes("comp") || canvasId.startsWith("chart-comp");
   const card = sourceCanvas.closest(".bg-white") || sourceCanvas.parentElement;
   
-  // Extract clean title and subtitle from card elements
-  const titleText = customTitle || card.querySelector("h4, h3, p.font-bold, p.text-lg")?.textContent?.trim() || "Gráfico Barómetro";
+  // Safe extraction: Clone title element and remove any button/toolbar children before reading text
+  let titleText = customTitle;
+  if (!titleText) {
+    const rawTitleEl = card.querySelector("h4, h3, p.font-bold, p.text-lg");
+    if (rawTitleEl) {
+      const clone = rawTitleEl.cloneNode(true);
+      clone.querySelectorAll(".chart-actions-toolbar, button, span.material-symbols-outlined").forEach(el => el.remove());
+      titleText = clone.textContent.trim();
+    } else {
+      titleText = "Gráfico Barómetro";
+    }
+  }
+
   const subtitleEl = card.querySelector("p.text-xs.text-outline");
   const subtitleText = subtitleEl ? subtitleEl.textContent.trim() : "";
   
