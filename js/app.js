@@ -2328,39 +2328,103 @@ async function loadComparativaData() {
 
 async function updateComparativaPanel() {
   await loadComparativaData();
-  if (!compData) {
-    console.warn("[Dashboard Warning] compData is not yet loaded.");
-    return;
-  }
+  if (!compData) return;
 
-  // Render Sample Grid
+  // 1. Render Sample Grid
   const grid = document.getElementById("comp-sample-grid");
   if (grid && compData.ficha_tecnica) {
     grid.innerHTML = compData.ficha_tecnica.map(item => `
-      <div class="p-3 rounded-xl border ${item.is_target ? 'bg-secondary-container/10 border-secondary-container' : 'bg-surface border-outline-variant/30'}">
+      <div class="p-2.5 rounded-2xl border ${item.is_target ? 'bg-secondary-container/15 border-secondary-container ring-1 ring-secondary-container' : 'bg-surface border-outline-variant/30'}">
         <p class="font-bold text-xs ${item.is_target ? 'text-secondary font-extrabold' : 'text-primary'}">${item.region}</p>
         <p class="text-base font-extrabold text-primary my-0.5">N=${item.n}</p>
-        <p class="text-[10px] text-outline">Error ±${item.error}</p>
+        <p class="text-[10px] text-outline">±${item.error}</p>
       </div>
     `).join("");
   }
 
-  // 1. Helper renderer for Horizontal Bar Charts (Ranked Benchmark)
-  function renderCompRankedChart(canvasId, items, valueKey, labelSuffix = "%", isGrade = false) {
-    const canvas = safeGetCanvas(canvasId);
-    if (!canvas || !items || !Array.isArray(items) || items.length === 0) return;
+  // 2. Render Consolidated 7-Service Matrix Chart (Aysén vs. Promedio Otras Regiones)
+  const ctxMatrix = safeGetCanvas("chart-comp-matriz-servicios");
+  if (ctxMatrix && compData.matriz_servicios) {
+    const items = compData.matriz_servicios;
+    const labels = items.map(i => i.servicio);
+    const aysenScores = items.map(i => i.aysen);
+    const otrasScores = items.map(i => i.promedio_otras);
+
+    if (charts["chart-comp-matriz-servicios"]) {
+      try { charts["chart-comp-matriz-servicios"].destroy(); } catch (e) {}
+      delete charts["chart-comp-matriz-servicios"];
+    }
+
+    try {
+      charts["chart-comp-matriz-servicios"] = new Chart(ctxMatrix, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Región de Aysén",
+              data: aysenScores,
+              backgroundColor: "#00A3E0", // Highlight Ice Turquoise
+              borderRadius: 6,
+              isScore: true
+            },
+            {
+              label: "Promedio Otras 6 Regiones",
+              data: otrasScores,
+              backgroundColor: "#0A2540", // Navy Contrast
+              borderRadius: 6,
+              isScore: true
+            }
+          ]
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              labels: { font: { family: "'Inter', sans-serif", weight: "600", size: 12 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: Nota ${Number(ctx.dataset.data[ctx.dataIndex]).toFixed(1)}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              min: 1,
+              max: 7,
+              ticks: { stepSize: 1 }
+            },
+            y: {
+              ticks: { font: { family: "'Inter', sans-serif", weight: "600" } }
+            }
+          }
+        }
+      });
+    } catch (errMatrix) {
+      console.error("Error rendering chart-comp-matriz-servicios:", errMatrix);
+    }
+  }
+
+  // 3. Helper for Benchmark Bar Charts with Highlighted Target
+  function renderCompBarChart(canvasId, items, valKey) {
+    const ctx = safeGetCanvas(canvasId);
+    if (!ctx || !items || !Array.isArray(items) || items.length === 0) return;
+
+    const labels = items.map(i => i.region);
+    const data = items.map(i => i[valKey]);
+    const colors = items.map(i => (i.is_target || i.region === "Aysén") ? "#00A3E0" : "#94A3B8");
 
     if (charts[canvasId]) {
       try { charts[canvasId].destroy(); } catch (e) {}
       delete charts[canvasId];
     }
 
-    const labels = items.map(i => i.region);
-    const data = items.map(i => Number(i[valueKey]) || 0);
-    const colors = items.map(i => (i.is_target || i.region === "Aysén") ? "#00A3E0" : "#94A3B8");
-
     try {
-      charts[canvasId] = new Chart(canvas, {
+      charts[canvasId] = new Chart(ctx, {
         type: "bar",
         data: {
           labels: labels,
@@ -2374,100 +2438,20 @@ async function updateComparativaPanel() {
           indexAxis: "y",
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
+          plugins: { 
             legend: { display: false },
             tooltip: {
               callbacks: {
-                label: (ctx) => `${ctx.dataset.data[ctx.dataIndex]}${labelSuffix}`
+                label: (ctx) => `${ctx.dataset.data[ctx.dataIndex]}%`
               }
             }
           },
           scales: {
             x: { 
-              min: isGrade ? 1 : 0, 
-              max: isGrade ? 7 : undefined, 
-              ticks: { callback: v => isGrade ? v : `${v}%` } 
-            },
-            y: {
-              ticks: {
-                font: { family: "'Inter', sans-serif", size: 11 },
-                color: "#43474d"
-              }
-            }
-          }
-        }
-      });
-    } catch (err) {
-      console.error(`[Error rendering ranked chart ${canvasId}]:`, err);
-    }
-  }
-
-  // 2. Helper renderer for 100% Stacked Horizontal Bar Charts
-  function renderCompStackedChart(canvasId, items, colorMap) {
-    const canvas = safeGetCanvas(canvasId);
-    if (!canvas || !items || !Array.isArray(items) || items.length === 0) return;
-
-    if (charts[canvasId]) {
-      try { charts[canvasId].destroy(); } catch (e) {}
-      delete charts[canvasId];
-    }
-
-    const labels = items.map(i => i.region);
-    const categoryKeys = Object.keys(colorMap);
-
-    const datasets = categoryKeys.map(cat => ({
-      label: cat,
-      data: items.map(i => Number(i[cat]) || 0),
-      backgroundColor: colorMap[cat],
-      borderRadius: 0
-    }));
-
-    try {
-      charts[canvasId] = new Chart(canvas, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: datasets
-        },
-        options: {
-          indexAxis: "y",
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: true,
-              position: "bottom",
-              labels: {
-                boxWidth: 10,
-                boxHeight: 10,
-                padding: 6,
-                font: { size: 10, family: "'Inter', sans-serif" }
-              }
-            },
-            datalabels: {
-              display: (context) => {
-                const val = context.dataset.data[context.dataIndex];
-                return val >= 7.0; // show label if segment is >= 7%
-              },
-              formatter: (value) => `${Math.round(value)}%`,
-              color: "#ffffff",
-              font: { weight: "bold", size: 10 }
-            },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => `${ctx.dataset.label}: ${ctx.dataset.data[ctx.dataIndex]}%`
-              }
-            }
-          },
-          scales: {
-            x: {
-              stacked: true,
               min: 0,
-              max: 100,
-              ticks: { callback: v => `${v}%` }
+              ticks: { callback: v => `${v}%` } 
             },
             y: {
-              stacked: true,
               ticks: {
                 font: { family: "'Inter', sans-serif", size: 11 },
                 color: "#43474d"
@@ -2476,117 +2460,20 @@ async function updateComparativaPanel() {
           }
         }
       });
-    } catch (err) {
-      console.error(`[Error rendering stacked chart ${canvasId}]:`, err);
+    } catch (errBar) {
+      console.error(`Error rendering ${canvasId}:`, errBar);
     }
   }
 
-  // --- MÓDULO 1: IDENTIDAD Y MOVILIDAD ---
-  try {
-    renderCompStackedChart("chart-comp-pertenencia", compData.pertenencia_territorial, {
-      "Barrio": "#0284c7",
-      "Pueblo / Localidad": "#38bdf8",
-      "Comuna": "#0d9488",
-      "Ciudad": "#10b981",
-      "Región": "#0a2540",
-      "País": "#f59e0b"
-    });
-  } catch (e) { console.error("Error in chart-comp-pertenencia:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-migrar", compData.migrar, "pct");
-  } catch (e) { console.error("Error in chart-comp-migrar:", e); }
-
-  // --- MÓDULO 2: RUMBO, DIAGNÓSTICO Y FORTALEZAS ---
-  try {
-    renderCompStackedChart("chart-comp-rumbo", compData.rumbo_regional, {
-      "Progresando": "#10b981",
-      "Estancada": "#f59e0b",
-      "En decadencia": "#ef4444"
-    });
-  } catch (e) { console.error("Error in chart-comp-rumbo:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-estancamiento", compData.estancamiento, "pct");
-  } catch (e) { console.error("Error in chart-comp-estancamiento:", e); }
-
-  try {
-    renderCompStackedChart("chart-comp-problemas", compData.principal_problema, {
-      "Seguridad": "#e11d48",
-      "Infraestructura y movilidad": "#ea580c",
-      "Salud": "#0284c7",
-      "Empleo": "#8b5cf6",
-      "Economía": "#f59e0b",
-      "Otros": "#94a3b8"
-    });
-  } catch (e) { console.error("Error in chart-comp-problemas:", e); }
-
-  try {
-    renderCompStackedChart("chart-comp-fortalezas", compData.principal_fortaleza, {
-      "Riquezas naturales": "#059669",
-      "Capacidad de trabajo de la gente": "#0284c7",
-      "Empresarios y desarrollo": "#6366f1",
-      "Calidad de profesionales": "#8b5cf6",
-      "Tradiciones culturales": "#d97706",
-      "Orden y seguridad": "#0d9488",
-      "Calidad de autoridades": "#64748b"
-    });
-  } catch (e) { console.error("Error in chart-comp-fortalezas:", e); }
-
-  // --- MÓDULO 3: APORTE INSTITUCIONAL ---
-  try {
-    renderCompRankedChart("chart-comp-gob-central", compData.aporte_gob_central, "pct");
-  } catch (e) { console.error("Error in chart-comp-gob-central:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-gore", compData.aporte_gore, "pct");
-  } catch (e) { console.error("Error in chart-comp-gore:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-municipios", compData.aporte_municipios, "pct");
-  } catch (e) { console.error("Error in chart-comp-municipios:", e); }
-
-  // --- MÓDULO 4: CULTURA CÍVICA Y DEMOCRACIA ---
-  try {
-    renderCompStackedChart("chart-comp-democracia", compData.apoyo_democracia, {
-      "Democracia preferible": "#0284c7",
-      "Gobierno autoritario a veces": "#e11d48",
-      "Da lo mismo un régimen u otro": "#f59e0b",
-      "No sabe / No responde": "#94a3b8"
-    });
-  } catch (e) { console.error("Error in chart-comp-democracia:", e); }
-
-  try {
-    renderCompStackedChart("chart-comp-pos-politica", compData.posicion_politica, {
-      "Izquierda": "#dc2626",
-      "Centro Izquierda": "#f87171",
-      "Centro": "#8b5cf6",
-      "Centro Derecha": "#60a5fa",
-      "Derecha": "#1d4ed8",
-      "Ninguna / Independiente": "#64748b"
-    });
-  } catch (e) { console.error("Error in chart-comp-pos-politica:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-confianza", compData.confianza, "pct");
-  } catch (e) { console.error("Error in chart-comp-confianza:", e); }
-
-  // --- MÓDULO 5: DESCENTRALIZACIÓN, SEGURIDAD Y MEDIOS ---
-  try {
-    renderCompRankedChart("chart-comp-centralismo", compData.centralismo, "pct");
-  } catch (e) { console.error("Error in chart-comp-centralismo:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-seguridad", compData.seguridad_nota, "nota", "", true);
-  } catch (e) { console.error("Error in chart-comp-seguridad:", e); }
-
-  try {
-    renderCompRankedChart("chart-comp-radios", compData.radios_locales, "pct");
-  } catch (e) { console.error("Error in chart-comp-radios:", e); }
+  // 4. Render Core Comparison Dimensions
+  const dims = compData.dimensiones_coyuntura || compData;
+  renderCompBarChart("chart-comp-centralismo", dims.centralismo, "pct");
+  renderCompBarChart("chart-comp-confianza", dims.confianza, "pct");
+  renderCompBarChart("chart-comp-estancamiento", dims.estancamiento, "pct");
+  renderCompBarChart("chart-comp-radios", dims.radios_locales, "pct");
 
   // Refresh Chart Card Action Toolbars
   setupChartCardActions();
-}
 }
 
 // ----------------------------------------------------

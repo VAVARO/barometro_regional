@@ -942,178 +942,114 @@
     </div>
 
     <!-- SECTION 9: COMPARATIVA INTERREGIONAL -->
-    <div id="tab-content-comparativa" class="tab-panel hidden space-y-8">
+    <div id="tab-content-comparativa" class="tab-panel hidden space-y-6">
       
       <!-- Banner -->
-      <section class="bg-primary-container text-white p-6 rounded-3xl shadow-md">
-        <span class="text-xs font-bold text-secondary-container uppercase tracking-wider block mb-1">Barómetro Regional 2024 • Benchmark Nacional</span>
-        <h2 class="text-2xl font-bold font-headline-lg mb-2">Aysén en el Contexto Interregional</h2>
-        <p class="text-xs md:text-sm text-white/80 max-w-3xl">
-          Comparación sistemática de la Región de Aysén frente a O'Higgins, Ñuble, Biobío, Los Ríos, Los Lagos y Magallanes (N Total = 3.813 encuestados).
-        </p>
-      </section>
-
-      <!-- Technical Sample Table Card -->
-      <section class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-        <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-3">Ficha Técnica Muestral Interregional</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-center" id="comp-sample-grid">
-          <!-- Populated via JS -->
+      <section class="bg-primary-container text-white p-6 rounded-3xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <span class="text-xs font-bold text-secondary-container uppercase tracking-wider block mb-1">Benchmark Nacional • Barómetro Regional 2024</span>
+          <h2 class="text-2xl font-bold font-headline-lg">Aysén en el Contexto Interregional</h2>
+          <p class="text-xs text-white/80 mt-1 max-w-2xl">
+            Comparativa directa de la Región de Aysén frente a O'Higgins, Ñuble, Biobío, Los Ríos, Los Lagos y Magallanes ($N$ Total = 3.813).
+          </p>
+        </div>
+        <div class="px-4 py-2 bg-white/10 rounded-2xl border border-white/20 text-xs font-semibold whitespace-nowrap">
+          Foco: <span class="text-secondary-container font-bold">Región de Aysén</span>
         </div>
       </section>
 
-      <!-- Key Highlights -->
+      <!-- Technical Sample Grid -->
+      <section class="bg-white p-5 rounded-3xl shadow-sm border border-outline-variant/30">
+        <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-2">Ficha Técnica Muestral (7 Regiones)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center" id="comp-sample-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Key Distinction Scorecards (4 Cards) -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white p-5 rounded-2xl border-l-4 border-rose-500 shadow-xs">
           <span class="text-[11px] font-bold text-rose-600 uppercase">Máximo Centralismo</span>
-          <p class="text-2xl font-bold text-primary my-1">57%</p>
-          <p class="text-xs text-outline">Percibe aumento de dependencia frente a Santiago (1° lugar nacional).</p>
+          <p class="text-3xl font-extrabold text-primary my-1">57%</p>
+          <p class="text-xs text-outline">Percibe aumento de dependencia frente a Santiago (1° nacional).</p>
         </div>
         <div class="bg-white p-5 rounded-2xl border-l-4 border-amber-500 shadow-xs">
           <span class="text-[11px] font-bold text-amber-600 uppercase">Mayor Estancamiento</span>
-          <p class="text-2xl font-bold text-primary my-1">58%</p>
-          <p class="text-xs text-outline">Evalúa que la región se encuentra estancada.</p>
+          <p class="text-3xl font-extrabold text-primary my-1">58%</p>
+          <p class="text-xs text-outline">Evalúa que la región está estancada (1° nacional).</p>
         </div>
         <div class="bg-white p-5 rounded-2xl border-l-4 border-emerald-500 shadow-xs">
-          <span class="text-[11px] font-bold text-emerald-600 uppercase">Alta Confianza Social</span>
-          <p class="text-2xl font-bold text-primary my-1">45%</p>
-          <p class="text-xs text-outline">Confía en las personas (vs 26% en zona centro-sur).</p>
+          <span class="text-[11px] font-bold text-emerald-600 uppercase">Alta Cohesión Social</span>
+          <p class="text-3xl font-extrabold text-primary my-1">45%</p>
+          <p class="text-xs text-outline">Confía en las personas (2° lugar nacional tras Magallanes).</p>
         </div>
         <div class="bg-white p-5 rounded-2xl border-l-4 border-secondary-container shadow-xs">
           <span class="text-[11px] font-bold text-secondary uppercase">Líder en Radios Locales</span>
-          <p class="text-2xl font-bold text-primary my-1">18%</p>
-          <p class="text-xs text-outline">Utiliza radios comunitarias como medio prioritario.</p>
+          <p class="text-3xl font-extrabold text-primary my-1">18%</p>
+          <p class="text-xs text-outline">Utiliza radios locales como medio principal (vs 1% en zona central).</p>
         </div>
       </section>
 
-      <!-- Charts Modules Container -->
-      <div class="space-y-10">
+      <!-- Consolidated Visualization Bento Grid -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-        <!-- MÓDULO 1: IDENTIDAD Y MOVILIDAD -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-2">
-            <span class="material-symbols-outlined text-secondary-container text-xl">fingerprint</span>
-            <h3 class="text-lg font-bold font-headline-md text-primary">1. Identidad, Pertenencia y Movilidad Territorial</h3>
+        <!-- MASTER COMPONENT: Consolidated 7-Service Benchmark Matrix -->
+        <div class="lg:col-span-12 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-4">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Evaluación de Calidad de Vida e Infraestructura</h3>
+            <h4 class="text-lg font-bold text-primary font-headline-md">Matriz Comparativa: Notas de Aysén vs. Promedio Otras Regiones (Escala 1 a 7)</h4>
+            <p class="text-xs text-outline mt-0.5">Comparación directa ítem por ítem entre la evaluación ciudadana de Aysén y el promedio del resto de las regiones del estudio.</p>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Identidad Territorial</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Territorio de Pertenencia Prioritario (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-pertenencia"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Movilidad Humana</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Disposición a Migrar / Irse de la Región (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-migrar"></canvas></div>
-            </div>
+          <div class="relative h-96 w-full">
+            <canvas id="chart-comp-matriz-servicios"></canvas>
           </div>
         </div>
 
-        <!-- MÓDULO 2: RUMBO Y DIAGNÓSTICO REGIONAL -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-2">
-            <span class="material-symbols-outlined text-secondary-container text-xl">trending_up</span>
-            <h3 class="text-lg font-bold font-headline-md text-primary">2. Evaluación del Rumbo, Problemas y Fortalezas Regionales</h3>
+        <!-- Chart: Centralismo por Región -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-3">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Descentralización</h3>
+            <h4 class="text-base font-bold text-primary">Percepción de Aumento del Centralismo (%)</h4>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Rumbo Regional Completo</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Evaluación del Avance: Progresando vs Estancada vs Decadencia (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-rumbo"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Benchmark Estancamiento</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Percepción de Estancamiento por Región (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-estancamiento"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Diagnóstico Temático</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Principal Problema Percibido en la Región (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-problemas"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Potencial y Recursos</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Principal Fortaleza Percibida de la Región (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-fortalezas"></canvas></div>
-            </div>
+          <div class="relative h-64 w-full">
+            <canvas id="chart-comp-centralismo"></canvas>
           </div>
         </div>
 
-        <!-- MÓDULO 3: APORTE INSTITUCIONAL AL DESARROLLO -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-2">
-            <span class="material-symbols-outlined text-secondary-container text-xl">account_balance</span>
-            <h3 class="text-lg font-bold font-headline-md text-primary">3. Aporte Institucional al Desarrollo Regional (% Mucho + Algo)</h3>
+        <!-- Chart: Confianza Interpersonal por Región -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-3">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Capital Social</h3>
+            <h4 class="text-base font-bold text-primary">Confianza Interpersonal por Región (%)</h4>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Nivel Central</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Aporte del Gobierno Central (%)</h4>
-              <div class="relative h-64 w-full"><canvas id="chart-comp-gob-central"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Nivel Regional</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Aporte del Gobierno Regional (GORE) (%)</h4>
-              <div class="relative h-64 w-full"><canvas id="chart-comp-gore"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Nivel Local</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Aporte de las Municipalidades (%)</h4>
-              <div class="relative h-64 w-full"><canvas id="chart-comp-municipios"></canvas></div>
-            </div>
+          <div class="relative h-64 w-full">
+            <canvas id="chart-comp-confianza"></canvas>
           </div>
         </div>
 
-        <!-- MÓDULO 4: CULTURA CÍVICA Y DEMOCRACIA -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-2">
-            <span class="material-symbols-outlined text-secondary-container text-xl">how_to_vote</span>
-            <h3 class="text-lg font-bold font-headline-md text-primary">4. Cultura Cívica, Democracia y Cohesión Social</h3>
+        <!-- Chart: Estancamiento por Región -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-3">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Rumbo Regional</h3>
+            <h4 class="text-base font-bold text-primary">Percepción de Estancamiento (%)</h4>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Régimen Político</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Apoyo a la Democracia vs Autoritarismo (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-democracia"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Espectro Político</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Autoidentificación Política (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-pos-politica"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Tejido Social</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Confianza Interpersonal por Región (%)</h4>
-              <div class="relative h-72 w-full"><canvas id="chart-comp-confianza"></canvas></div>
-            </div>
+          <div class="relative h-64 w-full">
+            <canvas id="chart-comp-estancamiento"></canvas>
           </div>
         </div>
 
-        <!-- MÓDULO 5: DESCENTRALIZACIÓN, SEGURIDAD Y MEDIOS -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-2">
-            <span class="material-symbols-outlined text-secondary-container text-xl">share_location</span>
-            <h3 class="text-lg font-bold font-headline-md text-primary">5. Descentralización, Seguridad y Dieta Informativa</h3>
+        <!-- Chart: Radios Locales vs Medios -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <div class="mb-3">
+            <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Ecología de Medios</h3>
+            <h4 class="text-base font-bold text-primary">Uso de Radios Locales/Comunitarias como Fuente Principal (%)</h4>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Autonomía Territorial</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Percepción de Aumento del Centralismo (%)</h4>
-              <div class="relative h-64 w-full"><canvas id="chart-comp-centralismo"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Evaluación Sectorial</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Seguridad Ciudadana (Nota 1.0 a 7.0)</h4>
-              <div class="relative h-64 w-full"><canvas id="chart-comp-seguridad"></canvas></div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-              <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-1">Ecología de Medios</h3>
-              <h4 class="text-base font-bold text-primary mb-3">Uso Prioritario de Radios Locales (%)</h4>
-              <div class="relative h-64 w-full"><canvas id="chart-comp-radios"></canvas></div>
-            </div>
+          <div class="relative h-64 w-full">
+            <canvas id="chart-comp-radios"></canvas>
           </div>
         </div>
 
-      </div>
+      </section>
     </div>
 
   </main>
