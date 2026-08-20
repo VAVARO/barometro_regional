@@ -18,8 +18,8 @@ print(f"Total HTML canvases in Comparativa: {len(html_canvases)}")
 for i, c in enumerate(html_canvases, 1):
     print(f"  {i:2d}. {c}")
 
-# Extract canvases in JS
-js_canvases = re.findall(r'renderComp(?:Bar|StackedBar)\(["\'](chart-comp-[^"\']+)["\']', js)
+# Extract canvases in JS (handling multiline formatting)
+js_canvases = re.findall(r'renderComp(?:Bar|StackedBar)\s*\(\s*["\'](chart-comp-[^"\']+)["\']', js)
 print(f"\nTotal JS canvases in Comparativa: {len(js_canvases)}")
 for i, c in enumerate(js_canvases, 1):
     print(f"  {i:2d}. {c}")

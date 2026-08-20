@@ -2403,15 +2403,44 @@ function renderActiveCompSubpanel() {
   // Generic Stacked Bar Renderer (100% distribution across categories)
   function renderCompStackedBar(canvasId, items, catKeys, catLabels, palette) {
     const ctx = safeGetCanvas(canvasId);
-    if (!ctx || !items) return;
+    if (!ctx || !items || items.length === 0) return;
 
     const labels = items.map(i => i.region);
-    const datasets = catKeys.map((k, idx) => ({
-      label: catLabels[idx],
-      data: items.map(i => i[k] || 0),
-      backgroundColor: palette[idx % palette.length],
-      borderRadius: 0
-    }));
+    const datasets = catKeys.map((k, idx) => {
+      const color = palette[idx % palette.length];
+      return {
+        label: catLabels[idx],
+        data: items.map(i => Number(i[k]) || 0),
+        backgroundColor: color,
+        borderWidth: 1,
+        borderColor: "#ffffff",
+        borderRadius: 0,
+        // Stacked specific datalabels configuration
+        datalabels: {
+          display: (context) => {
+            const val = context.dataset.data[context.dataIndex];
+            return val >= 6.0; // Hide labels on thin segments to avoid clutter/overflow
+          },
+          formatter: (val) => `${val}%`,
+          color: (context) => {
+            // Dynamic contrast helper
+            const hex = color.replace("#", "");
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+            return yiq >= 150 ? "#0A2540" : "#FFFFFF";
+          },
+          anchor: "center",
+          align: "center",
+          font: {
+            family: "'Inter', sans-serif",
+            weight: "700",
+            size: 10.5
+          }
+        }
+      };
+    });
 
     if (charts[canvasId]) charts[canvasId].destroy();
 
@@ -2422,12 +2451,39 @@ function renderActiveCompSubpanel() {
         indexAxis: "y",
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+          padding: { left: 5, right: 15, top: 5, bottom: 5 }
+        },
         plugins: {
-          legend: { position: "top", labels: { font: { size: 10, weight: "600" } } }
+          legend: {
+            position: "top",
+            labels: {
+              font: { family: "'Inter', sans-serif", size: 11, weight: "600" },
+              boxWidth: 12,
+              padding: 12
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: (item) => ` ${item.dataset.label}: ${item.raw}%`
+            }
+          }
         },
         scales: {
-          x: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } },
-          y: { stacked: true }
+          x: {
+            stacked: true,
+            max: 100,
+            ticks: { callback: v => `${v}%` },
+            grid: { color: "rgba(0,0,0,0.05)" }
+          },
+          y: {
+            stacked: true,
+            ticks: {
+              font: { family: "'Inter', sans-serif", size: 11, weight: "600" },
+              color: (c) => items[c.index]?.is_target ? "#00A3E0" : "#475569"
+            },
+            grid: { display: false }
+          }
         }
       }
     });
@@ -2436,11 +2492,39 @@ function renderActiveCompSubpanel() {
   // Render active subpanel charts dynamically
   if (currentCompSubtab === "coyuntura" && compData.coyuntura) {
     const c = compData.coyuntura;
-    renderCompStackedBar("chart-comp-rumbo", c.rumbo, ["progresando", "estancada", "decadencia"], ["Progresando", "Estancada", "En Decadencia"], ["#10B981", "#F59E0B", "#F43F5E"]);
+    // 1. Rumbo Regional (Evaluative Semantic Tri-Color)
+    renderCompStackedBar(
+      "chart-comp-rumbo",
+      c.rumbo,
+      ["progresando", "estancada", "decadencia"],
+      ["Progresando", "Estancada", "En Decadencia"],
+      ["#10B981", "#F59E0B", "#F43F5E"]
+    );
     renderCompBar("chart-comp-migrar", c.disposicion_migrar, "pct");
-    renderCompStackedBar("chart-comp-destino", c.destino_migracion, ["otra_comuna", "otra_region", "extranjero"], ["Otra Comuna", "Otra Región", "Al Extranjero"], ["#00A3E0", "#0A2540", "#94A3B8"]);
-    renderCompStackedBar("chart-comp-identificacion", c.identificacion_territorial, ["barrio", "comuna", "su_region", "pais"], ["Barrio", "Comuna", "Región", "País"], ["#00A3E0", "#41BEFD", "#0A2540", "#94A3B8"]);
-    renderCompStackedBar("chart-comp-problema", c.principal_problema, ["seguridad", "salud", "empleo", "conectividad", "vivienda"], ["Seguridad", "Salud", "Empleo", "Conectividad", "Vivienda"], ["#F43F5E", "#F59E0B", "#00A3E0", "#0A2540", "#94A3B8"]);
+    // 2. Destino de Migración (Sequential Territorial Palette)
+    renderCompStackedBar(
+      "chart-comp-destino",
+      c.destino_migracion,
+      ["otra_comuna", "otra_region", "extranjero"],
+      ["Otra Comuna", "Otra Región", "Al Extranjero"],
+      ["#38BDF8", "#00A3E0", "#0A2540"]
+    );
+    // 3. Espacio de Mayor Identificación (Hierarchy Scale)
+    renderCompStackedBar(
+      "chart-comp-identificacion",
+      c.identificacion_territorial,
+      ["barrio", "comuna", "su_region", "pais"],
+      ["Barrio", "Comuna", "Región", "País"],
+      ["#38BDF8", "#00A3E0", "#0A2540", "#64748B"]
+    );
+    // 4. Principal Problema Regional (Harmonious Categorical Palette)
+    renderCompStackedBar(
+      "chart-comp-problema",
+      c.principal_problema,
+      ["seguridad", "salud", "empleo", "conectividad", "vivienda"],
+      ["Seguridad", "Salud", "Empleo", "Conectividad", "Vivienda"],
+      ["#F43F5E", "#F59E0B", "#00A3E0", "#0A2540", "#64748B"]
+    );
     renderCompBar("chart-comp-erd", c.conocimiento_erd, "pct");
 
   } else if (currentCompSubtab === "servicios" && compData.servicios) {
@@ -2461,7 +2545,16 @@ function renderActiveCompSubpanel() {
   } else if (currentCompSubtab === "descentralizacion" && compData.descentralizacion) {
     const d = compData.descentralizacion;
     renderCompBar("chart-comp-centralismo", d.centralismo, "pct");
-    renderCompStackedBar("chart-comp-gobernadores", d.gobernadores, ["impulso", "igual", "problemas"], ["Ha sido un impulso", "Ha dejado igual", "Más problemas"], ["#00A3E0", "#64748B", "#F59E0B"]);
+    // 5. Impacto Gobernadores Regionales (Evaluative Palette)
+    if (d.gobernadores) {
+      renderCompStackedBar(
+        "chart-comp-gobernadores",
+        d.gobernadores,
+        ["impulso", "igual", "problemas"],
+        ["Ha sido un impulso", "Ha dejado igual", "Más problemas"],
+        ["#00A3E0", "#64748B", "#F59E0B"]
+      );
+    }
     renderCompBar("chart-comp-dec-obras", d.decision_obras, "pct");
     renderCompBar("chart-comp-dec-salud", d.decision_salud, "pct");
     renderCompBar("chart-comp-dec-educacion", d.decision_educacion, "pct");
@@ -2485,7 +2578,16 @@ function renderActiveCompSubpanel() {
     renderCompBar("chart-comp-democracia", k.adhesion_democracia, "pct");
     renderCompBar("chart-comp-uso-radios", k.uso_radios, "pct");
     renderCompBar("chart-comp-uso-tv", k.uso_tv, "pct");
-    renderCompStackedBar("chart-comp-medio-principal", k.medio_principal, ["redes_sociales", "tv_abierta", "radios_locales", "prensa_digital"], ["Redes Sociales", "TV Abierta", "Radios Locales", "Prensa Digital"], ["#00A3E0", "#0A2540", "#F59E0B", "#94A3B8"]);
+    // 6. Medio Principal de Información (Ecología de Medios)
+    if (k.medio_principal) {
+      renderCompStackedBar(
+        "chart-comp-medio-principal",
+        k.medio_principal,
+        ["redes_sociales", "tv_abierta", "radios_locales", "prensa_digital"],
+        ["Redes Sociales", "TV Abierta", "Radios Locales", "Prensa Digital"],
+        ["#00A3E0", "#0A2540", "#F59E0B", "#64748B"]
+      );
+    }
   }
 }
 
