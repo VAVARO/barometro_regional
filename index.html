@@ -943,14 +943,14 @@
 
     <!-- SECTION 9: COMPARATIVA INTERREGIONAL -->
     <div id="tab-content-comparativa" class="tab-panel hidden space-y-6">
-      
-      <!-- Banner -->
+
+      <!-- Header Banner -->
       <section class="bg-primary-container text-white p-6 rounded-3xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <span class="text-xs font-bold text-secondary-container uppercase tracking-wider block mb-1">Barómetro Regional 2024 • Benchmark Nacional</span>
+          <span class="text-xs font-bold text-secondary-container uppercase tracking-wider block mb-1">Barómetro Regional • Benchmark Nacional</span>
           <h2 class="text-2xl font-bold font-headline-lg">Aysén en el Contexto Interregional</h2>
           <p class="text-xs text-white/80 mt-1 max-w-2xl">
-            Comparativa directa de la Región de Aysén frente a O'Higgins, Ñuble, Biobío, Los Ríos, Los Lagos y Magallanes (N Total = 3.813).
+            Comparativa sistemática de la Región de Aysén frente a O'Higgins, Ñuble, Biobío, Los Ríos, Los Lagos y Magallanes (N Total = 3.813 encuestados).
           </p>
         </div>
         <div class="px-4 py-2 bg-white/10 rounded-2xl border border-white/20 text-xs font-semibold whitespace-nowrap">
@@ -958,152 +958,203 @@
         </div>
       </section>
 
-      <!-- Technical Sample Grid (N per region) -->
-      <section class="bg-white p-5 rounded-3xl shadow-sm border border-outline-variant/30">
-        <h3 class="text-xs font-bold text-outline uppercase tracking-wider mb-2">Ficha Técnica Muestral (7 Regiones)</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center" id="comp-sample-grid">
-          <!-- Populated via JS -->
-        </div>
-      </section>
-
-      <!-- THEMATIC SUB-NAVIGATION PILLS -->
-      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar p-1.5 bg-surface-container rounded-2xl border border-outline-variant/30" id="comp-subtabs">
+      <!-- Thematic Sub-Navigation Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar p-1.5 bg-surface-container rounded-2xl border border-outline-variant/30 select-none" id="comp-subtabs">
         <button class="comp-subtab active flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all" data-subtab="coyuntura">
           <span class="material-symbols-outlined text-sm">trending_up</span>
-          <span>Coyuntura & Rumbo</span>
+          <span>1. Coyuntura & Diagnóstico</span>
         </button>
         <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="servicios">
           <span class="material-symbols-outlined text-sm">grade</span>
-          <span>Matriz de Servicios (1 a 7)</span>
-        </button>
-        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="cohesion">
-          <span class="material-symbols-outlined text-sm">handshake</span>
-          <span>Cohesión & Democracia</span>
+          <span>2. Matriz de Servicios (1 a 7)</span>
         </button>
         <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="descentralizacion">
           <span class="material-symbols-outlined text-sm">account_balance</span>
-          <span>Descentralización & Medios</span>
+          <span>3. Descentralización & Autonomía</span>
+        </button>
+        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="cohesion">
+          <span class="material-symbols-outlined text-sm">handshake</span>
+          <span>4. Cohesión, Territorio & Medios</span>
         </button>
       </div>
 
-      <!-- SUB-PANEL 1: COYUNTURA & RUMBO -->
-      <div id="comp-subpanel-coyuntura" class="comp-subpanel space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-white p-5 rounded-2xl border-l-4 border-amber-500 shadow-xs">
-            <span class="text-[11px] font-bold text-amber-600 uppercase">Mayor Estancamiento</span>
-            <p class="text-3xl font-extrabold text-primary my-1">58%</p>
-            <p class="text-xs text-outline">Evalúa que Aysén está estancada (1° lugar nacional • Promedio país: 43%).</p>
-          </div>
-          <div class="bg-white p-5 rounded-2xl border-l-4 border-emerald-500 shadow-xs">
-            <span class="text-[11px] font-bold text-emerald-600 uppercase">Retención Territorial</span>
-            <p class="text-3xl font-extrabold text-primary my-1">71%</p>
-            <p class="text-xs text-outline">Prefiere quedarse a vivir en Aysén si dependiera de su decisión.</p>
-          </div>
+      <!-- SUB-PANEL 1: COYUNTURA & DIAGNÓSTICO -->
+      <div id="comp-subpanel-coyuntura" class="comp-subpanel grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Rumbo Regional (P003)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-rumbo"></canvas></div>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Percepción del Rumbo Regional (% Estancamiento)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-rumbo"></canvas></div>
-          </div>
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Disposición a Migrar / Irse de la Región (%)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-migrar"></canvas></div>
-          </div>
-          <div class="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Evaluación de Oportunidades Laborales y Sueldos (Notas 1.0 a 7.0)</h4>
-            <div class="relative h-72 w-full"><canvas id="chart-comp-oportunidades"></canvas></div>
-          </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Disposición a Migrar / Irse de la Región (P002)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-migrar"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Destino de Migración Deseado (P003_2024)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-destino"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Territorio de Mayor Identificación (P001)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-identificacion"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Principal Problema Percibido en la Región (P004)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-problema"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Conocimiento de la Estrategia Regional - ERD (P040)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-erd"></canvas></div>
         </div>
       </div>
 
-      <!-- SUB-PANEL 2: MATRIZ DE SERVICIOS (NOTAS 1 A 7) -->
-      <div id="comp-subpanel-servicios" class="comp-subpanel hidden space-y-6">
-        <div class="bg-white p-5 rounded-2xl border-l-4 border-rose-500 shadow-xs">
-          <span class="text-[11px] font-bold text-rose-600 uppercase">Brecha en Seguridad</span>
-          <p class="text-3xl font-extrabold text-primary my-1">3.4</p>
-          <p class="text-xs text-outline">Nota promedio en Seguridad Ciudadana en Aysén (la evaluación más baja del país).</p>
+      <!-- SUB-PANEL 2: MATRIZ DE SERVICIOS E INFRAESTRUCTURA (NOTAS 1 A 7) -->
+      <div id="comp-subpanel-servicios" class="comp-subpanel hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Conectividad Vial y Caminos (P015)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-caminos"></canvas></div>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Evaluación de Seguridad Ciudadana (1.0 a 7.0)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-seguridad"></canvas></div>
-          </div>
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Evaluación de Salud de Calidad (1.0 a 7.0)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-salud"></canvas></div>
-          </div>
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Evaluación de Educación y Transporte (1.0 a 7.0)</h4>
-            <div class="relative h-72 w-full"><canvas id="chart-comp-edutrans"></canvas></div>
-          </div>
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Evaluación de Agua Potable y Medioambiente (1.0 a 7.0)</h4>
-            <div class="relative h-72 w-full"><canvas id="chart-comp-aguamedio"></canvas></div>
-          </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Seguridad Ciudadana (P013)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-seguridad"></canvas></div>
         </div>
-      </div>
-
-      <!-- SUB-PANEL 3: COHESIÓN & DEMOCRACIA -->
-      <div id="comp-subpanel-cohesion" class="comp-subpanel hidden space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-white p-5 rounded-2xl border-l-4 border-emerald-500 shadow-xs">
-            <span class="text-[11px] font-bold text-emerald-600 uppercase">Alta Confianza Interpersonal</span>
-            <p class="text-3xl font-extrabold text-primary my-1">45%</p>
-            <p class="text-xs text-outline">Afirma que se puede confiar en las personas (2° lugar nacional tras Magallanes 53%).</p>
-          </div>
-          <div class="bg-white p-5 rounded-2xl border-l-4 border-secondary-container shadow-xs">
-            <span class="text-[11px] font-bold text-secondary uppercase">Apego Democrático</span>
-            <p class="text-3xl font-extrabold text-primary my-1">53%</p>
-            <p class="text-xs text-outline">Considera que la democracia es preferible a cualquier otra forma de gobierno.</p>
-          </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Servicios de Salud Pública (P016)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-salud"></canvas></div>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Confianza Interpersonal por Región (%)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-confianza"></canvas></div>
-          </div>
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Preferencia por el Régimen Democrático (%)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-democracia"></canvas></div>
-          </div>
-          <div class="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Instituciones que Más Aportan al Desarrollo Regional (% Mucho / Algo - Benchmark)</h4>
-            <div class="relative h-72 w-full"><canvas id="chart-comp-instituciones"></canvas></div>
-          </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Conectividad Digital e Internet (P019)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-internet"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Acceso a la Vivienda (P018)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-vivienda"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Transporte Público Regional (P017)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-transporte"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Educación de Calidad (P010)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-educacion"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Agua Potable (P008)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-agua"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Medioambiente Limpio (P014)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-medioambiente"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Oportunidades de Empleo (P009)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-empleo"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Nivel de Remuneraciones (P011)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-sueldos"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Oportunidades de Recreación y Cultura (P008)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-recreacion"></canvas></div>
         </div>
       </div>
 
-      <!-- SUB-PANEL 4: DESCENTRALIZACIÓN & MEDIOS -->
-      <div id="comp-subpanel-descentralizacion" class="comp-subpanel hidden space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-white p-5 rounded-2xl border-l-4 border-rose-500 shadow-xs">
-            <span class="text-[11px] font-bold text-rose-600 uppercase">Máximo Centralismo</span>
-            <p class="text-3xl font-extrabold text-primary my-1">57%</p>
-            <p class="text-xs text-outline">Percibe aumento de dependencia frente a Santiago (el más alto del país).</p>
-          </div>
-          <div class="bg-white p-5 rounded-2xl border-l-4 border-secondary-container shadow-xs">
-            <span class="text-[11px] font-bold text-secondary uppercase">Fuerza de la Radio Local</span>
-            <p class="text-3xl font-extrabold text-primary my-1">18%</p>
-            <p class="text-xs text-outline">Uso prioritario de radios comunitarias (vs 1% en O'Higgins y Ñuble).</p>
-          </div>
+      <!-- SUB-PANEL 3: DESCENTRALIZACIÓN & GOBERNANZA -->
+      <div id="comp-subpanel-descentralizacion" class="comp-subpanel hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Percepción de Aumento del Centralismo frente a Santiago (G2)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-centralismo"></canvas></div>
         </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Impacto Elección de Gobernadores Regionales (P059)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-gobernadores"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Obras e Infraestructura (P054)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-obras"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Salud Pública (P049)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-salud"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Educación Pública (P050)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-educacion"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Fomento Productivo (P057)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-fomento"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Protección Ambiental (P053)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-ambiente"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Administración del Agua (P051)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-agua"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Vivienda y Urbanismo (P052)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-vivienda"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Localización de Proyectos (P055)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-inversion"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Demanda Decisión Regional: Seguridad y Orden Público (P056)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-dec-seguridad"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Ranking de Aporte Institucional al Desarrollo Regional (%)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-instituciones"></canvas></div>
+        </div>
+      </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Percepción de Aumento del Centralismo (%)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-centralismo"></canvas></div>
-          </div>
-          <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Evaluación Elección de Gobernadores (% Impulso al Desarrollo)</h4>
-            <div class="relative h-64 w-full"><canvas id="chart-comp-gobernadores"></canvas></div>
-          </div>
-          <div class="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
-            <h4 class="text-sm font-bold text-primary mb-3">Ecología de Medios: Radios Locales vs. TV Nacional (%)</h4>
-            <div class="relative h-72 w-full"><canvas id="chart-comp-medios"></canvas></div>
-          </div>
+      <!-- SUB-PANEL 4: COHESIÓN, MEDIOAMBIENTE & MEDIOS -->
+      <div id="comp-subpanel-cohesion" class="comp-subpanel hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Confianza Interpersonal Generalizada (P020)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-confianza"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Participación Comunitaria Activa (P021)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-participacion"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Afectación por Contaminación del Aire / Humo de Leña (P024)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-afec-aire"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Afectación por Industrias Extractivas (P026)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-afec-extractivismo"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Afectación por Basura y Vertederos (P025)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-afec-basura"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Afectación por Escasez / Contaminación del Agua (P023)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-afec-agua"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Afectación por Eventos del Cambio Climático (P029)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-afec-clima"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Apego al Régimen Democrático (P073)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-democracia"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Uso de Radios Locales y Comunitarias (P033)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-uso-radios"></canvas></div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Uso de Televisión Abierta Nacional (P030)</h4>
+          <div class="relative h-64 w-full"><canvas id="chart-comp-uso-tv"></canvas></div>
+        </div>
+        <div class="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-outline-variant/30">
+          <h4 class="text-sm font-bold text-primary mb-3">Medio Principal de Información (P037)</h4>
+          <div class="relative h-72 w-full"><canvas id="chart-comp-medio-principal"></canvas></div>
         </div>
       </div>
 

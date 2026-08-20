@@ -2316,7 +2316,7 @@ async function loadComparativaData() {
     const res = await fetch("data/comparativa_interregional.json?v=" + Date.now());
     compData = await res.json();
   } catch (err) {
-    console.error("Error loading data/comparativa_interregional.json:", err);
+    console.error("Error loading comparativa_interregional.json:", err);
   }
 }
 
@@ -2332,10 +2332,10 @@ function setupComparativaSubNavigation() {
       subtabs.forEach(b => {
         if (b.dataset.subtab === target) {
           b.classList.add("active");
-          b.classList.remove("text-outline");
+          b.classList.remove("text-outline", "hover:bg-white/60");
         } else {
           b.classList.remove("active");
-          b.classList.add("text-outline");
+          b.classList.add("text-outline", "hover:bg-white/60");
         }
       });
 
@@ -2346,6 +2346,7 @@ function setupComparativaSubNavigation() {
       setTimeout(() => {
         window.dispatchEvent(new Event("resize"));
         renderActiveCompSubpanel();
+        setupChartCardActions();
       }, 50);
     });
   });
@@ -2354,27 +2355,14 @@ function setupComparativaSubNavigation() {
 async function updateComparativaPanel() {
   await loadComparativaData();
   if (!compData) return;
-
-  // 1. Render Sample Grid
-  const grid = document.getElementById("comp-sample-grid");
-  if (grid && compData.ficha_tecnica) {
-    grid.innerHTML = compData.ficha_tecnica.map(item => `
-      <div class="p-2.5 rounded-2xl border ${item.is_target ? 'bg-secondary-container/15 border-secondary-container ring-1 ring-secondary-container' : 'bg-surface border-outline-variant/30'}">
-        <p class="font-bold text-xs ${item.is_target ? 'text-secondary font-extrabold' : 'text-primary'}">${item.region}</p>
-        <p class="text-base font-extrabold text-primary my-0.5">N=${item.n}</p>
-        <p class="text-[10px] text-outline">±${item.error}</p>
-      </div>
-    `).join("");
-  }
-
-  // 2. Render only the active subpanel
   renderActiveCompSubpanel();
+  setupChartCardActions();
 }
 
 function renderActiveCompSubpanel() {
   if (!compData) return;
 
-  // Helper for Horizontal Bar Charts (Target highlighted in #00A3E0, Benchmark in #94A3B8)
+  // Generic Bar Chart Renderer (Aysén in #00A3E0, others in #94A3B8)
   function renderCompBar(canvasId, items, valKey, isGrade = false) {
     const ctx = safeGetCanvas(canvasId);
     if (!ctx || !items) return;
@@ -2412,76 +2400,93 @@ function renderActiveCompSubpanel() {
     });
   }
 
-  // Helper for Grouped Dual-Bar Charts
-  function renderCompDualBar(canvasId, items, key1, label1, key2, label2, isGrade = true) {
+  // Generic Stacked Bar Renderer (100% distribution across categories)
+  function renderCompStackedBar(canvasId, items, catKeys, catLabels, palette) {
     const ctx = safeGetCanvas(canvasId);
     if (!ctx || !items) return;
 
     const labels = items.map(i => i.region);
-    const data1 = items.map(i => i[key1]);
-    const data2 = items.map(i => i[key2]);
+    const datasets = catKeys.map((k, idx) => ({
+      label: catLabels[idx],
+      data: items.map(i => i[k] || 0),
+      backgroundColor: palette[idx % palette.length],
+      borderRadius: 0
+    }));
 
     if (charts[canvasId]) charts[canvasId].destroy();
 
     charts[canvasId] = new Chart(ctx, {
       type: "bar",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: label1,
-            data: data1,
-            backgroundColor: items.map(i => i.is_target ? "#00A3E0" : "#64748B"),
-            borderRadius: 6,
-            isScore: isGrade
-          },
-          {
-            label: label2,
-            data: data2,
-            backgroundColor: items.map(i => i.is_target ? "#41BEFD" : "#CBD5E1"),
-            borderRadius: 6,
-            isScore: isGrade
-          }
-        ]
-      },
+      data: { labels: labels, datasets: datasets },
       options: {
+        indexAxis: "y",
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: "top", labels: { font: { size: 11, weight: "600" } } }
+          legend: { position: "top", labels: { font: { size: 10, weight: "600" } } }
         },
         scales: {
-          y: {
-            min: isGrade ? 1 : 0,
-            max: isGrade ? 7 : undefined,
-            ticks: { callback: v => isGrade ? v : `${v}%` }
-          }
+          x: { stacked: true, max: 100, ticks: { callback: v => `${v}%` } },
+          y: { stacked: true }
         }
       }
     });
   }
 
-  // Render exclusively the canvases of the active subpanel
+  // Render active subpanel charts dynamically
   if (currentCompSubtab === "coyuntura" && compData.coyuntura) {
-    renderCompBar("chart-comp-rumbo", compData.coyuntura.rumbo, "estancada");
-    renderCompBar("chart-comp-migrar", compData.coyuntura.migrar, "irse");
-    renderCompDualBar("chart-comp-oportunidades", compData.coyuntura.oportunidades, "trabajo", "Oportunidades de Trabajo", "sueldo", "Buenos Sueldos", true);
-  } else if (currentCompSubtab === "servicios" && compData.servicios) {
-    renderCompBar("chart-comp-seguridad", compData.servicios.seguridad, "nota", true);
-    renderCompBar("chart-comp-salud", compData.servicios.salud, "nota", true);
-    renderCompDualBar("chart-comp-edutrans", compData.servicios.educacion_transporte, "educacion", "Educación de Calidad", "transporte", "Transporte Público", true);
-    renderCompDualBar("chart-comp-aguamedio", compData.servicios.agua_medioambiente, "agua", "Agua Potable", "medioambiente", "Medioambiente Limpio", true);
-  } else if (currentCompSubtab === "cohesion" && compData.cohesion) {
-    renderCompBar("chart-comp-confianza", compData.cohesion.confianza, "pct");
-    renderCompBar("chart-comp-democracia", compData.cohesion.democracia_preferible, "pct");
-    renderCompBar("chart-comp-instituciones", compData.cohesion.aporte_institucional, "pct");
-  } else if (currentCompSubtab === "descentralizacion" && compData.descentralizacion) {
-    renderCompBar("chart-comp-centralismo", compData.descentralizacion.centralismo, "centralismo");
-    renderCompBar("chart-comp-gobernadores", compData.descentralizacion.gobernadores, "impulso");
-    renderCompDualBar("chart-comp-medios", compData.descentralizacion.radios_vs_tv, "radios_loc", "Radios Locales", "tv_nac", "TV Nacional", false);
-  }
+    const c = compData.coyuntura;
+    renderCompStackedBar("chart-comp-rumbo", c.rumbo, ["progresando", "estancada", "decadencia"], ["Progresando", "Estancada", "En Decadencia"], ["#10B981", "#F59E0B", "#F43F5E"]);
+    renderCompBar("chart-comp-migrar", c.disposicion_migrar, "pct");
+    renderCompStackedBar("chart-comp-destino", c.destino_migracion, ["otra_comuna", "otra_region", "extranjero"], ["Otra Comuna", "Otra Región", "Al Extranjero"], ["#00A3E0", "#0A2540", "#94A3B8"]);
+    renderCompStackedBar("chart-comp-identificacion", c.identificacion_territorial, ["barrio", "comuna", "su_region", "pais"], ["Barrio", "Comuna", "Región", "País"], ["#00A3E0", "#41BEFD", "#0A2540", "#94A3B8"]);
+    renderCompStackedBar("chart-comp-problema", c.principal_problema, ["seguridad", "salud", "empleo", "conectividad", "vivienda"], ["Seguridad", "Salud", "Empleo", "Conectividad", "Vivienda"], ["#F43F5E", "#F59E0B", "#00A3E0", "#0A2540", "#94A3B8"]);
+    renderCompBar("chart-comp-erd", c.conocimiento_erd, "pct");
 
-  setupChartCardActions();
+  } else if (currentCompSubtab === "servicios" && compData.servicios) {
+    const s = compData.servicios;
+    renderCompBar("chart-comp-caminos", s.caminos, "nota", true);
+    renderCompBar("chart-comp-seguridad", s.seguridad, "nota", true);
+    renderCompBar("chart-comp-salud", s.salud, "nota", true);
+    renderCompBar("chart-comp-internet", s.internet, "nota", true);
+    renderCompBar("chart-comp-vivienda", s.vivienda, "nota", true);
+    renderCompBar("chart-comp-transporte", s.transporte, "nota", true);
+    renderCompBar("chart-comp-educacion", s.educacion, "nota", true);
+    renderCompBar("chart-comp-agua", s.agua, "nota", true);
+    renderCompBar("chart-comp-medioambiente", s.medioambiente, "nota", true);
+    renderCompBar("chart-comp-empleo", s.empleo, "nota", true);
+    renderCompBar("chart-comp-sueldos", s.sueldos, "nota", true);
+    renderCompBar("chart-comp-recreacion", s.recreacion, "nota", true);
+
+  } else if (currentCompSubtab === "descentralizacion" && compData.descentralizacion) {
+    const d = compData.descentralizacion;
+    renderCompBar("chart-comp-centralismo", d.centralismo, "pct");
+    renderCompStackedBar("chart-comp-gobernadores", d.gobernadores, ["impulso", "igual", "problemas"], ["Ha sido un impulso", "Ha dejado igual", "Más problemas"], ["#00A3E0", "#64748B", "#F59E0B"]);
+    renderCompBar("chart-comp-dec-obras", d.decision_obras, "pct");
+    renderCompBar("chart-comp-dec-salud", d.decision_salud, "pct");
+    renderCompBar("chart-comp-dec-educacion", d.decision_educacion, "pct");
+    renderCompBar("chart-comp-dec-fomento", d.decision_fomento, "pct");
+    renderCompBar("chart-comp-dec-ambiente", d.decision_medioambiente, "pct");
+    renderCompBar("chart-comp-dec-agua", d.decision_agua, "pct");
+    renderCompBar("chart-comp-dec-vivienda", d.decision_vivienda, "pct");
+    renderCompBar("chart-comp-dec-inversion", d.decision_inversion, "pct");
+    renderCompBar("chart-comp-dec-seguridad", d.decision_seguridad, "pct");
+    renderCompBar("chart-comp-instituciones", d.aporte_institucional, "pct");
+
+  } else if (currentCompSubtab === "cohesion" && compData.cohesion) {
+    const k = compData.cohesion;
+    renderCompBar("chart-comp-confianza", k.confianza, "pct");
+    renderCompBar("chart-comp-participacion", k.participacion_comunitaria, "pct");
+    renderCompBar("chart-comp-afec-aire", k.afectacion_aire, "pct");
+    renderCompBar("chart-comp-afec-extractivismo", k.afectacion_extractivismo, "pct");
+    renderCompBar("chart-comp-afec-basura", k.afectacion_basura, "pct");
+    renderCompBar("chart-comp-afec-agua", k.afectacion_agua, "pct");
+    renderCompBar("chart-comp-afec-clima", k.afectacion_clima, "pct");
+    renderCompBar("chart-comp-democracia", k.adhesion_democracia, "pct");
+    renderCompBar("chart-comp-uso-radios", k.uso_radios, "pct");
+    renderCompBar("chart-comp-uso-tv", k.uso_tv, "pct");
+    renderCompStackedBar("chart-comp-medio-principal", k.medio_principal, ["redes_sociales", "tv_abierta", "radios_locales", "prensa_digital"], ["Redes Sociales", "TV Abierta", "Radios Locales", "Prensa Digital"], ["#00A3E0", "#0A2540", "#F59E0B", "#94A3B8"]);
+  }
 }
 
 // ----------------------------------------------------
@@ -2587,12 +2592,12 @@ function setupChartCardActions() {
     const card = canvas.closest(".bg-white");
     if (!card || card.querySelector(".chart-actions-toolbar")) return;
 
-    let header = card.querySelector(".mb-4, .mb-6");
+    let header = card.querySelector(".chart-header-wrapper, .mb-3, .mb-4, .mb-6");
     if (!header) {
       const titles = card.querySelectorAll("h3, h4, p.text-lg, p.font-bold");
       if (titles.length > 0) {
         const wrapper = document.createElement("div");
-        wrapper.className = "mb-4 flex justify-between items-start gap-2";
+        wrapper.className = "chart-header-wrapper mb-3 flex justify-between items-start gap-2";
         const titleContainer = document.createElement("div");
         titles.forEach(t => titleContainer.appendChild(t));
         wrapper.appendChild(titleContainer);
