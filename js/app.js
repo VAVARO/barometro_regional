@@ -2307,29 +2307,23 @@ function exportExplorerCSV() {
 // ----------------------------------------------------
 // Comparativa Interregional Panel & Charts Engine
 // ----------------------------------------------------
-let compData = null;
 let currentCompSubtab = "coyuntura";
+let compData = null;
 
 async function loadComparativaData() {
-  if (compData && compData.ficha_tecnica) return compData;
-  if (comparativaData && comparativaData.ficha_tecnica) {
-    compData = comparativaData;
-    return compData;
-  }
+  if (compData) return;
   try {
-    const res = await fetch("data/comparativa_interregional.json");
+    const res = await fetch("data/comparativa_interregional.json?v=" + Date.now());
     compData = await res.json();
-    comparativaData = compData;
-    console.log("Comparativa data loaded successfully:", compData);
-    return compData;
   } catch (err) {
-    console.error("Error loading comparativa_interregional.json:", err);
-    return null;
+    console.error("Error loading data/comparativa_interregional.json:", err);
   }
 }
 
 function setupComparativaSubNavigation() {
   const subtabs = document.querySelectorAll(".comp-subtab");
+  if (!subtabs || subtabs.length === 0) return;
+
   subtabs.forEach(btn => {
     btn.addEventListener("click", () => {
       const target = btn.dataset.subtab;
@@ -2338,10 +2332,10 @@ function setupComparativaSubNavigation() {
       subtabs.forEach(b => {
         if (b.dataset.subtab === target) {
           b.classList.add("active");
-          b.classList.remove("text-outline", "hover:bg-white/60");
+          b.classList.remove("text-outline");
         } else {
           b.classList.remove("active");
-          b.classList.add("text-outline", "hover:bg-white/60");
+          b.classList.add("text-outline");
         }
       });
 
@@ -2361,7 +2355,7 @@ async function updateComparativaPanel() {
   await loadComparativaData();
   if (!compData) return;
 
-  // Render Sample Grid
+  // 1. Render Sample Grid
   const grid = document.getElementById("comp-sample-grid");
   if (grid && compData.ficha_tecnica) {
     grid.innerHTML = compData.ficha_tecnica.map(item => `
@@ -2373,13 +2367,14 @@ async function updateComparativaPanel() {
     `).join("");
   }
 
+  // 2. Render only the active subpanel
   renderActiveCompSubpanel();
 }
 
 function renderActiveCompSubpanel() {
   if (!compData) return;
 
-  // Helper for Horizontal Bar Charts highlighting Aysén in #00A3E0 vs #94A3B8
+  // Helper for Horizontal Bar Charts (Target highlighted in #00A3E0, Benchmark in #94A3B8)
   function renderCompBar(canvasId, items, valKey, isGrade = false) {
     const ctx = safeGetCanvas(canvasId);
     if (!ctx || !items) return;
@@ -2417,7 +2412,7 @@ function renderActiveCompSubpanel() {
     });
   }
 
-  // Grouped Dual-Bar Helper (e.g. Educación vs Transporte, Trabajo vs Sueldo)
+  // Helper for Grouped Dual-Bar Charts
   function renderCompDualBar(canvasId, items, key1, label1, key2, label2, isGrade = true) {
     const ctx = safeGetCanvas(canvasId);
     if (!ctx || !items) return;
@@ -2466,7 +2461,7 @@ function renderActiveCompSubpanel() {
     });
   }
 
-  // Render based on active subtab
+  // Render exclusively the canvases of the active subpanel
   if (currentCompSubtab === "coyuntura" && compData.coyuntura) {
     renderCompBar("chart-comp-rumbo", compData.coyuntura.rumbo, "estancada");
     renderCompBar("chart-comp-migrar", compData.coyuntura.migrar, "irse");
@@ -2486,7 +2481,6 @@ function renderActiveCompSubpanel() {
     renderCompDualBar("chart-comp-medios", compData.descentralizacion.radios_vs_tv, "radios_loc", "Radios Locales", "tv_nac", "TV Nacional", false);
   }
 
-  // Refresh toolbar bindings
   setupChartCardActions();
 }
 
