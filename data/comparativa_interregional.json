@@ -108,23 +108,23 @@
   "centralismo": [
     {
       "region": "Ñuble",
-      "pct": 31
+      "pct": 31.0
     },
     {
       "region": "O'Higgins",
-      "pct": 37
+      "pct": 37.0
     },
     {
       "region": "Biobío",
-      "pct": 39
+      "pct": 39.0
     },
     {
       "region": "Los Ríos",
-      "pct": 44
+      "pct": 44.0
     },
     {
       "region": "Aysén",
-      "pct": 57,
+      "pct": 57.0,
       "is_target": true
     }
   ],

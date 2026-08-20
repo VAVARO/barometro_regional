@@ -118,6 +118,7 @@ async function initApp() {
     try {
       const compResp = await fetch("data/comparativa_interregional.json");
       comparativaData = await compResp.json();
+      compData = comparativaData;
       console.log("Comparativa data loaded successfully:", comparativaData);
     } catch (errComp) {
       console.warn("Could not load comparativa_interregional.json:", errComp);
@@ -847,7 +848,7 @@ function updateDashboard() {
     () => renderTurismoMitosChart(filtered),
     () => renderUAysenceAporteChart(filtered),
     () => renderUAysenceCualitativoChart(filtered),
-    () => updateComparativaPanel()
+    () => { if (currentActiveTab === "comparativa") updateComparativaPanel(); }
   ];
 
   chartRenderers.forEach(fn => {
@@ -2308,19 +2309,29 @@ function exportExplorerCSV() {
 let compData = null;
 
 async function loadComparativaData() {
-  if (compData) return;
+  if (compData && compData.ficha_tecnica) return compData;
+  if (comparativaData && comparativaData.ficha_tecnica) {
+    compData = comparativaData;
+    return compData;
+  }
   try {
     const res = await fetch("data/comparativa_interregional.json");
     compData = await res.json();
-    console.log("Comparativa data loaded:", compData);
+    comparativaData = compData;
+    console.log("Comparativa data loaded successfully:", compData);
+    return compData;
   } catch (err) {
     console.error("Error loading comparativa_interregional.json:", err);
+    return null;
   }
 }
 
 async function updateComparativaPanel() {
   await loadComparativaData();
-  if (!compData) return;
+  if (!compData) {
+    console.warn("[Dashboard Warning] compData is not yet loaded.");
+    return;
+  }
 
   // Render Sample Grid
   const grid = document.getElementById("comp-sample-grid");
@@ -2336,203 +2347,246 @@ async function updateComparativaPanel() {
 
   // 1. Helper renderer for Horizontal Bar Charts (Ranked Benchmark)
   function renderCompRankedChart(canvasId, items, valueKey, labelSuffix = "%", isGrade = false) {
-    const ctx = safeGetCanvas(canvasId);
-    if (!ctx || !items) return;
+    const canvas = safeGetCanvas(canvasId);
+    if (!canvas || !items || !Array.isArray(items) || items.length === 0) return;
+
+    if (charts[canvasId]) {
+      try { charts[canvasId].destroy(); } catch (e) {}
+      delete charts[canvasId];
+    }
 
     const labels = items.map(i => i.region);
-    const data = items.map(i => i[valueKey]);
-    const colors = items.map(i => i.is_target ? "#00A3E0" : "#94A3B8");
+    const data = items.map(i => Number(i[valueKey]) || 0);
+    const colors = items.map(i => (i.is_target || i.region === "Aysén") ? "#00A3E0" : "#94A3B8");
 
-    if (charts[canvasId]) charts[canvasId].destroy();
-
-    charts[canvasId] = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: colors,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        indexAxis: "y",
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => `${ctx.dataset.data[ctx.dataIndex]}${labelSuffix}`
-            }
-          }
+    try {
+      charts[canvasId] = new Chart(canvas, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors,
+            borderRadius: 6
+          }]
         },
-        scales: {
-          x: { 
-            min: isGrade ? 1 : 0, 
-            max: isGrade ? 7 : undefined, 
-            ticks: { callback: v => isGrade ? v : `${v}%` } 
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.data[ctx.dataIndex]}${labelSuffix}`
+              }
+            }
           },
-          y: {
-            ticks: {
-              font: (context) => {
-                const label = labels[context.index];
-                return label === "Aysén" ? { weight: "bold", size: 12 } : { size: 11 };
-              },
-              color: (context) => {
-                const label = labels[context.index];
-                return label === "Aysén" ? "#00658d" : "#43474d";
+          scales: {
+            x: { 
+              min: isGrade ? 1 : 0, 
+              max: isGrade ? 7 : undefined, 
+              ticks: { callback: v => isGrade ? v : `${v}%` } 
+            },
+            y: {
+              ticks: {
+                font: { family: "'Inter', sans-serif", size: 11 },
+                color: "#43474d"
               }
             }
           }
         }
-      }
-    });
+      });
+    } catch (err) {
+      console.error(`[Error rendering ranked chart ${canvasId}]:`, err);
+    }
   }
 
   // 2. Helper renderer for 100% Stacked Horizontal Bar Charts
   function renderCompStackedChart(canvasId, items, colorMap) {
-    const ctx = safeGetCanvas(canvasId);
-    if (!ctx || !items || items.length === 0) return;
+    const canvas = safeGetCanvas(canvasId);
+    if (!canvas || !items || !Array.isArray(items) || items.length === 0) return;
+
+    if (charts[canvasId]) {
+      try { charts[canvasId].destroy(); } catch (e) {}
+      delete charts[canvasId];
+    }
 
     const labels = items.map(i => i.region);
     const categoryKeys = Object.keys(colorMap);
 
     const datasets = categoryKeys.map(cat => ({
       label: cat,
-      data: items.map(i => i[cat] || 0),
+      data: items.map(i => Number(i[cat]) || 0),
       backgroundColor: colorMap[cat],
       borderRadius: 0
     }));
 
-    if (charts[canvasId]) charts[canvasId].destroy();
-
-    charts[canvasId] = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: datasets
-      },
-      options: {
-        indexAxis: "y",
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: true,
-            position: "bottom",
-            labels: {
-              boxWidth: 10,
-              boxHeight: 10,
-              padding: 8,
-              font: { size: 10, family: "'Inter', sans-serif" }
-            }
-          },
-          datalabels: {
-            display: (context) => {
-              const val = context.dataset.data[context.dataIndex];
-              return val >= 7.0; // only display label when segment is >= 7%
-            },
-            formatter: (value) => `${Math.round(value)}%`,
-            color: "#ffffff",
-            font: { weight: "bold", size: 10 }
-          },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: ${ctx.dataset.data[ctx.dataIndex]}%`
-            }
-          }
+    try {
+      charts[canvasId] = new Chart(canvas, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: datasets
         },
-        scales: {
-          x: {
-            stacked: true,
-            min: 0,
-            max: 100,
-            ticks: { callback: v => `${v}%` }
-          },
-          y: {
-            stacked: true,
-            ticks: {
-              font: (context) => {
-                const label = labels[context.index];
-                return label === "Aysén" ? { weight: "bold", size: 12 } : { size: 11 };
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: "bottom",
+              labels: {
+                boxWidth: 10,
+                boxHeight: 10,
+                padding: 6,
+                font: { size: 10, family: "'Inter', sans-serif" }
+              }
+            },
+            datalabels: {
+              display: (context) => {
+                const val = context.dataset.data[context.dataIndex];
+                return val >= 7.0; // show label if segment is >= 7%
               },
-              color: (context) => {
-                const label = labels[context.index];
-                return label === "Aysén" ? "#00658d" : "#43474d";
+              formatter: (value) => `${Math.round(value)}%`,
+              color: "#ffffff",
+              font: { weight: "bold", size: 10 }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${ctx.dataset.data[ctx.dataIndex]}%`
+              }
+            }
+          },
+          scales: {
+            x: {
+              stacked: true,
+              min: 0,
+              max: 100,
+              ticks: { callback: v => `${v}%` }
+            },
+            y: {
+              stacked: true,
+              ticks: {
+                font: { family: "'Inter', sans-serif", size: 11 },
+                color: "#43474d"
               }
             }
           }
         }
-      }
-    });
+      });
+    } catch (err) {
+      console.error(`[Error rendering stacked chart ${canvasId}]:`, err);
+    }
   }
 
   // --- MÓDULO 1: IDENTIDAD Y MOVILIDAD ---
-  renderCompStackedChart("chart-comp-pertenencia", compData.pertenencia_territorial, {
-    "Barrio": "#0284c7",
-    "Pueblo / Localidad": "#38bdf8",
-    "Comuna": "#0d9488",
-    "Ciudad": "#10b981",
-    "Región": "#0a2540",
-    "País": "#f59e0b"
-  });
-  renderCompRankedChart("chart-comp-migrar", compData.migrar, "pct");
+  try {
+    renderCompStackedChart("chart-comp-pertenencia", compData.pertenencia_territorial, {
+      "Barrio": "#0284c7",
+      "Pueblo / Localidad": "#38bdf8",
+      "Comuna": "#0d9488",
+      "Ciudad": "#10b981",
+      "Región": "#0a2540",
+      "País": "#f59e0b"
+    });
+  } catch (e) { console.error("Error in chart-comp-pertenencia:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-migrar", compData.migrar, "pct");
+  } catch (e) { console.error("Error in chart-comp-migrar:", e); }
 
   // --- MÓDULO 2: RUMBO, DIAGNÓSTICO Y FORTALEZAS ---
-  renderCompStackedChart("chart-comp-rumbo", compData.rumbo_regional, {
-    "Progresando": "#10b981",
-    "Estancada": "#f59e0b",
-    "En decadencia": "#ef4444"
-  });
-  renderCompRankedChart("chart-comp-estancamiento", compData.estancamiento, "pct");
-  renderCompStackedChart("chart-comp-problemas", compData.principal_problema, {
-    "Seguridad": "#e11d48",
-    "Infraestructura y movilidad": "#ea580c",
-    "Salud": "#0284c7",
-    "Empleo": "#8b5cf6",
-    "Economía": "#f59e0b",
-    "Otros": "#94a3b8"
-  });
-  renderCompStackedChart("chart-comp-fortalezas", compData.principal_fortaleza, {
-    "Riquezas naturales": "#059669",
-    "Capacidad de trabajo de la gente": "#0284c7",
-    "Empresarios y desarrollo": "#6366f1",
-    "Calidad de profesionales": "#8b5cf6",
-    "Tradiciones culturales": "#d97706",
-    "Orden y seguridad": "#0d9488",
-    "Calidad de autoridades": "#64748b"
-  });
+  try {
+    renderCompStackedChart("chart-comp-rumbo", compData.rumbo_regional, {
+      "Progresando": "#10b981",
+      "Estancada": "#f59e0b",
+      "En decadencia": "#ef4444"
+    });
+  } catch (e) { console.error("Error in chart-comp-rumbo:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-estancamiento", compData.estancamiento, "pct");
+  } catch (e) { console.error("Error in chart-comp-estancamiento:", e); }
+
+  try {
+    renderCompStackedChart("chart-comp-problemas", compData.principal_problema, {
+      "Seguridad": "#e11d48",
+      "Infraestructura y movilidad": "#ea580c",
+      "Salud": "#0284c7",
+      "Empleo": "#8b5cf6",
+      "Economía": "#f59e0b",
+      "Otros": "#94a3b8"
+    });
+  } catch (e) { console.error("Error in chart-comp-problemas:", e); }
+
+  try {
+    renderCompStackedChart("chart-comp-fortalezas", compData.principal_fortaleza, {
+      "Riquezas naturales": "#059669",
+      "Capacidad de trabajo de la gente": "#0284c7",
+      "Empresarios y desarrollo": "#6366f1",
+      "Calidad de profesionales": "#8b5cf6",
+      "Tradiciones culturales": "#d97706",
+      "Orden y seguridad": "#0d9488",
+      "Calidad de autoridades": "#64748b"
+    });
+  } catch (e) { console.error("Error in chart-comp-fortalezas:", e); }
 
   // --- MÓDULO 3: APORTE INSTITUCIONAL ---
-  renderCompRankedChart("chart-comp-gob-central", compData.aporte_gob_central, "pct");
-  renderCompRankedChart("chart-comp-gore", compData.aporte_gore, "pct");
-  renderCompRankedChart("chart-comp-municipios", compData.aporte_municipios, "pct");
+  try {
+    renderCompRankedChart("chart-comp-gob-central", compData.aporte_gob_central, "pct");
+  } catch (e) { console.error("Error in chart-comp-gob-central:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-gore", compData.aporte_gore, "pct");
+  } catch (e) { console.error("Error in chart-comp-gore:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-municipios", compData.aporte_municipios, "pct");
+  } catch (e) { console.error("Error in chart-comp-municipios:", e); }
 
   // --- MÓDULO 4: CULTURA CÍVICA Y DEMOCRACIA ---
-  renderCompStackedChart("chart-comp-democracia", compData.apoyo_democracia, {
-    "Democracia preferible": "#0284c7",
-    "Gobierno autoritario a veces": "#e11d48",
-    "Da lo mismo un régimen u otro": "#f59e0b",
-    "No sabe / No responde": "#94a3b8"
-  });
-  renderCompStackedChart("chart-comp-pos-politica", compData.posicion_politica, {
-    "Izquierda": "#dc2626",
-    "Centro Izquierda": "#f87171",
-    "Centro": "#8b5cf6",
-    "Centro Derecha": "#60a5fa",
-    "Derecha": "#1d4ed8",
-    "Ninguna / Independiente": "#64748b"
-  });
-  renderCompRankedChart("chart-comp-confianza", compData.confianza, "pct");
+  try {
+    renderCompStackedChart("chart-comp-democracia", compData.apoyo_democracia, {
+      "Democracia preferible": "#0284c7",
+      "Gobierno autoritario a veces": "#e11d48",
+      "Da lo mismo un régimen u otro": "#f59e0b",
+      "No sabe / No responde": "#94a3b8"
+    });
+  } catch (e) { console.error("Error in chart-comp-democracia:", e); }
+
+  try {
+    renderCompStackedChart("chart-comp-pos-politica", compData.posicion_politica, {
+      "Izquierda": "#dc2626",
+      "Centro Izquierda": "#f87171",
+      "Centro": "#8b5cf6",
+      "Centro Derecha": "#60a5fa",
+      "Derecha": "#1d4ed8",
+      "Ninguna / Independiente": "#64748b"
+    });
+  } catch (e) { console.error("Error in chart-comp-pos-politica:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-confianza", compData.confianza, "pct");
+  } catch (e) { console.error("Error in chart-comp-confianza:", e); }
 
   // --- MÓDULO 5: DESCENTRALIZACIÓN, SEGURIDAD Y MEDIOS ---
-  renderCompRankedChart("chart-comp-centralismo", compData.centralismo, "pct");
-  renderCompRankedChart("chart-comp-seguridad", compData.seguridad_nota, "nota", "", true);
-  renderCompRankedChart("chart-comp-radios", compData.radios_locales, "pct");
+  try {
+    renderCompRankedChart("chart-comp-centralismo", compData.centralismo, "pct");
+  } catch (e) { console.error("Error in chart-comp-centralismo:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-seguridad", compData.seguridad_nota, "nota", "", true);
+  } catch (e) { console.error("Error in chart-comp-seguridad:", e); }
+
+  try {
+    renderCompRankedChart("chart-comp-radios", compData.radios_locales, "pct");
+  } catch (e) { console.error("Error in chart-comp-radios:", e); }
 
   // Refresh Chart Card Action Toolbars
   setupChartCardActions();
+}
 }
 
 // ----------------------------------------------------
