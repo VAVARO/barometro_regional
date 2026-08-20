@@ -8,83 +8,128 @@
     { "region": "Aysén", "n": 465, "error": "4.5%", "is_target": true },
     { "region": "Magallanes", "n": 664, "error": "4.4%" }
   ],
-  "matriz_servicios": [
-    { "servicio": "Agua Potable", "aysen": 5.4, "promedio_otras": 5.7 },
-    { "servicio": "Medioambiente", "aysen": 4.6, "promedio_otras": 5.1 },
-    { "servicio": "Educación", "aysen": 4.3, "promedio_otras": 4.8 },
-    { "servicio": "Transporte", "aysen": 4.3, "promedio_otras": 4.8 },
-    { "servicio": "Vivienda", "aysen": 4.1, "promedio_otras": 4.3 },
-    { "servicio": "Salud", "aysen": 3.9, "promedio_otras": 4.1 },
-    { "servicio": "Seguridad", "aysen": 3.4, "promedio_otras": 3.9 }
-  ],
-  "dimensiones_coyuntura": {
-    "estancamiento": [
-      { "region": "Ñuble", "pct": 36 },
-      { "region": "Biobío", "pct": 38 },
-      { "region": "O'Higgins", "pct": 42 },
-      { "region": "Los Lagos", "pct": 42 },
-      { "region": "Magallanes", "pct": 46 },
-      { "region": "Los Ríos", "pct": 47 },
-      { "region": "Aysén", "pct": 58, "is_target": true }
+  "coyuntura": {
+    "rumbo": [
+      { "region": "Ñuble", "progresando": 51, "estancada": 36, "decadencia": 11 },
+      { "region": "Los Lagos", "progresando": 47, "estancada": 42, "decadencia": 10 },
+      { "region": "Biobío", "progresando": 46, "estancada": 38, "decadencia": 15 },
+      { "region": "Magallanes", "progresando": 45, "estancada": 46, "decadencia": 9 },
+      { "region": "O'Higgins", "progresando": 40, "estancada": 42, "decadencia": 14 },
+      { "region": "Los Ríos", "progresando": 36, "estancada": 47, "decadencia": 14 },
+      { "region": "Aysén", "progresando": 31, "estancada": 58, "decadencia": 10, "is_target": true }
     ],
-    "confianza": [
-      { "region": "O'Higgins", "pct": 26 },
-      { "region": "Ñuble", "pct": 27 },
-      { "region": "Biobío", "pct": 27 },
-      { "region": "Los Lagos", "pct": 28 },
-      { "region": "Los Ríos", "pct": 29 },
-      { "region": "Aysén", "pct": 45, "is_target": true },
-      { "region": "Magallanes", "pct": 53 }
+    "migrar": [
+      { "region": "Los Ríos", "irse": 22, "quedarse": 77 },
+      { "region": "Los Lagos", "irse": 26, "quedarse": 73 },
+      { "region": "Ñuble", "irse": 28, "quedarse": 71 },
+      { "region": "Biobío", "irse": 28, "quedarse": 71 },
+      { "region": "Magallanes", "irse": 28, "quedarse": 72 },
+      { "region": "Aysén", "irse": 28, "quedarse": 71, "is_target": true },
+      { "region": "O'Higgins", "irse": 35, "quedarse": 65 }
     ],
-    "centralismo": [
-      { "region": "Ñuble", "pct": 31 },
-      { "region": "O'Higgins", "pct": 37 },
-      { "region": "Biobío", "pct": 39 },
-      { "region": "Los Ríos", "pct": 44 },
-      { "region": "Aysén", "pct": 57, "is_target": true }
-    ],
-    "radios_locales": [
-      { "region": "O'Higgins", "pct": 1 },
-      { "region": "Ñuble", "pct": 1 },
-      { "region": "Biobío", "pct": 6 },
-      { "region": "Magallanes", "pct": 8 },
-      { "region": "Los Lagos", "pct": 10 },
-      { "region": "Los Ríos", "pct": 12 },
-      { "region": "Aysén", "pct": 18, "is_target": true }
+    "oportunidades": [
+      { "region": "Magallanes", "trabajo": 4.8, "sueldo": 4.7 },
+      { "region": "Los Lagos", "trabajo": 4.5, "sueldo": 4.4 },
+      { "region": "O'Higgins", "trabajo": 4.4, "sueldo": 4.2 },
+      { "region": "Biobío", "trabajo": 4.2, "sueldo": 4.3 },
+      { "region": "Ñuble", "trabajo": 4.1, "sueldo": 4.1 },
+      { "region": "Aysén", "trabajo": 4.3, "sueldo": 4.3, "is_target": true },
+      { "region": "Los Ríos", "trabajo": 3.6, "sueldo": 3.9 }
     ]
   },
-  "estancamiento": [
-    { "region": "Ñuble", "pct": 36 },
-    { "region": "Biobío", "pct": 38 },
-    { "region": "O'Higgins", "pct": 42 },
-    { "region": "Los Lagos", "pct": 42 },
-    { "region": "Magallanes", "pct": 46 },
-    { "region": "Los Ríos", "pct": 47 },
-    { "region": "Aysén", "pct": 58, "is_target": true }
-  ],
-  "confianza": [
-    { "region": "O'Higgins", "pct": 26 },
-    { "region": "Ñuble", "pct": 27 },
-    { "region": "Biobío", "pct": 27 },
-    { "region": "Los Lagos", "pct": 28 },
-    { "region": "Los Ríos", "pct": 29 },
-    { "region": "Aysén", "pct": 45, "is_target": true },
-    { "region": "Magallanes", "pct": 53 }
-  ],
-  "centralismo": [
-    { "region": "Ñuble", "pct": 31 },
-    { "region": "O'Higgins", "pct": 37 },
-    { "region": "Biobío", "pct": 39 },
-    { "region": "Los Ríos", "pct": 44 },
-    { "region": "Aysén", "pct": 57, "is_target": true }
-  ],
-  "radios_locales": [
-    { "region": "O'Higgins", "pct": 1 },
-    { "region": "Ñuble", "pct": 1 },
-    { "region": "Biobío", "pct": 6 },
-    { "region": "Magallanes", "pct": 8 },
-    { "region": "Los Lagos", "pct": 10 },
-    { "region": "Los Ríos", "pct": 12 },
-    { "region": "Aysén", "pct": 18, "is_target": true }
-  ]
+  "servicios": {
+    "seguridad": [
+      { "region": "Magallanes", "nota": 4.0 },
+      { "region": "Ñuble", "nota": 4.0 },
+      { "region": "Los Lagos", "nota": 4.0 },
+      { "region": "O'Higgins", "nota": 3.9 },
+      { "region": "Biobío", "nota": 3.8 },
+      { "region": "Los Ríos", "nota": 3.8 },
+      { "region": "Aysén", "nota": 3.4, "is_target": true }
+    ],
+    "salud": [
+      { "region": "Ñuble", "nota": 4.3 },
+      { "region": "Los Lagos", "nota": 4.3 },
+      { "region": "O'Higgins", "nota": 4.1 },
+      { "region": "Biobío", "nota": 4.1 },
+      { "region": "Magallanes", "nota": 4.1 },
+      { "region": "Los Ríos", "nota": 4.0 },
+      { "region": "Aysén", "nota": 3.9, "is_target": true }
+    ],
+    "educacion_transporte": [
+      { "region": "Ñuble", "educacion": 4.9, "transporte": 4.9 },
+      { "region": "Los Ríos", "educacion": 4.9, "transporte": 4.6 },
+      { "region": "Los Lagos", "educacion": 4.9, "transporte": 4.8 },
+      { "region": "Magallanes", "educacion": 4.9, "transporte": 4.7 },
+      { "region": "Biobío", "educacion": 4.8, "transporte": 4.8 },
+      { "region": "O'Higgins", "educacion": 4.7, "transporte": 4.6 },
+      { "region": "Aysén", "educacion": 4.3, "transporte": 4.3, "is_target": true }
+    ],
+    "agua_medioambiente": [
+      { "region": "Magallanes", "agua": 5.9, "medioambiente": 5.6 },
+      { "region": "Biobío", "agua": 5.9, "medioambiente": 5.0 },
+      { "region": "O'Higgins", "agua": 5.9, "medioambiente": 4.8 },
+      { "region": "Los Lagos", "agua": 5.7, "medioambiente": 5.0 },
+      { "region": "Los Ríos", "agua": 5.6, "medioambiente": 5.2 },
+      { "region": "Ñuble", "agua": 5.4, "medioambiente": 5.0 },
+      { "region": "Aysén", "agua": 5.4, "medioambiente": 4.6, "is_target": true }
+    ]
+  },
+  "cohesion": {
+    "confianza": [
+      { "region": "Magallanes", "pct": 53 },
+      { "region": "Aysén", "pct": 45, "is_target": true },
+      { "region": "Los Ríos", "pct": 29 },
+      { "region": "Los Lagos", "pct": 28 },
+      { "region": "Ñuble", "pct": 27 },
+      { "region": "Biobío", "pct": 27 },
+      { "region": "O'Higgins", "pct": 26 }
+    ],
+    "democracia_preferible": [
+      { "region": "Magallanes", "pct": 62 },
+      { "region": "Aysén", "pct": 53, "is_target": true },
+      { "region": "Los Lagos", "pct": 51 },
+      { "region": "Los Ríos", "pct": 50 },
+      { "region": "Biobío", "pct": 49 },
+      { "region": "Ñuble", "pct": 48 },
+      { "region": "O'Higgins", "pct": 46 }
+    ],
+    "aporte_institucional": [
+      { "institucion": "Universidades Regionales", "pct": 65 },
+      { "institucion": "Medios de Comunicación", "pct": 63 },
+      { "institucion": "Municipalidades", "pct": 55 },
+      { "institucion": "Organizaciones Sociales", "pct": 51 },
+      { "institucion": "Gobierno Regional", "pct": 49 },
+      { "institucion": "Empresas Regionales", "pct": 49 },
+      { "institucion": "Gobierno Central", "pct": 37 },
+      { "institucion": "Parlamentarios (Dip/Sen)", "pct": 24 }
+    ]
+  },
+  "descentralizacion": {
+    "centralismo": [
+      { "region": "Aysén", "centralismo": 57, "autonomia": 36, "is_target": true },
+      { "region": "Los Ríos", "centralismo": 44, "autonomia": 44 },
+      { "region": "Biobío", "centralismo": 39, "autonomia": 52 },
+      { "region": "O'Higgins", "centralismo": 37, "autonomia": 54 },
+      { "region": "Ñuble", "centralismo": 31, "autonomia": 58 }
+    ],
+    "gobernadores": [
+      { "region": "Ñuble", "impulso": 46, "igual": 33, "problemas": 13 },
+      { "region": "Biobío", "impulso": 25, "igual": 45, "problemas": 23 },
+      { "region": "Aysén", "impulso": 23, "igual": 51, "problemas": 18, "is_target": true },
+      { "region": "Magallanes", "impulso": 22, "igual": 50, "problemas": 21 },
+      { "region": "Los Ríos", "impulso": 20, "igual": 49, "problemas": 22 },
+      { "region": "Los Lagos", "impulso": 19, "igual": 47, "problemas": 24 },
+      { "region": "O'Higgins", "impulso": 15, "igual": 50, "problemas": 28 }
+    ],
+    "radios_vs_tv": [
+      { "region": "Aysén", "radios_loc": 18, "tv_nac": 7, "is_target": true },
+      { "region": "Los Ríos", "radios_loc": 12, "tv_nac": 13 },
+      { "region": "Los Lagos", "radios_loc": 10, "tv_nac": 18 },
+      { "region": "Magallanes", "radios_loc": 8, "tv_nac": 10 },
+      { "region": "Biobío", "radios_loc": 6, "tv_nac": 23 },
+      { "region": "Ñuble", "radios_loc": 1, "tv_nac": 21 },
+      { "region": "O'Higgins", "radios_loc": 1, "tv_nac": 32 }
+    ]
+  }
 }

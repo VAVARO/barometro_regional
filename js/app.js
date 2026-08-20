@@ -128,6 +128,7 @@ async function initApp() {
     setupFilters();
     setupExplorer();
     setupModals();
+    setupComparativaSubNavigation();
     updateDashboard();
     setupChartCardActions();
 
@@ -2307,6 +2308,7 @@ function exportExplorerCSV() {
 // Comparativa Interregional Panel & Charts Engine
 // ----------------------------------------------------
 let compData = null;
+let currentCompSubtab = "coyuntura";
 
 async function loadComparativaData() {
   if (compData && compData.ficha_tecnica) return compData;
@@ -2326,11 +2328,40 @@ async function loadComparativaData() {
   }
 }
 
+function setupComparativaSubNavigation() {
+  const subtabs = document.querySelectorAll(".comp-subtab");
+  subtabs.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.subtab;
+      currentCompSubtab = target;
+
+      subtabs.forEach(b => {
+        if (b.dataset.subtab === target) {
+          b.classList.add("active");
+          b.classList.remove("text-outline", "hover:bg-white/60");
+        } else {
+          b.classList.remove("active");
+          b.classList.add("text-outline", "hover:bg-white/60");
+        }
+      });
+
+      document.querySelectorAll(".comp-subpanel").forEach(p => {
+        p.classList.toggle("hidden", p.id !== `comp-subpanel-${target}`);
+      });
+
+      setTimeout(() => {
+        window.dispatchEvent(new Event("resize"));
+        renderActiveCompSubpanel();
+      }, 50);
+    });
+  });
+}
+
 async function updateComparativaPanel() {
   await loadComparativaData();
   if (!compData) return;
 
-  // 1. Render Sample Grid
+  // Render Sample Grid
   const grid = document.getElementById("comp-sample-grid");
   if (grid && compData.ficha_tecnica) {
     grid.innerHTML = compData.ficha_tecnica.map(item => `
@@ -2342,137 +2373,120 @@ async function updateComparativaPanel() {
     `).join("");
   }
 
-  // 2. Render Consolidated 7-Service Matrix Chart (Aysén vs. Promedio Otras Regiones)
-  const ctxMatrix = safeGetCanvas("chart-comp-matriz-servicios");
-  if (ctxMatrix && compData.matriz_servicios) {
-    const items = compData.matriz_servicios;
-    const labels = items.map(i => i.servicio);
-    const aysenScores = items.map(i => i.aysen);
-    const otrasScores = items.map(i => i.promedio_otras);
+  renderActiveCompSubpanel();
+}
 
-    if (charts["chart-comp-matriz-servicios"]) {
-      try { charts["chart-comp-matriz-servicios"].destroy(); } catch (e) {}
-      delete charts["chart-comp-matriz-servicios"];
-    }
+function renderActiveCompSubpanel() {
+  if (!compData) return;
 
-    try {
-      charts["chart-comp-matriz-servicios"] = new Chart(ctxMatrix, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: "Región de Aysén",
-              data: aysenScores,
-              backgroundColor: "#00A3E0", // Highlight Ice Turquoise
-              borderRadius: 6,
-              isScore: true
-            },
-            {
-              label: "Promedio Otras 6 Regiones",
-              data: otrasScores,
-              backgroundColor: "#0A2540", // Navy Contrast
-              borderRadius: 6,
-              isScore: true
-            }
-          ]
-        },
-        options: {
-          indexAxis: "y",
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "top",
-              labels: { font: { family: "'Inter', sans-serif", weight: "600", size: 12 } }
-            },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => `${ctx.dataset.label}: Nota ${Number(ctx.dataset.data[ctx.dataIndex]).toFixed(1)}`
-              }
-            }
-          },
-          scales: {
-            x: {
-              min: 1,
-              max: 7,
-              ticks: { stepSize: 1 }
-            },
-            y: {
-              ticks: { font: { family: "'Inter', sans-serif", weight: "600" } }
-            }
+  // Helper for Horizontal Bar Charts highlighting Aysén in #00A3E0 vs #94A3B8
+  function renderCompBar(canvasId, items, valKey, isGrade = false) {
+    const ctx = safeGetCanvas(canvasId);
+    if (!ctx || !items) return;
+
+    const labels = items.map(i => i.region || i.institucion);
+    const data = items.map(i => i[valKey]);
+    const colors = items.map(i => i.is_target ? "#00A3E0" : "#94A3B8");
+
+    if (charts[canvasId]) charts[canvasId].destroy();
+
+    charts[canvasId] = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: colors,
+          borderRadius: 6,
+          isScore: isGrade
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: {
+            min: isGrade ? 1 : 0,
+            max: isGrade ? 7 : undefined,
+            ticks: { callback: v => isGrade ? v : `${v}%` }
           }
         }
-      });
-    } catch (errMatrix) {
-      console.error("Error rendering chart-comp-matriz-servicios:", errMatrix);
-    }
+      }
+    });
   }
 
-  // 3. Helper for Benchmark Bar Charts with Highlighted Target
-  function renderCompBarChart(canvasId, items, valKey) {
+  // Grouped Dual-Bar Helper (e.g. Educación vs Transporte, Trabajo vs Sueldo)
+  function renderCompDualBar(canvasId, items, key1, label1, key2, label2, isGrade = true) {
     const ctx = safeGetCanvas(canvasId);
-    if (!ctx || !items || !Array.isArray(items) || items.length === 0) return;
+    if (!ctx || !items) return;
 
     const labels = items.map(i => i.region);
-    const data = items.map(i => i[valKey]);
-    const colors = items.map(i => (i.is_target || i.region === "Aysén") ? "#00A3E0" : "#94A3B8");
+    const data1 = items.map(i => i[key1]);
+    const data2 = items.map(i => i[key2]);
 
-    if (charts[canvasId]) {
-      try { charts[canvasId].destroy(); } catch (e) {}
-      delete charts[canvasId];
-    }
+    if (charts[canvasId]) charts[canvasId].destroy();
 
-    try {
-      charts[canvasId] = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: colors,
-            borderRadius: 6
-          }]
-        },
-        options: {
-          indexAxis: "y",
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { 
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => `${ctx.dataset.data[ctx.dataIndex]}%`
-              }
-            }
+    charts[canvasId] = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: label1,
+            data: data1,
+            backgroundColor: items.map(i => i.is_target ? "#00A3E0" : "#64748B"),
+            borderRadius: 6,
+            isScore: isGrade
           },
-          scales: {
-            x: { 
-              min: 0,
-              ticks: { callback: v => `${v}%` } 
-            },
-            y: {
-              ticks: {
-                font: { family: "'Inter', sans-serif", size: 11 },
-                color: "#43474d"
-              }
-            }
+          {
+            label: label2,
+            data: data2,
+            backgroundColor: items.map(i => i.is_target ? "#41BEFD" : "#CBD5E1"),
+            borderRadius: 6,
+            isScore: isGrade
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "top", labels: { font: { size: 11, weight: "600" } } }
+        },
+        scales: {
+          y: {
+            min: isGrade ? 1 : 0,
+            max: isGrade ? 7 : undefined,
+            ticks: { callback: v => isGrade ? v : `${v}%` }
           }
         }
-      });
-    } catch (errBar) {
-      console.error(`Error rendering ${canvasId}:`, errBar);
-    }
+      }
+    });
   }
 
-  // 4. Render Core Comparison Dimensions
-  const dims = compData.dimensiones_coyuntura || compData;
-  renderCompBarChart("chart-comp-centralismo", dims.centralismo, "pct");
-  renderCompBarChart("chart-comp-confianza", dims.confianza, "pct");
-  renderCompBarChart("chart-comp-estancamiento", dims.estancamiento, "pct");
-  renderCompBarChart("chart-comp-radios", dims.radios_locales, "pct");
+  // Render based on active subtab
+  if (currentCompSubtab === "coyuntura" && compData.coyuntura) {
+    renderCompBar("chart-comp-rumbo", compData.coyuntura.rumbo, "estancada");
+    renderCompBar("chart-comp-migrar", compData.coyuntura.migrar, "irse");
+    renderCompDualBar("chart-comp-oportunidades", compData.coyuntura.oportunidades, "trabajo", "Oportunidades de Trabajo", "sueldo", "Buenos Sueldos", true);
+  } else if (currentCompSubtab === "servicios" && compData.servicios) {
+    renderCompBar("chart-comp-seguridad", compData.servicios.seguridad, "nota", true);
+    renderCompBar("chart-comp-salud", compData.servicios.salud, "nota", true);
+    renderCompDualBar("chart-comp-edutrans", compData.servicios.educacion_transporte, "educacion", "Educación de Calidad", "transporte", "Transporte Público", true);
+    renderCompDualBar("chart-comp-aguamedio", compData.servicios.agua_medioambiente, "agua", "Agua Potable", "medioambiente", "Medioambiente Limpio", true);
+  } else if (currentCompSubtab === "cohesion" && compData.cohesion) {
+    renderCompBar("chart-comp-confianza", compData.cohesion.confianza, "pct");
+    renderCompBar("chart-comp-democracia", compData.cohesion.democracia_preferible, "pct");
+    renderCompBar("chart-comp-instituciones", compData.cohesion.aporte_institucional, "pct");
+  } else if (currentCompSubtab === "descentralizacion" && compData.descentralizacion) {
+    renderCompBar("chart-comp-centralismo", compData.descentralizacion.centralismo, "centralismo");
+    renderCompBar("chart-comp-gobernadores", compData.descentralizacion.gobernadores, "impulso");
+    renderCompDualBar("chart-comp-medios", compData.descentralizacion.radios_vs_tv, "radios_loc", "Radios Locales", "tv_nac", "TV Nacional", false);
+  }
 
-  // Refresh Chart Card Action Toolbars
+  // Refresh toolbar bindings
   setupChartCardActions();
 }
 
