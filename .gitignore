@@ -5,3 +5,6 @@ __pycache__/
 *.log
 scratch/
 .system_generated/
+*_extracted.txt
+scripts/*.json
+
