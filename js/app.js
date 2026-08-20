@@ -2498,9 +2498,12 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
 
   const isComparative = canvasId.includes("comp") || canvasId.startsWith("chart-comp");
   const card = sourceCanvas.closest(".bg-white") || sourceCanvas.parentElement;
-  const titleText = customTitle || card.querySelector("h3, h4, p.text-lg, p.font-bold")?.textContent?.trim() || "Gráfico Barómetro";
   
-  // Dynamic header & footer according to scope
+  // Extract clean title and subtitle from card elements
+  const titleText = customTitle || card.querySelector("h4, h3, p.font-bold, p.text-lg")?.textContent?.trim() || "Gráfico Barómetro";
+  const subtitleEl = card.querySelector("p.text-xs.text-outline");
+  const subtitleText = subtitleEl ? subtitleEl.textContent.trim() : "";
+  
   const filterText = isComparative 
     ? "Ámbito: Benchmark Nacional / Interregional (7 Regiones)" 
     : `Filtros: ${getActiveFilterDescription()}`;
@@ -2513,26 +2516,32 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
   const exportCanvas = document.createElement("canvas");
   const ctx = exportCanvas.getContext("2d");
   const padding = 30;
-  const headerHeight = 60;
+  const headerHeight = subtitleText ? 75 : 60;
   const footerHeight = 35;
 
   exportCanvas.width = sourceCanvas.width + padding * 2;
   exportCanvas.height = sourceCanvas.height + headerHeight + footerHeight + padding;
 
-  // 1. Solid white background
+  // 1. Solid White Background
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
 
-  // 2. Header: Title & Subtitle
+  // 2. Header Title & Subtitle
   ctx.fillStyle = "#0a2540";
-  ctx.font = "bold 16px 'Plus Jakarta Sans', sans-serif";
+  ctx.font = "bold 15px 'Plus Jakarta Sans', sans-serif";
   ctx.fillText(titleText, padding, padding + 15);
 
-  ctx.fillStyle = "#00a3e0";
-  ctx.font = "600 12px 'Inter', sans-serif";
-  ctx.fillText(filterText, padding, padding + 35);
+  if (subtitleText) {
+    ctx.fillStyle = "#475569";
+    ctx.font = "italic 11px 'Inter', sans-serif";
+    ctx.fillText(subtitleText, padding, padding + 33);
+  }
 
-  // 3. Draw Chart Image (with datalabels included)
+  ctx.fillStyle = "#00a3e0";
+  ctx.font = "600 11px 'Inter', sans-serif";
+  ctx.fillText(filterText, padding, padding + (subtitleText ? 50 : 35));
+
+  // 3. Draw Chart Image
   ctx.drawImage(sourceCanvas, padding, headerHeight + 15);
 
   // 4. Footer Watermark
@@ -2540,14 +2549,14 @@ async function exportChartWithContext(canvasId, action = "download", customTitle
   ctx.font = "11px 'Inter', sans-serif";
   ctx.fillText(sampleText, padding, exportCanvas.height - 15);
 
-  // 5. Action
+  // 5. Trigger Action
   if (action === "copy") {
     exportCanvas.toBlob(async (blob) => {
       try {
         await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
         showToast("¡Gráfico copiado al portapapeles!");
       } catch (err) {
-        console.error("Error al copiar al portapapeles:", err);
+        console.error("Error copying to clipboard:", err);
         downloadCanvas(exportCanvas, titleText);
       }
     });
