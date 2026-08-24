@@ -175,6 +175,10 @@ function getVariableLabel(varName, code) {
     const mapC1 = { "1": "Se puede confiar en las personas", "2": "No se puede confiar en las personas" };
     if (mapC1[numKey]) return mapC1[numKey];
   }
+  if (varName === "SEXO") {
+    const mapSexo = { "1": "Hombre", "2": "Mujer", "3": "Otro" };
+    if (mapSexo[numKey]) return mapSexo[numKey];
+  }
   if (varName === "C2" || varName === "I5" || varName === "F3") {
     const mapYesNo = { "1": "Sí", "2": "No" };
     if (mapYesNo[numKey]) return mapYesNo[numKey];
@@ -718,13 +722,13 @@ function getFilteredRecords() {
   });
 }
 
-function calculateWeightedCounts(records, varName) {
+function calculateWeightedCounts(records, varName, excludeCodes = [98, 99, 998, 999, 777, 888]) {
   let totalW = 0;
   const counts = {};
 
   records.forEach(r => {
     const val = r[varName];
-    if (val !== null && val !== undefined && val < 97) {
+    if (val !== null && val !== undefined && !excludeCodes.includes(Number(val))) {
       const w = Number(r.weight || r.PONDERADOR) || 1.0;
       totalW += w;
       const key = String(val);
@@ -750,7 +754,7 @@ function calculateWeightedCounts(records, varName) {
   return result;
 }
 
-function calculateConsolidatedWeightedCounts(records, col1, col2) {
+function calculateConsolidatedWeightedCounts(records, col1, col2, excludeCodes = [98, 99, 998, 999, 777, 888]) {
   let totalW = 0;
   const counts = {};
 
@@ -762,7 +766,7 @@ function calculateConsolidatedWeightedCounts(records, col1, col2) {
 
     const added = new Set();
     [val1, val2].forEach(val => {
-      if (val !== null && val !== undefined && val < 97) {
+      if (val !== null && val !== undefined && !excludeCodes.includes(Number(val))) {
         const key = String(val);
         if (!added.has(key)) {
           added.add(key);
@@ -790,16 +794,26 @@ function calculateConsolidatedWeightedCounts(records, col1, col2) {
   return result;
 }
 
-function calculateWeightedMean(records, varName, minVal = 0, maxVal = 97) {
+function calculateWeightedMean(records, varName, minVal = null, maxVal = null) {
   let totalW = 0;
   let sumWX = 0;
 
   records.forEach(r => {
     const val = r[varName];
-    if (val !== null && val !== undefined && val >= minVal && val < maxVal) {
-      const w = Number(r.weight || r.PONDERADOR) || 1.0;
-      totalW += w;
-      sumWX += val * w;
+    if (val !== null && val !== undefined && !isNaN(val)) {
+      const numVal = Number(val);
+      let isValid = false;
+      if (minVal !== null && maxVal !== null) {
+        isValid = (numVal >= minVal && numVal <= maxVal);
+      } else {
+        isValid = ![98, 99, 998, 999, 777, 888].includes(numVal);
+      }
+
+      if (isValid) {
+        const w = Number(r.weight || r.PONDERADOR) || 1.0;
+        totalW += w;
+        sumWX += numVal * w;
+      }
     }
   });
 
@@ -825,7 +839,7 @@ function updateDashboard() {
 
   // Top Problem (Consolidated M1 + M2)
   const probCounts = calculateConsolidatedWeightedCounts(filtered, "B2_RECOD", "B2_2_RECOD");
-  let topProb = { name: "Seguridad", code: "1", pct: 0 };
+  let topProb = { name: "Infraestructura y movilidad", code: "8", pct: 0 };
   for (const [pName, pData] of Object.entries(probCounts)) {
     if (pData.percentage > topProb.pct) {
       topProb = { name: pName, code: pData.code, pct: pData.percentage };
@@ -834,13 +848,13 @@ function updateDashboard() {
   safeSetText("kpi-problema-pct", `${topProb.pct.toFixed(1)}%`);
   safeSetText("kpi-problema-name", topProb.name);
 
-  const identMean = calculateWeightedMean(filtered, "I6");
+  const identMean = calculateWeightedMean(filtered, "I6", 0, 100);
   const identScore = identMean ? identMean.toFixed(1) : "--";
   safeSetText("kpi-ident-score", identScore);
   const elIdentBar = document.getElementById("kpi-ident-bar");
   if (elIdentBar) elIdentBar.style.width = `${Math.min(100, Math.max(0, identMean || 0))}%`;
 
-  const notaMean = calculateWeightedMean(filtered, "I8");
+  const notaMean = calculateWeightedMean(filtered, "I8", 1, 7);
   const notaScore = notaMean ? notaMean.toFixed(1) : "--";
   safeSetText("kpi-nota-score", notaScore);
   safeSetText("uaysen-nota-big", notaScore);
@@ -1410,18 +1424,22 @@ function renderServiciosChart(filtered) {
   if (!ctx) return;
 
   const items = [
-    { col: "B3_A", label: "Salud pública" },
-    { col: "B3_B", label: "Educación pública" },
-    { col: "B3_C", label: "Transporte y conectividad" },
-    { col: "B3_D", label: "Vivienda" },
-    { col: "B3_E", label: "Seguridad y orden" }
+    { col: "B3_A", label: "Acceso a salud" },
+    { col: "B3_B", label: "Acceso a educación" },
+    { col: "B3_C", label: "Acceso a vivienda" },
+    { col: "B3_D", label: "Acceso a agua potable" },
+    { col: "B3_E", label: "Transporte público" },
+    { col: "B3_F", label: "Seguridad ciudadana" },
+    { col: "B3_G", label: "Medioambiente limpio" },
+    { col: "B3_H", label: "Conectividad vial" },
+    { col: "B3_I", label: "Conectividad digital" }
   ];
 
   const labels = [];
   const means = [];
 
   items.forEach(it => {
-    const m = calculateWeightedMean(filtered, it.col);
+    const m = calculateWeightedMean(filtered, it.col, 1, 7);
     if (m !== null) {
       labels.push(it.label);
       means.push(m.toFixed(2));
@@ -1438,7 +1456,8 @@ function renderServiciosChart(filtered) {
         label: "Nota Promedio (1-7)",
         data: means,
         backgroundColor: BRAND_COLORS.primary,
-        borderRadius: 8
+        borderRadius: 8,
+        isScore: true
       }]
     },
     options: {
@@ -1446,7 +1465,7 @@ function renderServiciosChart(filtered) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { x: { min: 1, max: 7 } }
+      scales: { x: { min: 1, max: 7, ticks: { stepSize: 1 } } }
     }
   });
 }
@@ -1456,25 +1475,25 @@ function renderServiciosCompletoChart(filtered) {
   if (!ctx) return;
 
   const items = [
-    { col: "B3_A", label: "Salud pública" },
-    { col: "B3_B", label: "Educación pública" },
-    { col: "B3_C", label: "Transporte y conectividad" },
-    { col: "B3_D", label: "Vivienda" },
-    { col: "B3_E", label: "Seguridad y orden" },
-    { col: "B3_F", label: "Opciones de empleo" },
-    { col: "B3_G", label: "Recreación y cultura" },
-    { col: "B3_H", label: "Calidad del medioambiente" },
-    { col: "B3_I", label: "Conexión a Internet" },
+    { col: "B3_A", label: "Acceso a salud de calidad" },
+    { col: "B3_B", label: "Acceso a educación de calidad" },
+    { col: "B3_C", label: "Acceso a la vivienda" },
+    { col: "B3_D", label: "Acceso al agua potable" },
+    { col: "B3_E", label: "Transporte público" },
+    { col: "B3_F", label: "Seguridad ciudadana" },
+    { col: "B3_G", label: "Acceso a medioambiente limpio" },
+    { col: "B3_H", label: "Acceso a conectividad vial" },
+    { col: "B3_I", label: "Acceso a conectividad digital" },
     { col: "B4_A", label: "Oportunidades de trabajo" },
-    { col: "B4_B", label: "Recreación y cultura (B4)" },
+    { col: "B4_B", label: "Oportunidades de recreación y cultura" },
     { col: "B4_C", label: "Posibilidad de buen sueldo" },
-    { col: "B4_D", label: "Posibilidad de consumir" },
+    { col: "B4_D", label: "Posibilidad de consumir / comprar" },
     { col: "B4_E", label: "Participación ciudadana" }
   ];
 
   const sorted = items.map(it => ({
     label: it.label,
-    mean: calculateWeightedMean(filtered, it.col)
+    mean: calculateWeightedMean(filtered, it.col, 1, 7)
   }))
   .filter(i => i.mean !== null)
   .sort((a, b) => b.mean - a.mean);
@@ -1492,7 +1511,8 @@ function renderServiciosCompletoChart(filtered) {
         label: "Nota Promedio (1 a 7)",
         data: means,
         backgroundColor: BRAND_COLORS.accent,
-        borderRadius: 6
+        borderRadius: 6,
+        isScore: true
       }]
     },
     options: {
@@ -1500,7 +1520,7 @@ function renderServiciosCompletoChart(filtered) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { x: { min: 1, max: 7 } }
+      scales: { x: { min: 1, max: 7, ticks: { stepSize: 1 } } }
     }
   });
 }
@@ -1796,20 +1816,32 @@ function renderInstitucionesChart(filtered) {
     { col: "F4_B", label: "Gobierno Regional" },
     { col: "F4_C", label: "Municipios" },
     { col: "F4_D", label: "Empresas Regionales" },
+    { col: "F4_E", label: "Diputados y Senadores" },
     { col: "F4_F", label: "Organizaciones Sociales" },
-    { col: "F4_G", label: "Universidades" }
+    { col: "F4_G", label: "Universidades Regionales" },
+    { col: "F4_H", label: "Medios Regionales" }
   ];
 
-  const labels = [];
-  const data = [];
+  const sorted = insts.map(i => {
+    let muchoAlgoW = 0;
+    let totalW = 0;
+    filtered.forEach(r => {
+      const val = Math.round(Number(r[i.col]));
+      if (val >= 1 && val <= 4) {
+        const w = Number(r.PONDERADOR || r.weight) || 1.0;
+        totalW += w;
+        if (val === 1 || val === 2) muchoAlgoW += w;
+      }
+    });
+    return {
+      label: i.label,
+      pct: totalW > 0 ? (muchoAlgoW / totalW) * 100 : 0
+    };
+  })
+  .sort((a, b) => b.pct - a.pct);
 
-  insts.forEach(i => {
-    const m = calculateWeightedMean(filtered, i.col);
-    if (m !== null) {
-      labels.push(i.label);
-      data.push(m.toFixed(2));
-    }
-  });
+  const labels = sorted.map(s => s.label);
+  const data = sorted.map(s => s.pct.toFixed(1));
 
   if (charts.instituciones) charts.instituciones.destroy();
 
@@ -1818,7 +1850,7 @@ function renderInstitucionesChart(filtered) {
     data: {
       labels: labels,
       datasets: [{
-        label: "Evaluación Aporte (1-7)",
+        label: "% Aporta Mucho / Algo",
         data: data,
         backgroundColor: BRAND_COLORS.accent,
         borderRadius: 8
@@ -1829,7 +1861,7 @@ function renderInstitucionesChart(filtered) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { x: { min: 1, max: 7 } }
+      scales: { x: { max: 100, ticks: { callback: v => `${v}%` } } }
     }
   });
 }
@@ -2097,14 +2129,14 @@ function renderUAysenceAporteChart(filtered) {
   const items = [
     { col: "I7_1", label: "Vínculos estables con territorios y comunidades" },
     { col: "I7_2", label: "Vínculos con actores regionales e internacionales" },
-    { col: "I7_3", label: "Docencia e investigación enfocada en temas regionales" }
+    { col: "I7_3", label: "Docencia e investigación en temas regionales" }
   ];
 
   const labels = [];
   const data = [];
 
   items.forEach(i => {
-    const m = calculateWeightedMean(filtered, i.col);
+    const m = calculateWeightedMean(filtered, i.col, 1, 5);
     if (m !== null) {
       labels.push(i.label);
       data.push(m.toFixed(2));
@@ -2118,10 +2150,11 @@ function renderUAysenceAporteChart(filtered) {
     data: {
       labels: labels,
       datasets: [{
-        label: "Evaluación Aporte (1-7)",
+        label: "Evaluación Aporte (Escala 1 a 5)",
         data: data,
         backgroundColor: BRAND_COLORS.primary,
-        borderRadius: 8
+        borderRadius: 8,
+        isScore: true
       }]
     },
     options: {
@@ -2129,7 +2162,7 @@ function renderUAysenceAporteChart(filtered) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { x: { min: 1, max: 7 } }
+      scales: { x: { min: 1, max: 5, ticks: { stepSize: 1 } } }
     }
   });
 }
@@ -2545,17 +2578,17 @@ function renderActiveCompSubpanel() {
     renderCompStackedBar(
       "chart-comp-destino",
       c.destino_migracion,
-      ["otra_comuna", "otra_region", "extranjero"],
-      ["Otra Comuna", "Otra Región", "Al Extranjero"],
-      ["#38BDF8", "#00A3E0", "#0A2540"]
+      ["misma_comuna", "otra_comuna", "otra_region", "extranjero"],
+      ["Misma Comuna", "Otra Comuna", "Otra Región", "Al Extranjero"],
+      ["#7DD3FC", "#38BDF8", "#00A3E0", "#0A2540"]
     );
     // 3. Espacio de Mayor Identificación (Territorial Hierarchy Scale)
     renderCompStackedBar(
       "chart-comp-identificacion",
       c.identificacion_territorial,
-      ["barrio", "comuna", "region", "pais"],
-      ["Barrio", "Comuna", "Región", "País"],
-      ["#7DD3FC", "#00A3E0", "#0369A1", "#0A2540"]
+      ["barrio", "pueblo_localidad", "comuna", "ciudad", "region", "pais"],
+      ["Barrio", "Pueblo / Localidad", "Comuna", "Ciudad", "Región", "País"],
+      ["#BAE6FD", "#7DD3FC", "#38BDF8", "#00A3E0", "#0369A1", "#0A2540"]
     );
     // 4. Principal Problema Regional (Curated Editorial Palette)
     renderCompStackedBar(
@@ -2569,10 +2602,10 @@ function renderActiveCompSubpanel() {
 
   } else if (currentCompSubtab === "servicios" && compData.servicios) {
     const s = compData.servicios;
-    renderCompBar("chart-comp-caminos", s.caminos, "nota", true);
+    renderCompBar("chart-comp-caminos", s.caminos || s.transporte, "nota", true);
     renderCompBar("chart-comp-seguridad", s.seguridad, "nota", true);
     renderCompBar("chart-comp-salud", s.salud, "nota", true);
-    renderCompBar("chart-comp-internet", s.internet, "nota", true);
+    renderCompBar("chart-comp-internet", s.internet || s.participacion, "nota", true);
     renderCompBar("chart-comp-vivienda", s.vivienda, "nota", true);
     renderCompBar("chart-comp-transporte", s.transporte, "nota", true);
     renderCompBar("chart-comp-educacion", s.educacion, "nota", true);
@@ -2623,9 +2656,9 @@ function renderActiveCompSubpanel() {
       renderCompStackedBar(
         "chart-comp-medio-principal",
         k.medio_principal,
-        ["redes_sociales", "tv_abierta", "radios_locales", "prensa_digital"],
-        ["Redes Sociales", "TV Abierta", "Radios Locales", "Prensa Digital"],
-        ["#00A3E0", "#0A2540", "#D97706", "#64748B"]
+        ["redes_sociales", "tv_nacional", "tv_regional", "radios_locales", "web_regional"],
+        ["Redes Sociales", "TV Nacional", "TV Regional", "Radios Locales", "Prensa Regional"],
+        ["#00A3E0", "#0A2540", "#38BDF8", "#D97706", "#64748B"]
       );
     }
   }

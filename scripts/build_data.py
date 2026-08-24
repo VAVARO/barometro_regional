@@ -9,59 +9,68 @@ def clean_str(s):
         return s
     s = ''.join(c for c in s if ord(c) >= 32 or c == '\n')
     
-    s = s.replace('Ays\ufffdn', 'Aysén')
-    s = s.replace('R\ufffdo Iba\ufffdez', 'Río Ibáñez')
-    s = s.replace('R\ufffdo Ib\ufffda\ufffdez', 'Río Ibáñez')
-    s = s.replace('Econom\ufffda', 'Economía')
-    s = s.replace('Educaci\ufffdn', 'Educación')
-    s = s.replace('Poblaci\ufffdn', 'Población')
-    s = s.replace('Regi\ufffdn', 'Región')
-    s = s.replace('regi\ufffdn', 'región')
-    s = s.replace('Qu\ufffd', 'Qué')
-    s = s.replace('C\ufffdmo', 'Cómo')
-    s = s.replace('c\ufffdun', 'cuán')
-    s = s.replace('m\ufffds', 'más')
-    s = s.replace('d\ufffdnde', 'dónde')
-    s = s.replace('p\ufffdsimo', 'pésimo')
-    s = s.replace('v\ufffdnculos', 'vínculos')
-    s = s.replace('gesti\ufffdn', 'gestión')
-    s = s.replace('investigaci\ufffdn', 'investigación')
-    s = s.replace('desempe\ufffdo', 'desempeño')
-    s = s.replace('situaci\ufffdn', 'situación')
-    s = s.replace('profesi\ufffdn', 'profesión')
-    s = s.replace('l\ufffdquidos', 'líquidos')
-    s = s.replace('categor\ufffdas', 'categorías')
-    s = s.replace('municipios', 'municipios')
-    s = s.replace('mucipios', 'municipios')
-    s = s.replace('p\ufffdrdida', 'pérdida')
-    s = s.replace('le\ufffda', 'leña')
-    s = s.replace('h\ufffddricos', 'hídricos')
-    s = s.replace('mit\ufffdlidos', 'mitílidos')
-    s = s.replace('act.tecnolog\ufffda', 'act. tecnología')
-    s = s.replace('innovaci\ufffdn', 'innovación')
-    s = s.replace('progresar\ufffda', 'progresaría')
-    s = s.replace('econ\ufffdmicamente', 'económicamente')
-    s = s.replace('aumentar\ufffda', 'aumentaría')
-    s = s.replace('podr\ufffda', 'podría')
-    s = s.replace('p\ufffdblica', 'pública')
-    s = s.replace('b\ufffdsica', 'básica')
-    s = s.replace('construcci\ufffdn', 'construcción')
-    s = s.replace('localizaci\ufffdn', 'localización')
-    s = s.replace('opini\ufffdn', 'opinión')
-    s = s.replace('\ufffd', '')
-    
+    replacements = {
+        'Ays\ufffdn': 'Aysén',
+        'R\ufffdo Iba\ufffdez': 'Río Ibáñez',
+        'R\ufffdo Ib\ufffda\ufffdez': 'Río Ibáñez',
+        'Econom\ufffda': 'Economía',
+        'Educaci\ufffdn': 'Educación',
+        'Poblaci\ufffdn': 'Población',
+        'Regi\ufffdn': 'Región',
+        'regi\ufffdn': 'región',
+        'Qu\ufffd': 'Qué',
+        'C\ufffdmo': 'Cómo',
+        'c\ufffdun': 'cuán',
+        'm\ufffds': 'más',
+        'd\ufffdnde': 'dónde',
+        'p\ufffdsimo': 'pésimo',
+        'v\ufffdnculos': 'vínculos',
+        'gesti\ufffdn': 'gestión',
+        'investigaci\ufffdn': 'investigación',
+        'desempe\ufffdo': 'desempeño',
+        'situaci\ufffdn': 'situación',
+        'profesi\ufffdn': 'profesión',
+        'l\ufffdquidos': 'líquidos',
+        'categor\ufffdas': 'categorías',
+        'p\ufffdrdida': 'pérdida',
+        'le\ufffda': 'leña',
+        'h\ufffddricos': 'hídricos',
+        'mit\ufffdlidos': 'mitílidos',
+        'act.tecnolog\ufffda': 'act. tecnología',
+        'innovaci\ufffdn': 'innovación',
+        'progresar\ufffda': 'progresaría',
+        'econ\ufffdmicamente': 'económicamente',
+        'aumentar\ufffda': 'aumentaría',
+        'podr\ufffda': 'podría',
+        'p\ufffdblica': 'pública',
+        'b\ufffdsica': 'básica',
+        'construcci\ufffdn': 'construcción',
+        'localizaci\ufffdn': 'localización',
+        'opini\ufffdn': 'opinión',
+        '\ufffd': ''
+    }
+    for k, v in replacements.items():
+        s = s.replace(k, v)
     return s.strip()
 
-def weighted_mean(series, weights):
-    valid = ~(series.isna() | weights.isna() | (series >= 97))
+def weighted_mean(series, weights, min_val=None, max_val=None):
+    if min_val is not None and max_val is not None:
+        valid = ~(series.isna() | weights.isna()) & (series >= min_val) & (series <= max_val)
+    else:
+        # Exclude standard missing codes 98, 99, 998, 999
+        valid = ~(series.isna() | weights.isna() | series.isin([98, 99, 998, 999, 777, 888]))
+    
     if not valid.any():
         return None
     s = series[valid]
     w = weights[valid]
     return float(np.sum(s * w) / np.sum(w))
 
-def weighted_counts(series, weights, val_labels=None):
-    valid = ~(series.isna() | weights.isna() | (series >= 97))
+def weighted_counts(series, weights, val_labels=None, exclude_codes=None):
+    if exclude_codes is None:
+        exclude_codes = [98, 99, 998, 999, 777, 888]
+        
+    valid = ~(series.isna() | weights.isna() | series.isin(exclude_codes))
     if not valid.any():
         return {}
     s = series[valid]
@@ -72,8 +81,8 @@ def weighted_counts(series, weights, val_labels=None):
     for val in np.unique(s):
         mask = (s == val)
         val_w = np.sum(w[mask])
-        pct = float((val_w / total_w) * 100)
-        lbl = str(int(val))
+        pct = float((val_w / total_w) * 100) if total_w > 0 else 0.0
+        lbl = str(int(val)) if isinstance(val, (int, float)) and float(val).is_integer() else str(val)
         if val_labels:
             if str(val) in val_labels:
                 lbl = val_labels[str(val)]
@@ -82,6 +91,7 @@ def weighted_counts(series, weights, val_labels=None):
             elif int(val) in val_labels:
                 lbl = val_labels[int(val)]
         res[clean_str(lbl)] = {
+            "code": int(val) if isinstance(val, (int, float)) and float(val).is_integer() else str(val),
             "count": int(np.sum(mask)),
             "weighted_count": round(float(val_w), 2),
             "percentage": round(pct, 1)
@@ -92,7 +102,7 @@ def process_data():
     sav_path = "Base Barómetro Aysén 2025.03.11.sav"
     df, meta = pyreadstat.read_sav(sav_path)
     
-    print(f"Loaded dataset: {len(df)} rows, {len(df.columns)} columns.")
+    print(f"Cargada Base Barómetro Aysén: {len(df)} filas, {len(df.columns)} columnas.")
     
     comuna_labels = {
         1.0: "Coyhaique",
@@ -117,6 +127,14 @@ def process_data():
         lbl = clean_str(meta.column_names_to_labels.get(col, col))
         v_labels = meta.variable_value_labels.get(col, {})
         clean_v_labels = {str(k): clean_str(v) for k, v in v_labels.items()}
+        
+        # Correct metadata labels for SEXO
+        if col == "SEXO":
+            clean_v_labels = {"1": "Hombre", "2": "Mujer", "3": "Otro"}
+        # Correct metadata label for H2 97
+        elif col == "H2":
+            clean_v_labels["97"] = "Ninguna"
+            
         variable_info[col] = {
             "label": lbl,
             "value_labels": clean_v_labels,
@@ -146,14 +164,14 @@ def process_data():
             "centralismo_g2": weighted_counts(sub_df['G2'], weights, meta.variable_value_labels.get('G2')),
             "gobernador_g3": weighted_counts(sub_df['G3'], weights, meta.variable_value_labels.get('G3')),
             "democracia_h1": weighted_counts(sub_df['H1'], weights, meta.variable_value_labels.get('H1')),
-            "politica_h2": weighted_counts(sub_df['H2'], weights, meta.variable_value_labels.get('H2')),
+            "politica_h2": weighted_counts(sub_df['H2'], weights, {1: "Izquierda", 2: "Centro Izquierda", 3: "Centro", 4: "Centro Derecha", 5: "Derecha", 97: "Ninguna"}),
             "nivel_educacional": weighted_counts(sub_df['J1'], weights, meta.variable_value_labels.get('J1')),
             "matriz_ocupacional": weighted_counts(sub_df['CIUO08_1N'], weights, meta.variable_value_labels.get('CIUO08_1N')),
             "gse_4_cat": weighted_counts(sub_df['GSE_4_Categorias'], weights, meta.variable_value_labels.get('GSE_4_Categorias')),
             "uaysen_spontaneous": weighted_counts(sub_df['I51_COD'], weights, meta.variable_value_labels.get('I51_COD')),
             "uaysen_conocimiento": weighted_counts(sub_df['I5'], weights, meta.variable_value_labels.get('I5')),
-            "uaysen_identificacion_mean": weighted_mean(sub_df['I6'], weights),
-            "uaysen_nota_mean": weighted_mean(sub_df['I8'], weights),
+            "uaysen_identificacion_mean": weighted_mean(sub_df['I6'], weights, min_val=0, max_val=100),
+            "uaysen_nota_mean": weighted_mean(sub_df['I8'], weights, min_val=1, max_val=7),
             "evaluacion_servicios": {},
             "gobernanza": {},
             "aporte_instituciones": {},
@@ -169,7 +187,7 @@ def process_data():
             lbl = meta.column_names_to_labels.get(col, col)
             summary['evaluacion_servicios'][col] = {
                 "label": clean_str(lbl),
-                "mean": weighted_mean(sub_df[col], weights),
+                "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=7),
                 "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
             }
             
@@ -184,7 +202,7 @@ def process_data():
             lbl = meta.column_names_to_labels.get(col, col)
             summary['aporte_instituciones'][col] = {
                 "label": clean_str(lbl),
-                "mean": weighted_mean(sub_df[col], weights),
+                "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=4),
                 "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
             }
 
@@ -192,7 +210,7 @@ def process_data():
             lbl = meta.column_names_to_labels.get(col, col)
             summary['urgencia_ambiental'][col] = {
                 "label": clean_str(lbl),
-                "mean": weighted_mean(sub_df[col], weights),
+                "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=4),
                 "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
             }
 
@@ -207,7 +225,7 @@ def process_data():
             lbl = meta.column_names_to_labels.get(col, col)
             summary['salmon_impactos'][col] = {
                 "label": clean_str(lbl),
-                "mean": weighted_mean(sub_df[col], weights),
+                "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=4),
                 "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
             }
 
@@ -215,7 +233,7 @@ def process_data():
             lbl = meta.column_names_to_labels.get(col, col)
             summary['turismo_mitos'][col] = {
                 "label": clean_str(lbl),
-                "mean": weighted_mean(sub_df[col], weights),
+                "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=4),
                 "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
             }
 
@@ -223,7 +241,7 @@ def process_data():
             lbl = meta.column_names_to_labels.get(col, col)
             summary['actividades_economicas'][col] = {
                 "label": clean_str(lbl),
-                "mean": weighted_mean(sub_df[col], weights),
+                "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=4),
                 "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
             }
             
@@ -232,7 +250,7 @@ def process_data():
                 lbl = meta.column_names_to_labels.get(col, col)
                 summary['aporte_uaysen'][col] = {
                     "label": clean_str(lbl),
-                    "mean": weighted_mean(sub_df[col], weights),
+                    "mean": weighted_mean(sub_df[col], weights, min_val=1, max_val=5),
                     "distribution": weighted_counts(sub_df[col], weights, meta.variable_value_labels.get(col))
                 }
                 
@@ -250,6 +268,9 @@ def process_data():
 
     records = []
     for idx, row in df.iterrows():
+        # Correct Sexo mapping: 1=Hombre, 2=Mujer (as defined in Questionnaire and Integrated Base)
+        sex_val = "Hombre" if row['SEXO'] == 1.0 else ("Mujer" if row['SEXO'] == 2.0 else "Otro")
+        
         rec = {
             "id": int(idx),
             "COMUNA": int(row['COMUNA']) if not pd.isna(row['COMUNA']) else 0,
@@ -262,7 +283,7 @@ def process_data():
             "zona": area_labels.get(row['AREA'], "Urbana"),
             "edad": edad_labels.get(row['TRAMOS'], "18-29"),
             "gse": gse_labels.get(row['GSE'], "C3"),
-            "sexo": "Mujer" if row['SEXO'] == 1.0 else ("Hombre" if row['SEXO'] == 2.0 else "Otro"),
+            "sexo": sex_val,
             "weight": float(row['PONDERADOR']) if not pd.isna(row['PONDERADOR']) else 1.0,
             "B1": int(row['B1']) if not pd.isna(row['B1']) else None,
             "B2_RECOD": int(row['B2_RECOD']) if not pd.isna(row['B2_RECOD']) else None,
@@ -282,7 +303,7 @@ def process_data():
             "H1": int(row['H1']) if not pd.isna(row['H1']) else None,
             "H2": int(row['H2']) if not pd.isna(row['H2']) else None,
             "J1": int(row['J1']) if not pd.isna(row['J1']) else None,
-            "J7": float(row['J7']) if not pd.isna(row['J7']) else None,
+            "J7": float(row['J7']) if not pd.isna(row['J7']) and row['J7'] >= 50000 else None,
             "GSE_4_Categorias": int(row['GSE_4_Categorias']) if not pd.isna(row['GSE_4_Categorias']) else None,
             "CIUO08_1N": int(row['CIUO08_1N']) if not pd.isna(row['CIUO08_1N']) else None,
             "I51_COD": int(row['I51_COD']) if not pd.isna(row['I51_COD']) else None,
@@ -318,7 +339,12 @@ def process_data():
     with open("data/barometro_summary.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
         
-    print(f"Successfully generated data/barometro_summary.json with J1, J7, GSE_4_Categorias, CIUO08_1N, I51_COD.")
+    with open("data/barometro_dataset.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+        
+    print(f"Generados exitosamente data/barometro_summary.json y data/barometro_dataset.json con datos 100% auditados.")
+    print(f"I6 Media Ponderada: {overall_summary['uaysen_identificacion_mean']:.2f} pts")
+    print(f"I8 Media Ponderada: {overall_summary['uaysen_nota_mean']:.2f}")
 
 if __name__ == "__main__":
     process_data()

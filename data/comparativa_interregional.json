@@ -130,109 +130,123 @@
       {
         "region": "O'Higgins",
         "is_target": false,
-        "otra_comuna": 23.7,
-        "otra_region": 24.8,
-        "extranjero": 51.5
+        "misma_comuna": 18.2,
+        "otra_comuna": 19.0,
+        "otra_region": 39.6,
+        "extranjero": 23.1
       },
       {
         "region": "Ñuble",
         "is_target": false,
-        "otra_comuna": 21.2,
-        "otra_region": 19.9,
-        "extranjero": 58.9
+        "misma_comuna": 17.9,
+        "otra_comuna": 16.7,
+        "otra_region": 49.5,
+        "extranjero": 15.9
       },
       {
         "region": "Biobío",
         "is_target": false,
-        "otra_comuna": 26.2,
-        "otra_region": 42.2,
-        "extranjero": 31.6
+        "misma_comuna": 21.5,
+        "otra_comuna": 34.6,
+        "otra_region": 25.9,
+        "extranjero": 18.1
       },
       {
         "region": "Los Ríos",
         "is_target": false,
-        "otra_comuna": 31.0,
-        "otra_region": 30.3,
-        "extranjero": 38.7
+        "misma_comuna": 23.9,
+        "otra_comuna": 23.3,
+        "otra_region": 29.8,
+        "extranjero": 23.0
       },
       {
         "region": "Los Lagos",
         "is_target": false,
-        "otra_comuna": 30.6,
-        "otra_region": 30.7,
-        "extranjero": 38.7
+        "misma_comuna": 25.8,
+        "otra_comuna": 25.9,
+        "otra_region": 32.6,
+        "extranjero": 15.6
       },
       {
         "region": "Aysén",
         "is_target": true,
-        "otra_comuna": 3.6,
-        "otra_region": 22.9,
-        "extranjero": 73.5
+        "misma_comuna": 2.8,
+        "otra_comuna": 18.0,
+        "otra_region": 57.6,
+        "extranjero": 21.6
       },
       {
         "region": "Magallanes",
         "is_target": false,
-        "otra_comuna": 7.1,
-        "otra_region": 14.8,
-        "extranjero": 78.1
+        "misma_comuna": 5.0,
+        "otra_comuna": 10.3,
+        "otra_region": 54.6,
+        "extranjero": 30.1
       }
     ],
     "identificacion_territorial": [
       {
-        "region": "O'Higgins",
+        "region": 10.6,
         "is_target": false,
-        "barrio": 21.9,
-        "comuna": 31.2,
-        "su_region": 14.1,
-        "pais": 32.8
+        "barrio": 16.5,
+        "pueblo_localidad": 14.9,
+        "comuna": 23.5,
+        "ciudad": 9.8,
+        "pais": 24.7
       },
       {
-        "region": "Ñuble",
+        "region": 11.6,
         "is_target": false,
-        "barrio": 22.0,
-        "comuna": 31.2,
-        "su_region": 15.2,
-        "pais": 31.6
-      },
-      {
-        "region": "Biobío",
-        "is_target": false,
-        "barrio": 25.1,
-        "comuna": 32.0,
-        "su_region": 11.1,
-        "pais": 31.8
-      },
-      {
-        "region": "Los Ríos",
-        "is_target": false,
-        "barrio": 28.2,
-        "comuna": 27.0,
-        "su_region": 20.7,
+        "barrio": 16.8,
+        "pueblo_localidad": 8.1,
+        "comuna": 23.8,
+        "ciudad": 15.5,
         "pais": 24.1
       },
       {
-        "region": "Los Lagos",
+        "region": 9.0,
         "is_target": false,
-        "barrio": 19.0,
-        "comuna": 29.5,
-        "su_region": 23.0,
-        "pais": 28.5
+        "barrio": 20.3,
+        "pueblo_localidad": 5.9,
+        "comuna": 25.9,
+        "ciudad": 13.2,
+        "pais": 25.7
       },
       {
-        "region": "Aysén",
+        "region": 14.8,
+        "is_target": false,
+        "barrio": 20.2,
+        "pueblo_localidad": 8.9,
+        "comuna": 19.3,
+        "ciudad": 19.6,
+        "pais": 17.2
+      },
+      {
+        "region": 14.2,
+        "is_target": false,
+        "barrio": 11.7,
+        "pueblo_localidad": 9.5,
+        "comuna": 18.2,
+        "ciudad": 28.8,
+        "pais": 17.6
+      },
+      {
+        "region": 36.6,
         "is_target": true,
-        "barrio": 9.1,
-        "comuna": 24.4,
-        "su_region": 54.3,
-        "pais": 12.2
+        "barrio": 6.1,
+        "pueblo_localidad": 18.1,
+        "comuna": 16.4,
+        "ciudad": 14.6,
+        "pais": 8.2
       },
       {
-        "region": "Magallanes",
+        "region": 28.3,
         "is_target": false,
-        "barrio": 18.6,
-        "comuna": 25.0,
-        "su_region": 39.4,
-        "pais": 17.0
+        "barrio": 13.3,
+        "pueblo_localidad": 4.5,
+        "comuna": 18.0,
+        "ciudad": 23.8,
+        "pais": 12.2
       }
     ],
     "principal_problema": [
@@ -339,229 +353,81 @@
     ]
   },
   "servicios": {
-    "caminos": [
+    "salud": [
       {
         "region": "Magallanes",
-        "nota": 4.82,
+        "nota": 4.12,
         "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 4.46,
-        "is_target": false
-      },
-      {
-        "region": "O'Higgins",
-        "nota": 4.41,
-        "is_target": false
-      },
-      {
-        "region": "Aysén",
-        "nota": 4.32,
-        "is_target": true
       },
       {
         "region": "Biobío",
-        "nota": 4.24,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
         "nota": 4.08,
         "is_target": false
       },
       {
-        "region": "Los Ríos",
-        "nota": 3.59,
+        "region": "O'Higgins",
+        "nota": 4.06,
         "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.02,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 3.97,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 3.97,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 3.44,
+        "is_target": true
       }
     ],
-    "seguridad": [
+    "educacion": [
       {
-        "region": "Magallanes",
+        "region": "Ñuble",
         "nota": 4.92,
         "is_target": false
       },
       {
         "region": "Los Lagos",
-        "nota": 4.32,
-        "is_target": false
-      },
-      {
-        "region": "Aysén",
-        "nota": 4.31,
-        "is_target": true
-      },
-      {
-        "region": "Ñuble",
-        "nota": 4.27,
-        "is_target": false
-      },
-      {
-        "region": "Los Ríos",
-        "nota": 4.16,
-        "is_target": false
-      },
-      {
-        "region": "O'Higgins",
-        "nota": 3.86,
+        "nota": 4.87,
         "is_target": false
       },
       {
         "region": "Biobío",
-        "nota": 3.84,
-        "is_target": false
-      }
-    ],
-    "salud": [
-      {
-        "region": "Biobío",
-        "nota": 4.97,
-        "is_target": false
-      },
-      {
-        "region": "Los Ríos",
-        "nota": 4.82,
-        "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 4.82,
-        "is_target": false
-      },
-      {
-        "region": "O'Higgins",
-        "nota": 4.69,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
-        "nota": 4.69,
+        "nota": 4.85,
         "is_target": false
       },
       {
         "region": "Magallanes",
-        "nota": 4.5,
-        "is_target": false
-      },
-      {
-        "region": "Aysén",
-        "nota": 4.02,
-        "is_target": true
-      }
-    ],
-    "internet": [
-      {
-        "region": "Magallanes",
-        "nota": 4.71,
-        "is_target": false
-      },
-      {
-        "region": "Biobío",
-        "nota": 4.7,
+        "nota": 4.73,
         "is_target": false
       },
       {
         "region": "O'Higgins",
-        "nota": 4.58,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
-        "nota": 4.58,
-        "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 4.56,
+        "nota": 4.67,
         "is_target": false
       },
       {
         "region": "Los Ríos",
-        "nota": 4.45,
+        "nota": 4.63,
         "is_target": false
       },
       {
         "region": "Aysén",
-        "nota": 4.26,
+        "nota": 4.28,
         "is_target": true
       }
     ],
     "vivienda": [
-      {
-        "region": "Biobío",
-        "nota": 5.48,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
-        "nota": 5.28,
-        "is_target": false
-      },
-      {
-        "region": "O'Higgins",
-        "nota": 5.27,
-        "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 5.26,
-        "is_target": false
-      },
-      {
-        "region": "Los Ríos",
-        "nota": 4.95,
-        "is_target": false
-      },
-      {
-        "region": "Magallanes",
-        "nota": 4.89,
-        "is_target": false
-      },
-      {
-        "region": "Aysén",
-        "nota": 4.52,
-        "is_target": true
-      }
-    ],
-    "transporte": [
-      {
-        "region": "Magallanes",
-        "nota": 4.71,
-        "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 4.41,
-        "is_target": false
-      },
-      {
-        "region": "Aysén",
-        "nota": 4.29,
-        "is_target": true
-      },
-      {
-        "region": "Biobío",
-        "nota": 4.28,
-        "is_target": false
-      },
-      {
-        "region": "O'Higgins",
-        "nota": 4.16,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
-        "nota": 4.13,
-        "is_target": false
-      },
-      {
-        "region": "Los Ríos",
-        "nota": 3.9,
-        "is_target": false
-      }
-    ],
-    "educacion": [
       {
         "region": "Ñuble",
         "nota": 4.32,
@@ -600,39 +466,113 @@
     ],
     "agua": [
       {
-        "region": "Magallanes",
-        "nota": 4.12,
-        "is_target": false
-      },
-      {
         "region": "Biobío",
-        "nota": 4.08,
+        "nota": 5.9,
         "is_target": false
       },
       {
         "region": "O'Higgins",
-        "nota": 4.06,
+        "nota": 5.88,
+        "is_target": false
+      },
+      {
+        "region": "Magallanes",
+        "nota": 5.86,
         "is_target": false
       },
       {
         "region": "Los Lagos",
-        "nota": 4.02,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
-        "nota": 3.97,
+        "nota": 5.69,
         "is_target": false
       },
       {
         "region": "Los Ríos",
-        "nota": 3.97,
+        "nota": 5.62,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 5.44,
         "is_target": false
       },
       {
         "region": "Aysén",
-        "nota": 3.44,
+        "nota": 5.39,
         "is_target": true
+      }
+    ],
+    "transporte": [
+      {
+        "region": "Ñuble",
+        "nota": 4.94,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 4.94,
+        "is_target": false
+      },
+      {
+        "region": "Biobío",
+        "nota": 4.83,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.81,
+        "is_target": false
+      },
+      {
+        "region": "Magallanes",
+        "nota": 4.73,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 4.62,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 3.87,
+        "is_target": true
+      }
+    ],
+    "seguridad": [
+      {
+        "region": "Magallanes",
+        "nota": 4.92,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.32,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 4.31,
+        "is_target": true
+      },
+      {
+        "region": "Ñuble",
+        "nota": 4.27,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 4.16,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 3.86,
+        "is_target": false
+      },
+      {
+        "region": "Biobío",
+        "nota": 3.84,
+        "is_target": false
       }
     ],
     "medioambiente": [
@@ -674,18 +614,208 @@
     ],
     "empleo": [
       {
-        "region": "Ñuble",
-        "nota": 4.92,
+        "region": "Magallanes",
+        "nota": 4.82,
         "is_target": false
       },
       {
         "region": "Los Lagos",
-        "nota": 4.87,
+        "nota": 4.46,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 4.41,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 4.32,
+        "is_target": true
+      },
+      {
+        "region": "Biobío",
+        "nota": 4.24,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 4.08,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 3.59,
+        "is_target": false
+      }
+    ],
+    "recreacion": [
+      {
+        "region": "Biobío",
+        "nota": 4.97,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 4.82,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.82,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 4.69,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 4.69,
+        "is_target": false
+      },
+      {
+        "region": "Magallanes",
+        "nota": 4.5,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 4.02,
+        "is_target": true
+      }
+    ],
+    "sueldos": [
+      {
+        "region": "Magallanes",
+        "nota": 4.71,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.41,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 4.29,
+        "is_target": true
+      },
+      {
+        "region": "Biobío",
+        "nota": 4.28,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 4.16,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 4.13,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 3.9,
+        "is_target": false
+      }
+    ],
+    "consumo": [
+      {
+        "region": "Biobío",
+        "nota": 5.48,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 5.28,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 5.27,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 5.26,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 4.95,
+        "is_target": false
+      },
+      {
+        "region": "Magallanes",
+        "nota": 4.89,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 4.52,
+        "is_target": true
+      }
+    ],
+    "participacion": [
+      {
+        "region": "Magallanes",
+        "nota": 4.71,
         "is_target": false
       },
       {
         "region": "Biobío",
-        "nota": 4.85,
+        "nota": 4.7,
+        "is_target": false
+      },
+      {
+        "region": "O'Higgins",
+        "nota": 4.58,
+        "is_target": false
+      },
+      {
+        "region": "Ñuble",
+        "nota": 4.58,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.56,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 4.45,
+        "is_target": false
+      },
+      {
+        "region": "Aysén",
+        "nota": 4.26,
+        "is_target": true
+      }
+    ],
+    "caminos": [
+      {
+        "region": "Ñuble",
+        "nota": 4.94,
+        "is_target": false
+      },
+      {
+        "region": "Los Ríos",
+        "nota": 4.94,
+        "is_target": false
+      },
+      {
+        "region": "Biobío",
+        "nota": 4.83,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.81,
         "is_target": false
       },
       {
@@ -695,91 +825,49 @@
       },
       {
         "region": "O'Higgins",
-        "nota": 4.67,
-        "is_target": false
-      },
-      {
-        "region": "Los Ríos",
-        "nota": 4.63,
+        "nota": 4.62,
         "is_target": false
       },
       {
         "region": "Aysén",
-        "nota": 4.28,
+        "nota": 3.87,
         "is_target": true
       }
     ],
-    "sueldos": [
-      {
-        "region": "Biobío",
-        "nota": 5.9,
-        "is_target": false
-      },
-      {
-        "region": "O'Higgins",
-        "nota": 5.88,
-        "is_target": false
-      },
+    "internet": [
       {
         "region": "Magallanes",
-        "nota": 5.86,
-        "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 5.69,
-        "is_target": false
-      },
-      {
-        "region": "Los Ríos",
-        "nota": 5.62,
-        "is_target": false
-      },
-      {
-        "region": "Ñuble",
-        "nota": 5.44,
-        "is_target": false
-      },
-      {
-        "region": "Aysén",
-        "nota": 5.39,
-        "is_target": true
-      }
-    ],
-    "recreacion": [
-      {
-        "region": "Magallanes",
-        "nota": 4.12,
+        "nota": 4.71,
         "is_target": false
       },
       {
         "region": "Biobío",
-        "nota": 4.08,
+        "nota": 4.7,
         "is_target": false
       },
       {
         "region": "O'Higgins",
-        "nota": 4.06,
-        "is_target": false
-      },
-      {
-        "region": "Los Lagos",
-        "nota": 4.02,
+        "nota": 4.58,
         "is_target": false
       },
       {
         "region": "Ñuble",
-        "nota": 3.97,
+        "nota": 4.58,
+        "is_target": false
+      },
+      {
+        "region": "Los Lagos",
+        "nota": 4.56,
         "is_target": false
       },
       {
         "region": "Los Ríos",
-        "nota": 3.97,
+        "nota": 4.45,
         "is_target": false
       },
       {
         "region": "Aysén",
-        "nota": 3.44,
+        "nota": 4.26,
         "is_target": true
       }
     ]
@@ -788,7 +876,7 @@
     "centralismo": [
       {
         "region": "Aysén",
-        "pct": 57.0,
+        "pct": 57.3,
         "is_target": true
       },
       {
@@ -1149,36 +1237,36 @@
     ],
     "aporte_institucional": [
       {
-        "institucion": "Universidades Regionales",
-        "pct": 65.0
+        "institucion": "Medios Regionales",
+        "pct": 66.9
       },
       {
-        "institucion": "Medios Regionales",
-        "pct": 63.0
+        "institucion": "Universidades Regionales",
+        "pct": 65.9
       },
       {
         "institucion": "Municipalidades",
-        "pct": 55.0
+        "pct": 54.8
       },
       {
         "institucion": "Organizaciones Sociales",
-        "pct": 51.0
-      },
-      {
-        "institucion": "Gobierno Regional (GORE)",
-        "pct": 49.0
+        "pct": 54.1
       },
       {
         "institucion": "Empresas Regionales",
-        "pct": 49.0
+        "pct": 51.2
+      },
+      {
+        "institucion": "Gobierno Regional (GORE)",
+        "pct": 50.8
       },
       {
         "institucion": "Gobierno Central",
-        "pct": 37.0
+        "pct": 35.6
       },
       {
         "institucion": "Parlamentarios",
-        "pct": 24.0
+        "pct": 24.7
       }
     ]
   },
@@ -1557,58 +1645,79 @@
       {
         "region": "O'Higgins",
         "is_target": false,
-        "redes_sociales": 74.0,
-        "tv_abierta": 2.2,
-        "radios_locales": 12.5,
-        "prensa_digital": 11.4
+        "tv_nacional": 32.0,
+        "tv_regional": 0.9,
+        "radios_nacionales": 6.5,
+        "radios_locales": 5.4,
+        "web_nacional": 4.9,
+        "web_regional": 2.7,
+        "redes_sociales": 47.5
       },
       {
         "region": "Ñuble",
         "is_target": false,
-        "redes_sociales": 66.1,
-        "tv_abierta": 4.0,
-        "radios_locales": 20.3,
-        "prensa_digital": 9.5
+        "tv_nacional": 20.6,
+        "tv_regional": 1.3,
+        "radios_nacionales": 5.6,
+        "radios_locales": 6.3,
+        "web_nacional": 3.0,
+        "web_regional": 2.1,
+        "redes_sociales": 61.0
       },
       {
         "region": "Biobío",
         "is_target": false,
-        "redes_sociales": 60.9,
-        "tv_abierta": 16.4,
-        "radios_locales": 12.1,
-        "prensa_digital": 10.7
+        "tv_nacional": 23.3,
+        "tv_regional": 6.3,
+        "radios_nacionales": 4.7,
+        "radios_locales": 4.6,
+        "web_nacional": 4.1,
+        "web_regional": 1.9,
+        "redes_sociales": 55.1
       },
       {
         "region": "Los Ríos",
         "is_target": false,
-        "redes_sociales": 41.9,
-        "tv_abierta": 7.5,
-        "radios_locales": 38.4,
-        "prensa_digital": 12.3
+        "tv_nacional": 13.2,
+        "tv_regional": 2.4,
+        "radios_nacionales": 4.8,
+        "radios_locales": 12.1,
+        "web_nacional": 3.9,
+        "web_regional": 2.9,
+        "redes_sociales": 60.7
       },
       {
         "region": "Los Lagos",
         "is_target": false,
-        "redes_sociales": 52.5,
-        "tv_abierta": 10.9,
-        "radios_locales": 28.0,
-        "prensa_digital": 8.6
+        "tv_nacional": 18.3,
+        "tv_regional": 3.8,
+        "radios_nacionales": 6.2,
+        "radios_locales": 9.8,
+        "web_nacional": 3.0,
+        "web_regional": 3.7,
+        "redes_sociales": 55.2
       },
       {
         "region": "Aysén",
         "is_target": true,
-        "redes_sociales": 22.9,
-        "tv_abierta": 5.7,
-        "radios_locales": 57.6,
-        "prensa_digital": 13.8
+        "tv_nacional": 7.1,
+        "tv_regional": 1.8,
+        "radios_nacionales": 3.8,
+        "radios_locales": 17.8,
+        "web_nacional": 4.3,
+        "web_regional": 4.8,
+        "redes_sociales": 60.6
       },
       {
         "region": "Magallanes",
         "is_target": false,
-        "redes_sociales": 29.4,
-        "tv_abierta": 35.8,
-        "radios_locales": 23.6,
-        "prensa_digital": 11.2
+        "tv_nacional": 9.7,
+        "tv_regional": 11.9,
+        "radios_nacionales": 2.6,
+        "radios_locales": 7.8,
+        "web_nacional": 3.7,
+        "web_regional": 5.2,
+        "redes_sociales": 59.0
       }
     ]
   }
