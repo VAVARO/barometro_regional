@@ -1017,7 +1017,26 @@ const BRAND_COLORS = {
   rose: "#f43f5e",
   emerald: "#10b981",
   amber: "#f59e0b",
-  indigo: "#6366f1"
+  indigo: "#6366f1",
+  ice: "#b0c8eb",
+  darkNavy: "#001c37"
+};
+
+const BRAND_PALETTES = {
+  // 1. Evaluativo Estándar (Positivo / Neutro / Negativo) - Rumbo y Gobernadores
+  evaluative: [BRAND_COLORS.accent, BRAND_COLORS.muted, BRAND_COLORS.rose],
+  
+  // 2. Jerárquico / Secuencial Territorial (4 niveles) - Destino Migración
+  migration: ["#b0c8eb", BRAND_COLORS.secondary, BRAND_COLORS.accent, BRAND_COLORS.primary],
+  
+  // 3. Jerárquico Territorial (6 niveles) - Mayor Identificación
+  territory: ["#b0c8eb", "#81cfff", BRAND_COLORS.secondary, BRAND_COLORS.accent, "#00658d", BRAND_COLORS.primary],
+  
+  // 4. Categórico Nominal - Problemas Regionales (5 dimensiones)
+  problems: [BRAND_COLORS.rose, BRAND_COLORS.primary, BRAND_COLORS.amber, BRAND_COLORS.accent, BRAND_COLORS.muted],
+  
+  // 5. Categórico Nominal - Medios de Información (5 canales)
+  media: [BRAND_COLORS.accent, BRAND_COLORS.primary, BRAND_COLORS.secondary, BRAND_COLORS.amber, BRAND_COLORS.muted]
 };
 
 function renderEducacionChart(eduCounts) {
@@ -2435,14 +2454,14 @@ async function updateComparativaPanel() {
 function renderActiveCompSubpanel() {
   if (!compData) return;
 
-  // Generic Bar Chart Renderer (Aysén in #00A3E0, others in #94A3B8)
+  // Generic Bar Chart Renderer (Aysén in BRAND_COLORS.accent, others in BRAND_COLORS.muted)
   function renderCompBar(canvasId, items, valKey, isGrade = false) {
     const ctx = safeGetCanvas(canvasId);
     if (!ctx || !items) return;
 
     const labels = items.map(i => i.region || i.institucion);
     const data = items.map(i => i[valKey]);
-    const colors = items.map(i => i.is_target ? "#00A3E0" : "#94A3B8");
+    const colors = items.map(i => i.is_target ? BRAND_COLORS.accent : BRAND_COLORS.muted);
 
     if (charts[canvasId]) charts[canvasId].destroy();
 
@@ -2553,7 +2572,7 @@ function renderActiveCompSubpanel() {
             stacked: true,
             ticks: {
               font: { family: "'Inter', sans-serif", size: 11, weight: "600" },
-              color: (c) => items[c.index]?.is_target ? "#00A3E0" : "#475569"
+              color: (c) => items[c.index]?.is_target ? BRAND_COLORS.accent : "#475569"
             },
             grid: { display: false }
           }
@@ -2565,38 +2584,38 @@ function renderActiveCompSubpanel() {
   // Render active subpanel charts dynamically
   if (currentCompSubtab === "coyuntura" && compData.coyuntura) {
     const c = compData.coyuntura;
-    // 1. Rumbo Regional (Evaluative Semantic Tri-Color: Emerald / Amber / Coral)
+    // 1. Rumbo Regional (Evaluativo Estándar: Progresando / Estancada / En Decadencia)
     renderCompStackedBar(
       "chart-comp-rumbo",
       c.rumbo,
       ["progresando", "estancada", "decadencia"],
       ["Progresando", "Estancada", "En Decadencia"],
-      ["#059669", "#D97706", "#E11D48"]
+      BRAND_PALETTES.evaluative
     );
     renderCompBar("chart-comp-migrar", c.disposicion_migrar, "pct");
-    // 2. Destino de Migración (Step Sequential: Sky -> Turquoise -> Deep Navy)
+    // 2. Destino de Migración (Jerárquico Territorial 4 niveles)
     renderCompStackedBar(
       "chart-comp-destino",
       c.destino_migracion,
       ["misma_comuna", "otra_comuna", "otra_region", "extranjero"],
       ["Misma Comuna", "Otra Comuna", "Otra Región", "Al Extranjero"],
-      ["#7DD3FC", "#38BDF8", "#00A3E0", "#0A2540"]
+      BRAND_PALETTES.migration
     );
-    // 3. Espacio de Mayor Identificación (Territorial Hierarchy Scale)
+    // 3. Espacio de Mayor Identificación (Jerárquico Territorial 6 niveles)
     renderCompStackedBar(
       "chart-comp-identificacion",
       c.identificacion_territorial,
       ["barrio", "pueblo_localidad", "comuna", "ciudad", "region", "pais"],
       ["Barrio", "Pueblo / Localidad", "Comuna", "Ciudad", "Región", "País"],
-      ["#BAE6FD", "#7DD3FC", "#38BDF8", "#00A3E0", "#0369A1", "#0A2540"]
+      BRAND_PALETTES.territory
     );
-    // 4. Principal Problema Regional (Curated Editorial Palette)
+    // 4. Principal Problema Regional (Categórico Nominal Brand)
     renderCompStackedBar(
       "chart-comp-problema",
       c.principal_problema,
       ["seguridad", "conectividad", "salud", "empleo", "vivienda"],
       ["Seguridad", "Conectividad", "Salud", "Empleo", "Vivienda"],
-      ["#E11D48", "#0A2540", "#EA580C", "#00A3E0", "#64748B"]
+      BRAND_PALETTES.problems
     );
     renderCompBar("chart-comp-erd", c.conocimiento_erd, "pct");
 
@@ -2618,14 +2637,14 @@ function renderActiveCompSubpanel() {
   } else if (currentCompSubtab === "descentralizacion" && compData.descentralizacion) {
     const d = compData.descentralizacion;
     renderCompBar("chart-comp-centralismo", d.centralismo, "pct");
-    // 5. Impacto Gobernadores Regionales (Evaluative Palette)
+    // 5. Impacto Gobernadores Regionales (Evaluativo Estándar: Impulso / Igual / Más problemas)
     if (d.gobernadores) {
       renderCompStackedBar(
         "chart-comp-gobernadores",
         d.gobernadores,
         ["impulso", "igual", "problemas"],
         ["Ha sido un impulso", "Ha dejado igual", "Más problemas"],
-        ["#00A3E0", "#64748B", "#E11D48"]
+        BRAND_PALETTES.evaluative
       );
     }
     renderCompBar("chart-comp-dec-obras", d.decision_obras, "pct");
@@ -2651,14 +2670,14 @@ function renderActiveCompSubpanel() {
     renderCompBar("chart-comp-democracia", k.adhesion_democracia, "pct");
     renderCompBar("chart-comp-uso-radios", k.uso_radios, "pct");
     renderCompBar("chart-comp-uso-tv", k.uso_tv, "pct");
-    // 6. Medio Principal de Información (Ecología de Medios)
+    // 6. Medio Principal de Información (Categórico Nominal Brand)
     if (k.medio_principal) {
       renderCompStackedBar(
         "chart-comp-medio-principal",
         k.medio_principal,
         ["redes_sociales", "tv_nacional", "tv_regional", "radios_locales", "web_regional"],
         ["Redes Sociales", "TV Nacional", "TV Regional", "Radios Locales", "Prensa Regional"],
-        ["#00A3E0", "#0A2540", "#38BDF8", "#D97706", "#64748B"]
+        BRAND_PALETTES.media
       );
     }
   }
