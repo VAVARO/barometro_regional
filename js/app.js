@@ -24,37 +24,28 @@ if (typeof Chart !== "undefined" && Chart.defaults) {
   Chart.defaults.set('plugins.datalabels', {
     color: (context) => {
       const chartType = context.chart.config.type;
-      const isHorizontal = context.chart.options?.indexAxis === 'y';
+      const isStacked = context.chart.options?.scales?.x?.stacked || context.chart.options?.scales?.y?.stacked;
 
-      // For horizontal bar charts where labels are placed outside on the right
-      if (isHorizontal && chartType === 'bar' && !context.chart.options?.scales?.x?.stacked) {
+      // On standard unstacked bar charts (horizontal or vertical), labels sit outside on the white canvas
+      if (chartType === 'bar' && !isStacked) {
         return '#0A2540';
       }
 
-      // For doughnut / pie charts
-      if (chartType === 'doughnut' || chartType === 'pie') {
-        const bg = Array.isArray(context.dataset.backgroundColor)
-          ? context.dataset.backgroundColor[context.dataIndex]
-          : context.dataset.backgroundColor;
-        if (bg && typeof bg === 'string') {
-          const hex = bg.replace('#', '');
-          if (hex.length === 6) {
-            const r = parseInt(hex.substr(0, 2), 16);
-            const g = parseInt(hex.substr(2, 2), 16);
-            const b = parseInt(hex.substr(4, 2), 16);
-            const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-            return yiq >= 150 ? '#0A2540' : '#FFFFFF';
-          }
+      // For doughnut / pie / stacked charts where labels sit inside the color slice/segment
+      const bg = Array.isArray(context.dataset.backgroundColor)
+        ? context.dataset.backgroundColor[context.dataIndex]
+        : context.dataset.backgroundColor;
+      if (bg && typeof bg === 'string') {
+        const hex = bg.replace('#', '');
+        if (hex.length === 6) {
+          const r = parseInt(hex.substr(0, 2), 16);
+          const g = parseInt(hex.substr(2, 2), 16);
+          const b = parseInt(hex.substr(4, 2), 16);
+          const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+          return yiq >= 150 ? '#0A2540' : '#FFFFFF';
         }
-        return '#FFFFFF';
       }
-
-      const bg = context.dataset.backgroundColor;
-      if (Array.isArray(bg)) {
-        const currentBg = bg[context.dataIndex];
-        return (currentBg === "#0a2540" || currentBg === "#0A2540" || currentBg === "#000f22") ? "#ffffff" : "#0A2540";
-      }
-      return (bg === "#0a2540" || bg === "#0A2540" || bg === "#000f22") ? "#ffffff" : "#0A2540";
+      return '#0A2540';
     },
     display: (context) => {
       const chartType = context.chart.config.type;
@@ -1883,7 +1874,8 @@ function renderPoliticaCharts(filtered) {
   if (ctxPol) {
     const h2Counts = calculateWeightedCounts(filtered, "H2");
     const labels = ["Izquierda", "Centro Izquierda", "Centro", "Centro Derecha", "Derecha", "Ninguna"];
-    const data = labels.map(l => h2Counts[l] ? h2Counts[l].percentage.toFixed(1) : 0);
+    const data = labels.map(l => h2Counts[l] ? Number(h2Counts[l].percentage.toFixed(1)) : 0);
+    const maxVal = Math.max(...data, 0);
 
     if (charts.politica) charts.politica.destroy();
     charts.politica = new Chart(ctxPol, {
@@ -1891,7 +1883,7 @@ function renderPoliticaCharts(filtered) {
       data: {
         labels: labels,
         datasets: [{
-          label: "% Identificación Polítca",
+          label: "% Identificación Política",
           data: data,
           backgroundColor: BRAND_COLORS.primary,
           borderRadius: 8
@@ -1900,8 +1892,40 @@ function renderPoliticaCharts(filtered) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { y: { ticks: { callback: v => `${v}%` } } }
+        layout: {
+          padding: {
+            top: 25, // Headroom for label above the tallest bar
+            left: 5,
+            right: 5,
+            bottom: 5
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: { label: (item) => ` ${item.raw}%` }
+          },
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            offset: 4,
+            color: '#0A2540',
+            font: { family: "'Inter', sans-serif", weight: '700', size: 11.5 },
+            formatter: (val) => `${val}%`
+          }
+        },
+        scales: {
+          y: {
+            max: Math.max(60, Math.ceil((maxVal + 10) / 10) * 10),
+            ticks: { callback: v => `${v}%` }
+          },
+          x: {
+            ticks: {
+              font: { family: "'Inter', sans-serif", size: 11, weight: "600" },
+              color: "#475569"
+            }
+          }
+        }
       }
     });
   }
