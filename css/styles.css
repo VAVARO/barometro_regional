@@ -1,5 +1,15 @@
 /* Custom Styling for Barómetro Regional UAysén */
 
+/* ── Motion Tokens ── */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+}
+
 /* Glacier Gradient */
 .glacier-gradient {
   background: linear-gradient(135deg, #0a2540 0%, #00658d 50%, #41befd 100%);
@@ -48,23 +58,28 @@ header {
   display: none;
 }
 
-#nav-scroll-left:hover, #nav-scroll-right:hover {
-  transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+  #nav-scroll-left:hover, #nav-scroll-right:hover {
+    transform: scale(1.1);
+  }
 }
 
 /* Base Nav Tab Pill */
 .nav-tab {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 8px;
+  padding: 8px 16px;
   font-size: 0.8125rem; /* ~13px */
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   background: transparent;
   border-radius: 9999px; /* Pill shape */
   white-space: nowrap;
-  transition: all 0.2s ease-in-out;
+  transition: color var(--duration-normal) var(--ease-out),
+              background-color var(--duration-normal) var(--ease-out),
+              border-color var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
   cursor: pointer;
   border: 1px solid transparent;
 }
@@ -72,19 +87,28 @@ header {
 .nav-tab span.material-symbols-outlined {
   font-size: 1.1rem;
   opacity: 0.85;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-/* Hover State */
-.nav-tab:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+/* Hover State — gated for pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  .nav-tab:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-tab:hover span.material-symbols-outlined {
+    opacity: 1;
+  }
 }
 
-.nav-tab:hover span.material-symbols-outlined {
-  opacity: 1;
+/* Active (pressed) State — instant feedback on pointer-down */
+.nav-tab:active {
+  transform: scale(0.97);
+  transition: transform 100ms var(--ease-out);
 }
 
-/* Active State */
+/* Selected State */
 .nav-tab.active {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.18);
@@ -98,6 +122,17 @@ header {
 .nav-tab.active span.material-symbols-outlined {
   color: #41befd; /* Accent sky/turquoise */
   opacity: 1;
+}
+
+/* Focus-visible for keyboard navigation */
+.nav-tab:focus-visible,
+button:focus-visible,
+select:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #41befd;
+  outline-offset: 2px;
+  border-radius: inherit;
 }
 
 /* Custom Scrollbar */
@@ -122,44 +157,118 @@ header {
   vertical-align: middle;
 }
 
-/* Tab Panel Animations */
+/* ── Tab Panel Transitions (interruptible, not keyframes) ── */
 .tab-panel {
-  animation: fadeIn 250ms ease-out forwards;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 150ms var(--ease-out);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.tab-panel.tab-panel-entering {
+  opacity: 0;
+}
+
+/* ── Mobile Drawer Transitions ── */
+#mobile-drawer {
+  transition: opacity var(--duration-normal) var(--ease-out);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#mobile-drawer.drawer-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#mobile-drawer > div:first-child {
+  transform: translateX(-100%);
+  transition: transform var(--duration-slow) var(--ease-drawer);
+}
+
+#mobile-drawer.drawer-open > div:first-child {
+  transform: translateX(0);
+}
+
+/* ── Modal Transitions ── */
+.modal-backdrop {
+  transition: opacity var(--duration-normal) var(--ease-out);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-backdrop.modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-backdrop > div:first-child {
+  transform: scale(0.97);
+  opacity: 0;
+  transition: transform 250ms var(--ease-out),
+              opacity var(--duration-normal) var(--ease-out);
+}
+
+.modal-backdrop.modal-open > div:first-child {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ── Toast Transitions (asymmetric timing) ── */
+#dashboard-toast {
+  transition: transform var(--duration-slow) var(--ease-out),
+              opacity var(--duration-normal) var(--ease-out);
+}
+
+#dashboard-toast.toast-exiting {
+  transition: transform 150ms var(--ease-out),
+              opacity 150ms var(--ease-out);
+}
+
+/* ── Comp Subtab Panel Transitions ── */
+.comp-subpanel {
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.comp-subpanel.subpanel-entering {
+  opacity: 0;
 }
 
 /* Data Table Row Hover */
-#explorer-table-body tr:hover {
-  background-color: rgba(65, 190, 253, 0.05);
+@media (hover: hover) and (pointer: fine) {
+  #explorer-table-body tr:hover {
+    background-color: rgba(65, 190, 253, 0.05);
+  }
 }
 
 /* Chart Card Toolbar Actions */
 .chart-actions-toolbar {
   opacity: 0.85;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity var(--duration-normal) var(--ease-out);
 }
-.chart-actions-toolbar:hover {
-  opacity: 1;
+
+@media (hover: hover) and (pointer: fine) {
+  .chart-actions-toolbar:hover {
+    opacity: 1;
+  }
+  .chart-actions-toolbar button:hover {
+    transform: translateY(-1px);
+  }
 }
+
 .chart-actions-toolbar button {
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out);
 }
-.chart-actions-toolbar button:hover {
-  transform: translateY(-1px);
-}
+
 .chart-actions-toolbar button:active {
   transform: scale(0.95);
+}
+
+/* ── Generic button/interactive :active feedback ── */
+button:active,
+.comp-subtab:active {
+  transform: scale(0.97);
+  transition: transform 100ms var(--ease-out);
 }
 
 /* Sub-Pills Navigation for Comparativa */
@@ -168,11 +277,16 @@ header {
   background: transparent;
   cursor: pointer;
   white-space: nowrap;
+  transition: color var(--duration-normal) var(--ease-out),
+              background-color var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
 }
 
-.comp-subtab:hover {
-  color: #0a2540;
-  background: rgba(255, 255, 255, 0.7);
+@media (hover: hover) and (pointer: fine) {
+  .comp-subtab:hover {
+    color: #0a2540;
+    background: rgba(255, 255, 255, 0.7);
+  }
 }
 
 .comp-subtab.active {
@@ -181,4 +295,33 @@ header {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 
+  /* Keep opacity transitions for comprehension */
+  .tab-panel,
+  .modal-backdrop,
+  .modal-backdrop > div:first-child,
+  #mobile-drawer,
+  #dashboard-toast,
+  .comp-subpanel {
+    transition: opacity 200ms ease !important;
+    transform: none !important;
+  }
+
+  #mobile-drawer > div:first-child {
+    transform: none !important;
+    transition: opacity 200ms ease !important;
+  }
+
+  /* Disable infinite pulse */
+  .animate-pulse {
+    animation: none !important;
+  }
+}

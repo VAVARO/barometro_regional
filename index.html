@@ -122,52 +122,52 @@
       <div class="relative hidden lg:flex items-center flex-1 min-w-0 mx-2 overflow-hidden" id="nav-tabs-container">
         
         <!-- Left Arrow -->
-        <button id="nav-scroll-left" class="hidden absolute left-0 z-20 h-7 w-7 rounded-full bg-primary-container/95 hover:bg-secondary-container text-white border border-white/30 shadow-lg flex items-center justify-center transition-all backdrop-blur-md shrink-0" title="Desplazar a la izquierda">
+        <button id="nav-scroll-left" class="hidden absolute left-0 z-20 h-7 w-7 rounded-full bg-primary-container/95 hover:bg-secondary-container text-white border border-white/30 shadow-lg flex items-center justify-center transition-colors backdrop-blur-md shrink-0" title="Desplazar a la izquierda">
           <span class="material-symbols-outlined text-sm">chevron_left</span>
         </button>
 
         <!-- Scrollable Tabs -->
-        <nav class="w-full flex items-center gap-1.5 bg-black/25 p-1.5 rounded-full border border-white/10 overflow-x-auto no-scrollbar scroll-smooth select-none px-2" id="main-nav-tabs">
-          <button class="nav-tab active" data-tab="resumen">
+        <nav class="w-full flex items-center gap-1.5 bg-black/25 p-1.5 rounded-full border border-white/10 overflow-x-auto no-scrollbar scroll-smooth select-none px-2" id="main-nav-tabs" role="tablist" aria-label="Navegación principal">
+          <button id="tab-resumen" class="nav-tab active" data-tab="resumen" role="tab" aria-selected="true">
             <span class="material-symbols-outlined">dashboard</span>
             <span>Resumen</span>
           </button>
-          <button class="nav-tab" data-tab="identidad">
+          <button id="tab-identidad" class="nav-tab" data-tab="identidad" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">fingerprint</span>
             <span>Identidad</span>
           </button>
-          <button class="nav-tab" data-tab="gobernanza">
+          <button id="tab-gobernanza" class="nav-tab" data-tab="gobernanza" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">account_balance</span>
             <span>Gobernanza</span>
           </button>
-          <button class="nav-tab" data-tab="medioambiente">
+          <button id="tab-medioambiente" class="nav-tab" data-tab="medioambiente" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">eco</span>
             <span>Medioambiente</span>
           </button>
-          <button class="nav-tab" data-tab="uaysen">
+          <button id="tab-uaysen" class="nav-tab" data-tab="uaysen" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">school</span>
             <span>UAysén</span>
           </button>
-          <button class="nav-tab" data-tab="confianza">
+          <button id="tab-confianza" class="nav-tab" data-tab="confianza" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">handshake</span>
             <span>Confianza</span>
           </button>
-          <button class="nav-tab" data-tab="demografia">
+          <button id="tab-demografia" class="nav-tab" data-tab="demografia" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">group</span>
             <span>Demografía</span>
           </button>
-          <button class="nav-tab" data-tab="explorer">
+          <button id="tab-explorer" class="nav-tab" data-tab="explorer" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">insights</span>
             <span>Explorer</span>
           </button>
-          <button class="nav-tab" data-tab="comparativa">
+          <button id="tab-comparativa" class="nav-tab" data-tab="comparativa" role="tab" aria-selected="false">
             <span class="material-symbols-outlined">compare_arrows</span>
             <span>Comparativa</span>
           </button>
         </nav>
 
         <!-- Right Arrow -->
-        <button id="nav-scroll-right" class="hidden absolute right-0 z-20 h-7 w-7 rounded-full bg-primary-container/95 hover:bg-secondary-container text-white border border-white/30 shadow-lg flex items-center justify-center transition-all backdrop-blur-md shrink-0" title="Desplazar a la derecha">
+        <button id="nav-scroll-right" class="hidden absolute right-0 z-20 h-7 w-7 rounded-full bg-primary-container/95 hover:bg-secondary-container text-white border border-white/30 shadow-lg flex items-center justify-center transition-colors backdrop-blur-md shrink-0" title="Desplazar a la derecha">
           <span class="material-symbols-outlined text-sm">chevron_right</span>
         </button>
       </div>
@@ -175,10 +175,10 @@
       <!-- Header Actions (Fixed shrink-0) -->
       <div class="flex items-center gap-2 shrink-0">
         <span id="sample-size-badge" class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs font-medium text-white/90 whitespace-nowrap">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
           Muestra: N = <span id="kpi-sample-size" class="font-bold">465</span> encuestados
         </span>
-        <button class="lg:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors" id="mobile-menu-btn">
+        <button class="lg:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors" id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Abrir menú de navegación">
           <span class="material-symbols-outlined text-white">menu</span>
         </button>
       </div>
@@ -187,7 +187,7 @@
   </header>
 
   <!-- Mobile Drawer Menu -->
-  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden lg:hidden transition-opacity">
+  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity">
     <div class="bg-primary-container text-white w-72 h-full p-6 flex flex-col justify-between shadow-2xl">
       <div>
         <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
@@ -221,7 +221,7 @@
         <!-- Comuna Filter -->
         <div class="flex flex-col gap-1">
           <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Comuna</label>
-          <select id="filter-comuna" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+          <select id="filter-comuna" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-colors">
             <option value="Todas">Todas las comunas</option>
             <option value="Coyhaique">Coyhaique</option>
             <option value="Aysén">Aysén</option>
@@ -240,7 +240,7 @@
         <!-- Zona Filter -->
         <div class="flex flex-col gap-1">
           <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Zona</label>
-          <select id="filter-zona" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+          <select id="filter-zona" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-colors">
             <option value="Todas">Todas las zonas</option>
             <option value="Urbana">Urbana</option>
             <option value="Rural">Rural</option>
@@ -250,7 +250,7 @@
         <!-- Edad Filter -->
         <div class="flex flex-col gap-1">
           <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Rango Etario</label>
-          <select id="filter-edad" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+          <select id="filter-edad" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-colors">
             <option value="Todos">Todos los tramos</option>
             <option value="18-29">18 - 29 años</option>
             <option value="30-44">30 - 44 años</option>
@@ -262,7 +262,7 @@
         <!-- GSE Filter -->
         <div class="flex flex-col gap-1">
           <label class="text-[11px] uppercase font-bold text-outline tracking-wider">Nivel GSE</label>
-          <select id="filter-gse" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-all">
+          <select id="filter-gse" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm py-1.5 px-3 font-medium text-primary focus:ring-2 focus:ring-secondary-container focus:border-secondary-container transition-colors">
             <option value="Todos">Todos los GSE</option>
             <option value="AB">AB</option>
             <option value="C1a">C1a</option>
@@ -277,7 +277,7 @@
 
       <!-- Reset Button -->
       <div class="flex items-end justify-end">
-        <button id="reset-filters-btn" class="w-full md:w-auto px-4 py-2 bg-surface hover:bg-surface-container text-primary border border-outline-variant/50 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-2xs">
+        <button id="reset-filters-btn" class="w-full md:w-auto px-4 py-2 bg-surface hover:bg-surface-container text-primary border border-outline-variant/50 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-2xs">
           <span class="material-symbols-outlined text-sm">restart_alt</span> Restablecer Filtros
         </button>
       </div>
@@ -296,7 +296,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-margin-md py-6 space-y-8">
 
     <!-- SECTION 1: RESUMEN EJECUTIVO -->
-    <div id="tab-content-resumen" class="tab-panel space-y-8">
+    <div id="tab-content-resumen" class="tab-panel space-y-8" role="tabpanel" aria-labelledby="tab-resumen">
       <!-- Hero Banner -->
       <section class="relative overflow-hidden rounded-3xl glacier-gradient min-h-[220px] flex flex-col justify-center p-6 md:p-8 text-white shadow-xl">
         <div class="relative z-10 max-w-3xl">
@@ -311,7 +311,7 @@
       <!-- Dynamic KPI Grid -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <!-- KPI 1: Percepción de Progreso -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-secondary-container/10 rounded-xl text-secondary">
               <span class="material-symbols-outlined text-2xl">trending_up</span>
@@ -324,12 +324,12 @@
             <span id="kpi-progreso-label" class="text-sm font-semibold text-on-surface-variant">Progresando</span>
           </div>
           <div class="w-full bg-surface-container mt-4 h-2 rounded-full overflow-hidden">
-            <div id="kpi-progreso-bar" class="bg-secondary-container h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="kpi-progreso-bar" class="bg-secondary-container h-full transition-[width] duration-500" style="width: 0%"></div>
           </div>
         </div>
 
         <!-- KPI 2: Principal Problema -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-rose-50 rounded-xl text-rose-600">
               <span class="material-symbols-outlined text-2xl">warning</span>
@@ -345,7 +345,7 @@
         </div>
 
         <!-- KPI 3: Identificación UAysén -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-primary-container/10 rounded-xl text-primary-container">
               <span class="material-symbols-outlined text-2xl">badge</span>
@@ -358,12 +358,12 @@
             <span class="text-sm font-semibold text-on-surface-variant">pts / 100</span>
           </div>
           <div class="w-full bg-surface-container mt-4 h-2 rounded-full overflow-hidden">
-            <div id="kpi-ident-bar" class="bg-primary-container h-full transition-all duration-500" style="width: 0%"></div>
+            <div id="kpi-ident-bar" class="bg-primary-container h-full transition-[width] duration-500" style="width: 0%"></div>
           </div>
         </div>
 
         <!-- KPI 4: Evaluación General UAysén -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-amber-50 rounded-xl text-amber-600">
               <span class="material-symbols-outlined text-2xl">grade</span>
@@ -417,7 +417,7 @@
     </div>
 
     <!-- SECTION 2: IDENTIDAD & PERTENENCIA -->
-    <div id="tab-content-identidad" class="tab-panel hidden space-y-8">
+    <div id="tab-content-identidad" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-identidad">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Identidad & Pertenencia Territorial</h2>
         <p class="text-sm text-on-surface-variant">Medición del nivel de arraigo regional, pertenencia comunal y razones de permanencia en la Patagonia.</p>
@@ -471,7 +471,7 @@
     </div>
 
     <!-- SECTION 3: DESCENTRALIZACIÓN & GOBERNANZA -->
-    <div id="tab-content-gobernanza" class="tab-panel hidden space-y-8">
+    <div id="tab-content-gobernanza" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-gobernanza">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Descentralización & Gobernanza</h2>
         <p class="text-sm text-on-surface-variant">Preferencia de toma de decisiones públicas (Autoridades Nacionales vs Comunales/Regionales) y aporte institucional.</p>
@@ -570,7 +570,7 @@
     </div>
 
     <!-- SECTION 4: MEDIOAMBIENTE & FUTURO ECONÓMICO -->
-    <div id="tab-content-medioambiente" class="tab-panel hidden space-y-8">
+    <div id="tab-content-medioambiente" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-medioambiente">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Medioambiente & Futuro Económico</h2>
         <p class="text-sm text-on-surface-variant">Urgencia de problemas ambientales y sectores productivos estratégicos para el desarrollo de Aysén.</p>
@@ -638,7 +638,7 @@
     </div>
 
     <!-- SECTION 5: UAYSÉN EN EL TERRITORIO -->
-    <div id="tab-content-uaysen" class="tab-panel hidden space-y-8">
+    <div id="tab-content-uaysen" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-uaysen">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Universidad de Aysén en el Territorio</h2>
         <p class="text-sm text-on-surface-variant">Conocimiento, nivel de identificación y evaluación del aporte de la universidad estatal a la comunidad regional.</p>
@@ -696,7 +696,7 @@
     </div>
 
     <!-- SECTION: CONFIANZA & COHESIÓN SOCIAL -->
-    <div id="tab-content-confianza" class="tab-panel hidden space-y-8">
+    <div id="tab-content-confianza" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-confianza">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Confianza Interpersonal & Capital Social</h2>
         <p class="text-sm text-on-surface-variant">Nivel de confianza generalizada entre habitantes de la Región de Aysén y grado de participación activa en organizaciones comunitarias.</p>
@@ -705,7 +705,7 @@
       <!-- KPI Scorecard Grid (3 Cards) -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- Card 1: Confianza Interpersonal Generalizada -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-secondary-container/10 rounded-xl text-secondary">
               <span class="material-symbols-outlined text-2xl">handshake</span>
@@ -721,7 +721,7 @@
         </div>
 
         <!-- Card 2: Participación Social Activa -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
               <span class="material-symbols-outlined text-2xl">groups</span>
@@ -737,7 +737,7 @@
         </div>
 
         <!-- Card 3: Organización Principal -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-primary-container/10 rounded-xl text-primary-container">
               <span class="material-symbols-outlined text-2xl">diversity_3</span>
@@ -779,7 +779,7 @@
     </div>
 
     <!-- SECTION: PERFIL DEMOGRÁFICO & LABORAL -->
-    <div id="tab-content-demografia" class="tab-panel hidden space-y-8">
+    <div id="tab-content-demografia" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-demografia">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Perfil Demográfico, Educacional & Ocupacional</h2>
         <p class="text-sm text-on-surface-variant">Caracterización socioeconómica de los habitantes de la Región de Aysén, nivel educacional, distribución del ingreso e inserción laboral.</p>
@@ -788,7 +788,7 @@
       <!-- KPI Scorecards Grid (3 Cards) -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- KPI 1: Ingreso Promedio del Hogar -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
               <span class="material-symbols-outlined text-2xl">payments</span>
@@ -803,7 +803,7 @@
         </div>
 
         <!-- KPI 2: Nivel Educacional Predominante -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-primary-container/10 rounded-xl text-primary-container">
               <span class="material-symbols-outlined text-2xl">school</span>
@@ -818,7 +818,7 @@
         </div>
 
         <!-- KPI 3: Ocupación Principal -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-all">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
           <div class="flex justify-between items-start mb-3">
             <div class="p-2.5 bg-secondary-container/10 rounded-xl text-secondary">
               <span class="material-symbols-outlined text-2xl">work</span>
@@ -871,7 +871,7 @@
     </div>
 
     <!-- SECTION: DATA INTELLIGENCE EXPLORER -->
-    <div id="tab-content-explorer" class="tab-panel hidden space-y-8">
+    <div id="tab-content-explorer" class="tab-panel hidden space-y-8" role="tabpanel" aria-labelledby="tab-explorer">
       <section class="mb-2">
         <h2 class="text-2xl font-bold text-primary font-headline-lg mb-1">Data Intelligence Explorer</h2>
         <p class="text-sm text-on-surface-variant">Explorador dinámico de microdatos y tablas de contingencia cruzada para análisis avanzado.</p>
@@ -917,7 +917,7 @@
           </div>
 
           <div class="flex items-end">
-            <button id="export-csv-btn" class="hidden w-full py-3 px-4 bg-primary-container text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-primary transition-all flex items-center justify-center gap-2 shadow-sm">
+            <button id="export-csv-btn" class="hidden w-full py-3 px-4 bg-primary-container text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-sm">
               <span class="material-symbols-outlined text-base">download</span> Exportar CSV
             </button>
           </div>
@@ -942,7 +942,7 @@
     </div>
 
     <!-- SECTION 9: COMPARATIVA INTERREGIONAL -->
-    <div id="tab-content-comparativa" class="tab-panel hidden space-y-6">
+    <div id="tab-content-comparativa" class="tab-panel hidden space-y-6" role="tabpanel" aria-labelledby="tab-comparativa">
 
       <!-- Header Banner -->
       <section class="bg-primary-container text-white p-6 rounded-3xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -959,20 +959,20 @@
       </section>
 
       <!-- Thematic Sub-Navigation Pills -->
-      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar p-1.5 bg-surface-container rounded-2xl border border-outline-variant/30 select-none" id="comp-subtabs">
-        <button class="comp-subtab active flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all" data-subtab="coyuntura">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar p-1.5 bg-surface-container rounded-2xl border border-outline-variant/30 select-none" id="comp-subtabs" role="tablist" aria-label="Sub-navegación comparativa">
+        <button class="comp-subtab active flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold" data-subtab="coyuntura" role="tab" aria-selected="true">
           <span class="material-symbols-outlined text-sm">trending_up</span>
           <span>1. Coyuntura & Diagnóstico</span>
         </button>
-        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="servicios">
+        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-outline hover:text-primary hover:bg-white/60" data-subtab="servicios" role="tab" aria-selected="false">
           <span class="material-symbols-outlined text-sm">grade</span>
           <span>2. Matriz de Servicios (1 a 7)</span>
         </button>
-        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="descentralizacion">
+        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-outline hover:text-primary hover:bg-white/60" data-subtab="descentralizacion" role="tab" aria-selected="false">
           <span class="material-symbols-outlined text-sm">account_balance</span>
           <span>3. Descentralización & Autonomía</span>
         </button>
-        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-outline hover:text-primary hover:bg-white/60" data-subtab="cohesion">
+        <button class="comp-subtab flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-outline hover:text-primary hover:bg-white/60" data-subtab="cohesion" role="tab" aria-selected="false">
           <span class="material-symbols-outlined text-sm">handshake</span>
           <span>4. Cohesión, Territorio & Medios</span>
         </button>
@@ -1251,21 +1251,21 @@
         </div>
       </div>
       <div class="flex items-center gap-6">
-        <span id="link-metodologia" class="hover:text-primary cursor-pointer font-semibold underline decoration-secondary-container decoration-2 underline-offset-4 transition-all">Metodología Estudio</span>
-        <span id="link-diccionario" class="hover:text-primary cursor-pointer font-semibold underline decoration-secondary-container decoration-2 underline-offset-4 transition-all">Diccionario Variables</span>
+        <span id="link-metodologia" class="hover:text-primary cursor-pointer font-semibold underline decoration-secondary-container decoration-2 underline-offset-4 transition-colors">Metodología Estudio</span>
+        <span id="link-diccionario" class="hover:text-primary cursor-pointer font-semibold underline decoration-secondary-container decoration-2 underline-offset-4 transition-colors">Diccionario Variables</span>
         <span class="px-2.5 py-1 bg-surface-container rounded-full font-medium text-outline text-[11px]">UAysén 2025</span>
       </div>
     </div>
   </footer>
 
   <!-- Modal Metodología -->
-  <div id="modal-metodologia" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 transition-opacity">
+  <div id="modal-metodologia" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm modal-backdrop flex items-center justify-center p-4 transition-opacity" role="dialog" aria-modal="true" aria-labelledby="modal-metodologia-title">
     <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-outline-variant/30 flex flex-col">
       <!-- Modal Header -->
       <div class="p-6 bg-primary-container text-white flex justify-between items-center sticky top-0 z-10">
         <div>
           <span class="text-xs font-bold text-secondary-container uppercase tracking-wider block mb-1">Ficha Técnica</span>
-          <h3 class="text-xl font-bold font-headline-md">Metodología del Estudio - Barómetro Regional Aysén</h3>
+          <h3 id="modal-metodologia-title" class="text-xl font-bold font-headline-md">Metodología del Estudio - Barómetro Regional Aysén</h3>
         </div>
         <button class="close-modal-btn p-2 rounded-full hover:bg-white/10 text-white/80 hover:text-white transition-colors" data-modal="modal-metodologia">
           <span class="material-symbols-outlined">close</span>
@@ -1314,7 +1314,7 @@
 
       <!-- Modal Footer -->
       <div class="p-4 bg-surface border-t border-outline-variant/30 flex justify-end">
-        <button class="close-modal-btn px-5 py-2.5 bg-primary-container text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-primary transition-all" data-modal="modal-metodologia">
+        <button class="close-modal-btn px-5 py-2.5 bg-primary-container text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-primary transition-colors" data-modal="modal-metodologia">
           Entendido
         </button>
       </div>
@@ -1322,13 +1322,13 @@
   </div>
 
   <!-- Modal Diccionario -->
-  <div id="modal-diccionario" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 transition-opacity">
+  <div id="modal-diccionario" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm modal-backdrop flex items-center justify-center p-4 transition-opacity" role="dialog" aria-modal="true" aria-labelledby="modal-diccionario-title">
     <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] shadow-2xl border border-outline-variant/30 flex flex-col overflow-hidden">
       <!-- Modal Header -->
       <div class="p-6 bg-primary-container text-white flex justify-between items-center">
         <div>
           <span class="text-xs font-bold text-secondary-container uppercase tracking-wider block mb-1">Documentación del Dataset</span>
-          <h3 class="text-xl font-bold font-headline-md">Diccionario de Variables & Cuestionario</h3>
+          <h3 id="modal-diccionario-title" class="text-xl font-bold font-headline-md">Diccionario de Variables & Cuestionario</h3>
         </div>
         <button class="close-modal-btn p-2 rounded-full hover:bg-white/10 text-white/80 hover:text-white transition-colors" data-modal="modal-diccionario">
           <span class="material-symbols-outlined">close</span>
@@ -1362,7 +1362,7 @@
       <!-- Modal Footer -->
       <div class="p-4 bg-surface border-t border-outline-variant/30 flex justify-between items-center text-xs text-outline">
         <span>Mostrando variables del SPSS de Barómetro Aysén</span>
-        <button class="close-modal-btn px-5 py-2.5 bg-primary-container text-white rounded-xl font-bold uppercase tracking-wider hover:bg-primary transition-all" data-modal="modal-diccionario">
+        <button class="close-modal-btn px-5 py-2.5 bg-primary-container text-white rounded-xl font-bold uppercase tracking-wider hover:bg-primary transition-colors" data-modal="modal-diccionario">
           Cerrar
         </button>
       </div>

@@ -6,10 +6,18 @@ let appData = null;
 let comparativaData = null;
 let currentActiveTab = "resumen";
 let charts = {};
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Register and configure DataLabels globally
 if (typeof ChartDataLabels !== "undefined") {
   Chart.register(ChartDataLabels);
+}
+
+// Reduce Chart.js animation duration for snappier feel (default is 1000ms)
+if (typeof Chart !== "undefined" && Chart.defaults) {
+  Chart.defaults.animation = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 400, easing: "easeOutQuart" };
 }
 
 if (typeof Chart !== "undefined" && Chart.defaults) {
@@ -325,11 +333,14 @@ function setupNavigation() {
   function switchTab(tabId) {
     currentActiveTab = tabId;
 
+    // Toggle aria-selected on tab buttons
     tabs.forEach(t => {
       if (t.dataset.tab === tabId) {
         t.classList.add("active");
+        t.setAttribute("aria-selected", "true");
       } else {
         t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
       }
     });
 
@@ -344,6 +355,13 @@ function setupNavigation() {
     panels.forEach(p => {
       if (p.id === `tab-content-${tabId}`) {
         p.classList.remove("hidden");
+        // Trigger opacity entrance transition
+        p.classList.add("tab-panel-entering");
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            p.classList.remove("tab-panel-entering");
+          });
+        });
       } else {
         p.classList.add("hidden");
       }
@@ -359,7 +377,8 @@ function setupNavigation() {
       }
     }
 
-    document.getElementById("mobile-drawer")?.classList.add("hidden");
+    document.getElementById("mobile-drawer")?.classList.remove("drawer-open");
+    document.getElementById("mobile-menu-btn")?.setAttribute("aria-expanded", "false");
 
     // Resize and render active charts
     setTimeout(() => {
@@ -386,10 +405,16 @@ function setupNavigation() {
   const drawer = document.getElementById("mobile-drawer");
 
   if (menuBtn && drawer) {
-    menuBtn.addEventListener("click", () => drawer.classList.remove("hidden"));
+    menuBtn.addEventListener("click", () => {
+      drawer.classList.add("drawer-open");
+      menuBtn.setAttribute("aria-expanded", "true");
+    });
   }
   if (closeBtn && drawer) {
-    closeBtn.addEventListener("click", () => drawer.classList.add("hidden"));
+    closeBtn.addEventListener("click", () => {
+      drawer.classList.remove("drawer-open");
+      menuBtn?.setAttribute("aria-expanded", "false");
+    });
   }
 
   setupNavScrollControls();
@@ -415,14 +440,14 @@ function setupNavScrollControls() {
   if (btnLeft) {
     btnLeft.addEventListener("click", (e) => {
       e.stopPropagation();
-      nav.scrollBy({ left: -220, behavior: "smooth" });
+      nav.scrollBy({ left: -220, behavior: prefersReducedMotion ? "auto" : "smooth" });
     });
   }
 
   if (btnRight) {
     btnRight.addEventListener("click", (e) => {
       e.stopPropagation();
-      nav.scrollBy({ left: 220, behavior: "smooth" });
+      nav.scrollBy({ left: 220, behavior: prefersReducedMotion ? "auto" : "smooth" });
     });
   }
 
@@ -437,10 +462,11 @@ function setupNavScrollControls() {
       const navScroll = nav.scrollLeft;
       const navWidth = nav.clientWidth;
 
+      const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
       if (tabLeft < navScroll + 40) {
-        nav.scrollTo({ left: Math.max(0, tabLeft - 40), behavior: "smooth" });
+        nav.scrollTo({ left: Math.max(0, tabLeft - 40), behavior: scrollBehavior });
       } else if (tabLeft + tabWidth > navScroll + navWidth - 40) {
-        nav.scrollTo({ left: tabLeft + tabWidth - navWidth + 40, behavior: "smooth" });
+        nav.scrollTo({ left: tabLeft + tabWidth - navWidth + 40, behavior: scrollBehavior });
       }
 
       setTimeout(updateArrows, 250);
@@ -465,14 +491,17 @@ function setupModals() {
 
   function openModal(modal) {
     if (modal) {
-      modal.classList.remove("hidden");
+      // Use CSS transitions (modal-backdrop + modal-open classes)
+      requestAnimationFrame(() => {
+        modal.classList.add("modal-open");
+      });
       document.body.style.overflow = "hidden";
     }
   }
 
   function closeModal(modal) {
     if (modal) {
-      modal.classList.add("hidden");
+      modal.classList.remove("modal-open");
       document.body.style.overflow = "";
     }
   }
@@ -2340,7 +2369,18 @@ function setupComparativaSubNavigation() {
       });
 
       document.querySelectorAll(".comp-subpanel").forEach(p => {
-        p.classList.toggle("hidden", p.id !== `comp-subpanel-${target}`);
+        if (p.id === `comp-subpanel-${target}`) {
+          p.classList.remove("hidden");
+          // Trigger opacity entrance
+          p.classList.add("subpanel-entering");
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              p.classList.remove("subpanel-entering");
+            });
+          });
+        } else {
+          p.classList.add("hidden");
+        }
       });
 
       setTimeout(() => {
@@ -2690,18 +2730,26 @@ function downloadCanvas(canvas, filename) {
 }
 
 // Toast notification helper
+let _toastTimer = null;
 function showToast(message) {
   let toast = document.getElementById("dashboard-toast");
   if (!toast) {
     toast = document.createElement("div");
     toast.id = "dashboard-toast";
-    toast.className = "fixed bottom-6 right-6 z-50 bg-primary-container text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-2 transition-all transform translate-y-10 opacity-0 pointer-events-none";
+    toast.className = "fixed bottom-6 right-6 z-50 bg-primary-container text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-2 translate-y-10 opacity-0 pointer-events-none";
     document.body.appendChild(toast);
   }
+  // Clear any pending dismiss timer to prevent overlap bugs
+  if (_toastTimer) clearTimeout(_toastTimer);
+  // Remove exit class for fresh enter animation (300ms via CSS)
+  toast.classList.remove("toast-exiting");
   toast.innerHTML = `<span class="material-symbols-outlined text-secondary-container text-base">check_circle</span> ${message}`;
   toast.classList.remove("translate-y-10", "opacity-0", "pointer-events-none");
-  setTimeout(() => {
+  _toastTimer = setTimeout(() => {
+    // Add exit class for faster dismiss (150ms via CSS)
+    toast.classList.add("toast-exiting");
     toast.classList.add("translate-y-10", "opacity-0", "pointer-events-none");
+    _toastTimer = null;
   }, 2500);
 }
 
