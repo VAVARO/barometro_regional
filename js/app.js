@@ -23,16 +23,61 @@ if (typeof Chart !== "undefined" && Chart.defaults) {
 if (typeof Chart !== "undefined" && Chart.defaults) {
   Chart.defaults.set('plugins.datalabels', {
     color: (context) => {
+      const chartType = context.chart.config.type;
+      const isHorizontal = context.chart.options?.indexAxis === 'y';
+
+      // For horizontal bar charts where labels are placed outside on the right
+      if (isHorizontal && chartType === 'bar' && !context.chart.options?.scales?.x?.stacked) {
+        return '#0A2540';
+      }
+
+      // For doughnut / pie charts
+      if (chartType === 'doughnut' || chartType === 'pie') {
+        const bg = Array.isArray(context.dataset.backgroundColor)
+          ? context.dataset.backgroundColor[context.dataIndex]
+          : context.dataset.backgroundColor;
+        if (bg && typeof bg === 'string') {
+          const hex = bg.replace('#', '');
+          if (hex.length === 6) {
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+            return yiq >= 150 ? '#0A2540' : '#FFFFFF';
+          }
+        }
+        return '#FFFFFF';
+      }
+
       const bg = context.dataset.backgroundColor;
-      // White text on dark primary colors, dark slate on bright/accent colors
       if (Array.isArray(bg)) {
         const currentBg = bg[context.dataIndex];
-        return (currentBg === "#0a2540" || currentBg === "#0A2540") ? "#ffffff" : "#0f172a";
+        return (currentBg === "#0a2540" || currentBg === "#0A2540" || currentBg === "#000f22") ? "#ffffff" : "#0A2540";
       }
-      return (bg === "#0a2540" || bg === "#0A2540") ? "#ffffff" : "#0f172a";
+      return (bg === "#0a2540" || bg === "#0A2540" || bg === "#000f22") ? "#ffffff" : "#0A2540";
     },
-    anchor: 'end',
-    align: 'start',
+    display: (context) => {
+      const chartType = context.chart.config.type;
+      const val = Number(context.dataset.data[context.dataIndex]);
+      if (isNaN(val) || val === 0) return false;
+      // In circular charts, hide datalabels on small slices (<5%) to prevent overlapping text
+      if ((chartType === 'doughnut' || chartType === 'pie') && val < 5.0) {
+        return false;
+      }
+      return true;
+    },
+    anchor: (context) => {
+      const chartType = context.chart.config.type;
+      if (chartType === 'doughnut' || chartType === 'pie') return 'center';
+      return 'end';
+    },
+    align: (context) => {
+      const chartType = context.chart.config.type;
+      const isHorizontal = context.chart.options?.indexAxis === 'y';
+      if (chartType === 'doughnut' || chartType === 'pie') return 'center';
+      if (isHorizontal) return 'right'; // Place to the right of horizontal bars
+      return 'top';
+    },
     offset: 4,
     font: {
       family: "'Inter', sans-serif",
@@ -1645,7 +1690,29 @@ function renderMediosCharts(filtered) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: "bottom" } }
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { boxWidth: 12, padding: 8, font: { size: 10.5, family: "'Inter', sans-serif" } }
+          },
+          tooltip: {
+            callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` }
+          },
+          datalabels: {
+            display: (context) => {
+              const val = Number(context.dataset.data[context.dataIndex]) || 0;
+              return val >= 6.0; // Hide on thin slices (<6%) to avoid overlapping text, visible in tooltip & legend
+            },
+            color: (context) => {
+              const bg = context.dataset.backgroundColor[context.dataIndex];
+              return (bg === "#0a2540" || bg === "#0A2540" || bg === "#000f22" || bg === "#00658d" || bg === "#00A3E0") ? "#ffffff" : "#0A2540";
+            },
+            anchor: "center",
+            align: "center",
+            font: { family: "'Inter', sans-serif", weight: "700", size: 11 },
+            formatter: (val) => `${val}%`
+          }
+        }
       }
     });
   }
@@ -1676,7 +1743,7 @@ function renderCentralismoChart(filtered) {
       labels: ["Aumentó el centralismo", "Mayor autonomía regional"],
       datasets: [{
         data: [centPct, autoPct],
-        backgroundColor: ["#F43F5E", "#10B981"],
+        backgroundColor: [BRAND_COLORS.rose, BRAND_COLORS.emerald],
         borderWidth: 2,
         borderColor: "#ffffff"
       }]
@@ -1686,7 +1753,14 @@ function renderCentralismoChart(filtered) {
       maintainAspectRatio: false,
       plugins: {
         legend: { position: "bottom", labels: { font: { size: 11 } } },
-        tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } }
+        tooltip: { callbacks: { label: (item) => ` ${item.label}: ${item.raw}%` } },
+        datalabels: {
+          color: "#ffffff",
+          anchor: "center",
+          align: "center",
+          font: { family: "'Inter', sans-serif", weight: "700", size: 11.5 },
+          formatter: (val) => `${val}%`
+        }
       }
     }
   });
@@ -1729,7 +1803,7 @@ function renderGobernadoresChart(filtered) {
       datasets: [{
         label: "% de respuesta",
         data: data,
-        backgroundColor: ["#64748B", "#00A3E0", "#F59E0B"],
+        backgroundColor: [BRAND_COLORS.muted, BRAND_COLORS.accent, BRAND_COLORS.rose],
         borderRadius: 6
       }]
     },
@@ -1740,7 +1814,7 @@ function renderGobernadoresChart(filtered) {
       layout: {
         padding: {
           left: 5,
-          right: 15,
+          right: 35, // Right padding so labels outside the bar are never clipped
           top: 5,
           bottom: 5
         }
@@ -1749,10 +1823,17 @@ function renderGobernadoresChart(filtered) {
         legend: { display: false },
         tooltip: {
           callbacks: {
-            // Join multiline label into single line string inside tooltip
             title: (items) => Array.isArray(items[0].label) ? items[0].label.join(" ") : items[0].label,
             label: (item) => ` ${item.raw}%`
           }
+        },
+        datalabels: {
+          anchor: 'end',
+          align: 'right',
+          offset: 6,
+          color: '#0A2540',
+          font: { family: "'Inter', sans-serif", weight: '700', size: 11 },
+          formatter: (val) => `${val}%`
         }
       },
       scales: { 
