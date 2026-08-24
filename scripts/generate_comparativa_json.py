@@ -57,8 +57,8 @@ def calc_weighted_mean(col_name):
             res.append({"region": reg, "nota": round(float(w_mean), 2), "is_target": (reg == target_region)})
     return sorted(res, key=lambda x: x['nota'], reverse=True)
 
-# Helper for weighted percentage of specific category (over valid responses)
-def calc_weighted_pct(col_name, target_values, max_valid_val=90):
+# Helper for weighted percentage of specific category (over valid responses excluding NS/NR)
+def calc_weighted_pct(col_name, target_values, valid_values=None):
     actual_col = find_col(col_name)
     if not actual_col:
         print(f"WARNING: column {col_name} not found!")
@@ -72,7 +72,13 @@ def calc_weighted_pct(col_name, target_values, max_valid_val=90):
         grp = df[df['Region_Clean'] == reg]
         if len(grp) == 0: continue
         s_num = pd.to_numeric(grp[actual_col], errors='coerce')
-        valid = grp[s_num.notna() & (s_num < max_valid_val) & (s_num > 0)].copy()
+        
+        if valid_values is not None:
+            valid_floats = [float(v) for v in valid_values]
+            valid = grp[s_num.isin(valid_floats)].copy()
+        else:
+            valid = grp[s_num.notna() & (s_num > 0) & (s_num < 90)].copy()
+            
         valid['num'] = pd.to_numeric(valid[actual_col], errors='coerce')
         valid['w'] = pd.to_numeric(valid[weight_col], errors='coerce').fillna(1.0)
         total_w = valid['w'].sum()
@@ -150,8 +156,6 @@ def calc_national_institutions():
             valid['w'] = pd.to_numeric(valid[weight_col], errors='coerce').fillna(1.0)
             total_w = valid['w'].sum()
             if total_w > 0:
-                # In integrated base P041-P048: 1=Mucho/Algo, 2=Poco/Nada (or 1,2 Mucho/Algo)
-                # Check value labels: 1.0 is 'Mucho/Algo'
                 mucho_algo_w = valid[valid['num'] == 1.0]['w'].sum()
                 pct = round(float((mucho_algo_w / total_w) * 100), 1)
                 res.append({"institucion": inst_name, "pct": pct})
@@ -169,7 +173,7 @@ output_data = {
     ],
     "coyuntura": {
         "rumbo": calc_distribution("P003_2019_2022_2024", {1: "progresando", 2: "estancada", 3: "decadencia"}),
-        "disposicion_migrar": calc_weighted_pct("P002_2019_2022_2024", 1),
+        "disposicion_migrar": calc_weighted_pct("P002_2019_2022_2024", 1, valid_values=[1, 2]),
         "destino_migracion": calc_distribution("P003_2024", {
             1: "misma_comuna",
             2: "otra_comuna",
@@ -191,10 +195,9 @@ output_data = {
             "infraestructura y movilidad": "conectividad",
             "vivienda y urbanismo": "vivienda"
         }),
-        "conocimiento_erd": calc_weighted_pct("P040_2024", 1)
+        "conocimiento_erd": calc_weighted_pct("P040_2024", 1, valid_values=[1, 2])
     },
     "servicios": {
-        # Strictly aligned with Questionnaire (B3.a - B3.g and B4.a - B4.e) and SPSS column definitions
         "salud": calc_weighted_mean("P008_2019_2022_2024"),          # B3.a Acceso a salud de calidad
         "educacion": calc_weighted_mean("P009_2019_2022_2024"),      # B3.b Acceso a educación de calidad
         "vivienda": calc_weighted_mean("P010_2019_2022_2024"),       # B3.c Acceso a la vivienda
@@ -209,8 +212,8 @@ output_data = {
         "participacion": calc_weighted_mean("P019_2019_2022_2024"),  # B4.e Participación ciudadana
         
         # Aliases for backward compatibility
-        "caminos": calc_weighted_mean("P012_2019_2022_2024"),        # Transporte y conectividad
-        "internet": calc_weighted_mean("P019_2019_2022_2024")        # Participación / conectividad
+        "caminos": calc_weighted_mean("P012_2019_2022_2024"),
+        "internet": calc_weighted_mean("P019_2019_2022_2024")
     },
     "descentralizacion": {
         "centralismo": [
@@ -221,28 +224,28 @@ output_data = {
             { "region": "Ñuble", "pct": 31.0 }
         ],
         "gobernadores": calc_distribution("P059_2019_2022_2024", {1: "impulso", 2: "igual", 3: "problemas"}),
-        "decision_obras": calc_weighted_pct("P054_2019_2022_2024", [2, 3]),
-        "decision_salud": calc_weighted_pct("P049_2019_2022_2024", [2, 3]),
-        "decision_educacion": calc_weighted_pct("P050_2019_2022_2024", [2, 3]),
-        "decision_fomento": calc_weighted_pct("P057_2019_2022_2024", [2, 3]),
-        "decision_medioambiente": calc_weighted_pct("P053_2019_2022_2024", [2, 3]),
-        "decision_agua": calc_weighted_pct("P051_2019_2022_2024", [2, 3]),
-        "decision_vivienda": calc_weighted_pct("P052_2019_2022_2024", [2, 3]),
-        "decision_inversion": calc_weighted_pct("P055_2019_2022_2024", [2, 3]),
-        "decision_seguridad": calc_weighted_pct("P056_2019_2022_2024", [2, 3]),
+        "decision_obras": calc_weighted_pct("P054_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_salud": calc_weighted_pct("P049_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_educacion": calc_weighted_pct("P050_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_fomento": calc_weighted_pct("P057_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_medioambiente": calc_weighted_pct("P053_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_agua": calc_weighted_pct("P051_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_vivienda": calc_weighted_pct("P052_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_inversion": calc_weighted_pct("P055_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
+        "decision_seguridad": calc_weighted_pct("P056_2019_2022_2024", [2, 3], valid_values=[1, 2, 3]),
         "aporte_institucional": calc_national_institutions()
     },
     "cohesion": {
-        "confianza": calc_weighted_pct("P020_2019_2022_2024", 1),
-        "participacion_comunitaria": calc_weighted_pct("P021_2019_2022_2024", 1),
-        "afectacion_aire": calc_weighted_pct("P024_2019_2022_2024", 1),
-        "afectacion_extractivismo": calc_weighted_pct("P026_2019_2022_2024", 1),
-        "afectacion_basura": calc_weighted_pct("P025_2019_2022_2024", 1),
-        "afectacion_agua": calc_weighted_pct("P023_2019_2022_2024", 1),
-        "afectacion_clima": calc_weighted_pct("P029_2019_2022_2024", 1),
-        "adhesion_democracia": calc_weighted_pct("P073_2019_2022_2024", 1),
-        "uso_radios": calc_weighted_pct("P033_2024", 1),
-        "uso_tv": calc_weighted_pct("P030_2024", 1),
+        "confianza": calc_weighted_pct("P020_2019_2022_2024", 1, valid_values=[1, 2]),
+        "participacion_comunitaria": calc_weighted_pct("P021_2019_2022_2024", 1, valid_values=[1, 2]),
+        "afectacion_aire": calc_weighted_pct("P024_2019_2022_2024", 1, valid_values=[1, 2]),
+        "afectacion_extractivismo": calc_weighted_pct("P026_2019_2022_2024", 1, valid_values=[1, 2]),
+        "afectacion_basura": calc_weighted_pct("P025_2019_2022_2024", 1, valid_values=[1, 2]),
+        "afectacion_agua": calc_weighted_pct("P023_2019_2022_2024", 1, valid_values=[1, 2]),
+        "afectacion_clima": calc_weighted_pct("P029_2019_2022_2024", 1, valid_values=[1, 2]),
+        "adhesion_democracia": calc_weighted_pct("P073_2019_2022_2024", 1, valid_values=[1, 2, 3]),
+        "uso_radios": calc_weighted_pct("P033_2024", 1, valid_values=[1, 2]),
+        "uso_tv": calc_weighted_pct("P030_2024", 1, valid_values=[1, 2]),
         "medio_principal": calc_distribution("P037_2024", {
             1: "tv_nacional",
             2: "tv_regional",
@@ -259,4 +262,4 @@ os.makedirs("data", exist_ok=True)
 with open("data/comparativa_interregional.json", "w", encoding="utf-8") as f:
     json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-print("¡Generado exitosamente data/comparativa_interregional.json con 100% de alineación exacta!")
+print("¡Generado exitosamente data/comparativa_interregional.json con denominadores estrictos sobre casos válidos (sin NS/NR)!")

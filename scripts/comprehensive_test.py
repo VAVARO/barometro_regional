@@ -66,7 +66,6 @@ for col in ['B3_A', 'B3_B', 'B3_C', 'B3_D', 'B3_E', 'B3_F', 'B3_G', 'B3_H', 'B3_
 print(f"[OK] TEST 4 PASADO: Todas las 9 dimensiones B3 de Aysén coinciden exactamente con SPSS.")
 
 # TEST 5: Comparativa Interregional - Mapeo de Servicios
-# Verificar que Aysén en comp_json['servicios']['salud'] tenga nota ~3.44 (P008)
 aysen_salud = [x for x in comp_json['servicios']['salud'] if x['region'] == 'Aysén'][0]['nota']
 aysen_agua = [x for x in comp_json['servicios']['agua'] if x['region'] == 'Aysén'][0]['nota']
 aysen_vivienda = [x for x in comp_json['servicios']['vivienda'] if x['region'] == 'Aysén'][0]['nota']
@@ -82,7 +81,7 @@ if not any("TEST 5" in e for e in errors):
     print(f"[OK] TEST 5 PASADO: Comparativa Interregional de Servicios 100% alineada con P008-P019 (Salud={aysen_salud}, Agua={aysen_agua}, Vivienda={aysen_vivienda})")
 
 # TEST 6: Comparativa Destino de Migración (4 categorías)
-dest = comp_json['coyuntura']['destino_migracion'][0] # O'Higgins or Aysén
+dest = comp_json['coyuntura']['destino_migracion'][0]
 if not all(k in dest for k in ["misma_comuna", "otra_comuna", "otra_region", "extranjero"]):
     errors.append(f"TEST 6 ERROR: Estructura de destino de migración incompleta: {dest.keys()}")
 else:
@@ -94,6 +93,15 @@ if not all(k in ident for k in ["barrio", "pueblo_localidad", "comuna", "ciudad"
     errors.append(f"TEST 7 ERROR: Estructura de identificación territorial incompleta: {ident.keys()}")
 else:
     print(f"[OK] TEST 7 PASADO: Identificación territorial contiene las 6 jerarquías territoriales completas.")
+
+# TEST 8: Consistencia de Confianza Interpersonal entre Dashboard y Comparativa
+conf_aysen_comp = [x for x in comp_json['cohesion']['confianza'] if x['region'] == 'Aysén'][0]['pct']
+conf_aysen_summary = summary_json['overall']['confianza_c1']['Se puede confiar en las personas']['percentage']
+
+if abs(conf_aysen_comp - conf_aysen_summary) > 0.1:
+    errors.append(f"TEST 8 ERROR: Confianza de Aysén en comparativa ({conf_aysen_comp}%) difiere del dashboard local ({conf_aysen_summary}%)")
+else:
+    print(f"[OK] TEST 8 PASADO: Confianza Interpersonal de Aysén es exactamente {conf_aysen_comp}% en el Benchmark y en el Dashboard.")
 
 print("================================================================================")
 if errors:
